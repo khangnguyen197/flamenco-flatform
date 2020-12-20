@@ -11,4 +11,14 @@
     <string name="invalid_username">Not a valid username</string>
     <string name="invalid_password">Password must be >5 characters</string>
     <string name="login_failed">"Login failed"</string>
+    <string name="email">Email</string>
+    <string name="enter_you_email">Enter you email</string>
+    <string name="password">Password</string>
+    <string name="enter_your_password">Enter your password</string>
+    <string name="button">Button</string>
+    <string name="forget_password">Forget Password?</string>
+    <string name="description">description</string>
+    <string name="login">Login</string>
+    <string name="not_have_an_account">Not have an account? </string>
+    <string name="sign_up">\t Sign up</string>
 </resources>
