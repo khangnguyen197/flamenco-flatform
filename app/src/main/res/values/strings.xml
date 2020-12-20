@@ -19,6 +19,21 @@
     <string name="forget_password">Forget Password?</string>
     <string name="description">description</string>
     <string name="login">Login</string>
-    <string name="not_have_an_account">Not have an account? </string>
-    <string name="sign_up">\t Sign up</string>
+    <string name="not_have_an_account">Not have an account?\t </string>
+    <string name="sign_up">Sign up</string>
+    <string name="title_activity_sign_page">SignPage</string>
+    <!-- Strings used for fragments for navigation -->
+    <string name="first_fragment_label">First Fragment</string>
+    <string name="second_fragment_label">Second Fragment</string>
+    <string name="next">Next</string>
+    <string name="previous">Previous</string>
+
+    <string name="hello_first_fragment">Hello first fragment</string>
+    <string name="hello_second_fragment">Hello second fragment. Arg: %1$s</string>
+    <string name="name">Name</string>
+    <string name="confirm_password">Confirm Password</string>
+    <string name="confirm_your_password">Confirm your password</string>
+    <string name="phone">Phone</string>
+    <string name="enter_your_phone">Enter your phone</string>
+    <string name="have_an_account_t">Have an account?\t</string>
 </resources>

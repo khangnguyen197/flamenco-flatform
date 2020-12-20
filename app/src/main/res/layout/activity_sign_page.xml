@@ -12,7 +12,7 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:orientation="horizontal"
-        app:layout_constraintGuide_percent="0.45" />
+        app:layout_constraintGuide_percent="0.25" />
 
 
     <androidx.constraintlayout.widget.ConstraintLayout
@@ -71,6 +71,27 @@
             app:layout_constraintGuide_percent="0.96" />
 
         <TextView
+            android:id="@+id/name_lbl"
+            style="@style/Widget.Label"
+            android:text="@string/name"
+            android:textFontWeight="800"
+
+            app:layout_constraintBottom_toTopOf="@id/name"
+            app:layout_constraintLeft_toLeftOf="@id/g3"
+            app:layout_constraintTop_toTopOf="parent"
+            />
+
+        <EditText
+            android:id="@+id/name"
+            style="@style/Widget.Input"
+            android:hint="Enter your name"
+            android:inputType="textEmailAddress"
+            app:layout_constraintBottom_toTopOf="@id/email_lbl"
+            app:layout_constraintLeft_toLeftOf="@id/g3"
+            app:layout_constraintRight_toRightOf="@id/g4"
+            app:layout_constraintTop_toBottomOf="@id/name_lbl" />
+
+        <TextView
             android:id="@+id/email_lbl"
             style="@style/Widget.Label"
             android:text="@string/email"
@@ -78,18 +99,18 @@
 
             app:layout_constraintBottom_toTopOf="@id/email"
             app:layout_constraintLeft_toLeftOf="@id/g3"
-            app:layout_constraintTop_toTopOf="parent"
-            />
+            app:layout_constraintTop_toBottomOf="@id/name" />
 
         <EditText
             android:id="@+id/email"
             style="@style/Widget.Input"
             android:hint="@string/enter_you_email"
-            android:inputType="textEmailAddress"
+
             app:layout_constraintBottom_toTopOf="@id/password_lbl"
             app:layout_constraintLeft_toLeftOf="@id/g3"
             app:layout_constraintRight_toRightOf="@id/g4"
-            app:layout_constraintTop_toBottomOf="@id/email_lbl" />
+            app:layout_constraintTop_toBottomOf="@id/email_lbl"
+            />
 
         <TextView
             android:id="@+id/password_lbl"
@@ -106,10 +127,55 @@
             style="@style/Widget.Input"
             android:hint="@string/enter_your_password"
 
-            app:layout_constraintBottom_toTopOf="@id/submit_btn"
+            app:layout_constraintBottom_toTopOf="@id/confirm_pass_lbl"
             app:layout_constraintLeft_toLeftOf="@id/g3"
             app:layout_constraintRight_toRightOf="@id/g4"
             app:layout_constraintTop_toBottomOf="@id/password_lbl"
+            />
+
+        <TextView
+            android:id="@+id/confirm_pass_lbl"
+            style="@style/Widget.Label"
+
+            android:text="@string/confirm_password"
+            android:textFontWeight="800"
+
+
+            app:layout_constraintBottom_toTopOf="@id/confirm_pass"
+            app:layout_constraintLeft_toLeftOf="@id/g3"
+            app:layout_constraintTop_toBottomOf="@id/password" />
+
+        <EditText
+            android:id="@+id/confirm_pass"
+
+            style="@style/Widget.Input"
+
+            android:hint="@string/confirm_your_password"
+
+            app:layout_constraintBottom_toTopOf="@id/phone_lbl"
+            app:layout_constraintLeft_toLeftOf="@id/g3"
+            app:layout_constraintRight_toRightOf="@id/g4"
+            app:layout_constraintTop_toBottomOf="@id/confirm_pass_lbl"
+            />
+
+        <TextView
+            android:id="@+id/phone_lbl"
+            style="@style/Widget.Label"
+            android:text="@string/phone"
+            android:textFontWeight="800"
+            app:layout_constraintBottom_toTopOf="@id/phone"
+            app:layout_constraintLeft_toLeftOf="@id/g3"
+            app:layout_constraintTop_toBottomOf="@id/confirm_pass" />
+
+        <EditText
+            android:id="@+id/phone"
+            style="@style/Widget.Input"
+            android:hint="@string/enter_your_phone"
+
+            app:layout_constraintBottom_toTopOf="@id/submit_btn"
+            app:layout_constraintLeft_toLeftOf="@id/g3"
+            app:layout_constraintRight_toRightOf="@id/g4"
+            app:layout_constraintTop_toBottomOf="@id/phone_lbl"
             />
 
         <Button
@@ -118,57 +184,46 @@
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:layout_marginLeft="30dp"
+
             android:layout_marginTop="15dp"
             android:layout_marginRight="30dp"
-            android:text="@string/login"
-
-            app:layout_constraintBottom_toTopOf="@id/forget_pass"
-            app:layout_constraintLeft_toLeftOf="parent"
-            app:layout_constraintRight_toRightOf="parent"
-            app:layout_constraintTop_toBottomOf="@id/password" />
-
-        <TextView
-            android:id="@+id/forget_pass"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:fontFamily="@font/calibri_bold"
-            android:text="@string/forget_password"
-            android:textColor="#333333"
-            android:textSize="16sp"
-            android:layout_marginTop="10dp"
+            android:text="@string/sign_up"
 
             app:layout_constraintBottom_toTopOf="@id/footer"
             app:layout_constraintLeft_toLeftOf="parent"
             app:layout_constraintRight_toRightOf="parent"
-            app:layout_constraintTop_toBottomOf="@id/submit_btn" />
+            app:layout_constraintTop_toBottomOf="@id/phone" />
+
 
         <LinearLayout
             android:id="@+id/footer"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:gravity="center_horizontal"
+            android:layout_marginTop="10dp"
+            android:layout_marginBottom="15dp"
             app:layout_constraintRight_toRightOf="@id/g4"
             app:layout_constraintLeft_toLeftOf="@id/g3"
-            app:layout_constraintTop_toBottomOf="@id/forget_pass"
-            app:layout_constraintBottom_toTopOf="@id/divider"
+            app:layout_constraintTop_toBottomOf="@id/submit_btn"
+            app:layout_constraintBottom_toBottomOf="parent"
             >
 
             <TextView
-                android:id="@+id/sign_content"
+                android:id="@+id/login_content"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="@string/not_have_an_account"
+                android:text="@string/have_an_account_t"
 
                 android:textColor="#333333"
                 android:fontFamily="@font/calibri_bold"
                 android:textSize="16sp"
                 />
             <TextView
-                android:id="@+id/sign_link"
+                android:id="@+id/login_link"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:background="@drawable/dotted_underline"
-                android:text="@string/sign_up"
+                android:text="@string/login"
 
                 android:textColor="@color/link"
                 android:fontFamily="@font/calibri_bold"
@@ -177,41 +232,6 @@
                 />
         </LinearLayout>
 
-
-        <TextView
-            android:id="@+id/description"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_marginLeft="50dp"
-            android:layout_marginRight="50dp"
-            android:layout_marginBottom="10dp"
-            android:fontFamily="@font/calibri_regular"
-            android:text="By using FLAMENCO, you agree with our Term and Policy of FLAMENCO"
-            android:textAlignment="center"
-            android:textColor="@color/hint"
-            android:textSize="14sp"
-
-            app:layout_constraintTop_toBottomOf="@id/divider"
-            app:layout_constraintLeft_toLeftOf="@id/g3"
-            app:layout_constraintRight_toRightOf="@id/g4"
-            app:layout_constraintBottom_toBottomOf="parent"
-
-            />
-
-        <View
-            android:id="@+id/divider"
-            android:layout_width="match_parent"
-            android:layout_height="2dp"
-            android:layout_marginLeft="126dp"
-            android:layout_marginTop="60dp"
-            android:layout_marginRight="126dp"
-            android:background="@color/label"
-            app:layout_constraintBottom_toTopOf="@id/description"
-            app:layout_constraintLeft_toLeftOf="parent"
-            app:layout_constraintRight_toRightOf="parent"
-            app:layout_constraintTop_toBottomOf="@id/footer"
-
-            />
 
     </androidx.constraintlayout.widget.ConstraintLayout>
 </androidx.constraintlayout.widget.ConstraintLayout>

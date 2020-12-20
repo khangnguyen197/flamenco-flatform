@@ -5,6 +5,8 @@
     <color name="hint">#b4b4b4</color>
     <color name="inputBrg">#D8E8FF</color>
     <color name="link">#4d79ff</color>
+    <color name="orange">#ff6500</color>
+    <color name="matteBlack">#333333</color>
 
 
 </resources>
