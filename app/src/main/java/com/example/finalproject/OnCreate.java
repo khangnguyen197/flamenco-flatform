@@ -13,9 +13,11 @@ public class OnCreate extends AppCompatActivity {
     Timer timer;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
+        Globals globals = new Globals();
+
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_on_create);
-        transStatus();
+        globals.transStatus(getWindow());
         timer = new Timer();
         timer.schedule(new TimerTask() {
             @Override
@@ -27,10 +29,5 @@ public class OnCreate extends AppCompatActivity {
         },2000);
     }
 
-    public void transStatus() {
-        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.KITKAT) {
-            Window w = getWindow();
-            w.setFlags(WindowManager.LayoutParams.FLAG_LAYOUT_NO_LIMITS, WindowManager.LayoutParams.FLAG_LAYOUT_NO_LIMITS);
-        }
-    }
+
 };

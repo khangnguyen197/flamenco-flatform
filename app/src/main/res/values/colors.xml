@@ -1,10 +1,10 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-    <style name="GreenText" parent="TextAppearance.AppCompat">
-        <item name="android:textColor">#00FF00</item>
-        <item name="colorPrimaryDark">#ffa500</item>
-        <item name="colorAccent">#ffa500</item>
-    </style>
+    <color name="colorPrimary">#edf5fd</color>
+    <color name="label">#ffa500</color>
+    <color name="hint">#b4b4b4</color>
+    <color name="inputBrg">#D8E8FF</color>
+    <color name="link">#4d79ff</color>
 
-    <style name="colorPrimary" parent="TextAppearance.AppCompat">#ffa500</style>
+
 </resources>
