@@ -24,7 +24,7 @@
         android:layout_height="0dp"
         android:paddingTop="20dp"
 
-        android:background="@color/orange"
+        android:background="@drawable/primary_gradient"
         android:orientation="horizontal"
         android:gravity="center"
 
