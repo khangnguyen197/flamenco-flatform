@@ -38,29 +38,29 @@
         <ImageButton
             android:id="@+id/imageButton"
             android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
+            android:layout_height="60dp"
             android:layout_weight="1"
             android:background="#00F8F8F8"
-            app:srcCompat="@drawable/menu_32" />
+            app:srcCompat="@drawable/menu_52px" />
 
         <ImageView
             android:id="@+id/imageView3"
             android:layout_width="30dp"
-            android:layout_height="wrap_content"
+            android:layout_height="60dp"
             android:layout_weight="5"
-            android:paddingRight="30dp"
             android:paddingLeft="30dp"
-
-
+            android:paddingRight="30dp"
             app:srcCompat="@drawable/logo_material" />
 
         <ImageView
             android:id="@+id/imageView4"
             android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
+            android:layout_height="60dp"
+            android:paddingTop="7dp"
+            android:paddingBottom="7dp"
             android:layout_weight="1"
 
-            app:srcCompat="@android:drawable/ic_dialog_info" />
+            app:srcCompat="@drawable/alarm_40px" />
     </LinearLayout>
 
     <androidx.constraintlayout.widget.ConstraintLayout
