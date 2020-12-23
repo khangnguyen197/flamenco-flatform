@@ -24,7 +24,7 @@ import android.widget.EditText;
 import android.widget.TextView;
 import android.widget.Toast;
 
-public class SignPage extends AppCompatActivity {
+public class SignPage extends AppCompatActivity implements View.OnClickListener {
     EditText signName, signEmail, signPassword, signConfirm_pass, signPhone;
     String name, email, password, confirm_pass, phone;
     private FirebaseAuth mAuth;
@@ -36,7 +36,9 @@ public class SignPage extends AppCompatActivity {
         setContentView(R.layout.activity_sign_page);
         Globals globals = new Globals();
         globals.transStatus(getWindow());
-        onClick();
+
+        Button submit = (Button) findViewById(R.id.submit_btn);
+        TextView signUpActivity = (TextView) findViewById(R.id.login_link);
 
         signName = (EditText) findViewById(R.id.name);
         signEmail = (EditText) findViewById(R.id.email);
@@ -47,26 +49,31 @@ public class SignPage extends AppCompatActivity {
         mAuth = FirebaseAuth.getInstance();
         data = FirebaseFirestore.getInstance();
 
-    }
+        submit.setOnClickListener(this);
+        signUpActivity.setOnClickListener(this);
 
-    void onClick() {
-        TextView signUpActivity = (TextView) findViewById(R.id.login_link);
-        signUpActivity.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                Intent logPage = new Intent(SignPage.this, LoginPage.class);
-                startActivity(logPage);
-            }
-        });
-    }
+    }// onCreate end
 
-    /*void onSubmit(){
-        Button submit_btn = (Button) findViewById(R.id.submit_btn);
-        //if-else check if it is mapped to Firebase
-        //if return true -> go Home
-    }*/
+    @Override
+    public void onClick(View v) {
+        switch (v.getId()){
+            case R.id.submit_btn:
+                signup();
+                break;
+            case R.id.login_link:
+                loginChange();
+                break;
+            default:
+                break;
+        }
+    } // onClick end
 
-    public void register(View view) {
+    public void loginChange(){
+        Intent logPage = new Intent(SignPage.this, LoginPage.class);
+        startActivity(logPage);
+    }// loginChange end
+
+    public void signup() {
 
         if (!validiateName() | !validiateEmail() | !validiatePassword() | !validiatePhone() | !validiateConfirm()) {
             return;
@@ -77,13 +84,13 @@ public class SignPage extends AppCompatActivity {
         password = signPassword.getText().toString().trim();
         phone = signPhone.getText().toString().trim();
 
-        createemailuser();
+        createEmailUser();
         Log.i("LOGGER", "Sign up successfully");
         startActivity(new Intent(SignPage.this, LoginPage.class));
         finish();
-    }
+    }// signup end
 
-    private void createemailuser() {
+    private void createEmailUser() {
         mAuth.createUserWithEmailAndPassword(email, password)
                 .addOnCompleteListener(this, new OnCompleteListener<AuthResult>() {
                     @Override
@@ -108,7 +115,7 @@ public class SignPage extends AppCompatActivity {
                         }
                     }
                 });
-    }
+    }// createEmailUser end
 
     private Boolean validiateName() {
         String val = signName.getText().toString();
@@ -124,7 +131,7 @@ public class SignPage extends AppCompatActivity {
             signName.setError(null);
             return true;
         }
-    }
+    }//validiateName end
 
     private Boolean validiateEmail() {
         String val = signEmail.getText().toString();
@@ -140,7 +147,7 @@ public class SignPage extends AppCompatActivity {
             signEmail.setError(null);
             return true;
         }
-    }
+    }//validiateEmail end
 
     private Boolean validiatePassword() {
         String val = signPassword.getText().toString();
@@ -164,7 +171,7 @@ public class SignPage extends AppCompatActivity {
             signPassword.setError(null);
             return true;
         }
-    }
+    }//validiatePassword end
 
     private boolean validiateConfirm() {
         String val = signConfirm_pass.getText().toString();
@@ -174,24 +181,36 @@ public class SignPage extends AppCompatActivity {
             signConfirm_pass.setError("Confirm Password cannot be empty");
             return false;
         } else if (val != val2) {
-            signConfirm_pass.setError("Confirm pass must be the same as Password");
+            signConfirm_pass.setError("Confirm Password must be the same as Password");
             return false;
         } else {
             signConfirm_pass.setError(null);
             return true;
         }
 
-    }
+    }//validiateConfirm end
 
     private Boolean validiatePhone() {
         String val = signPhone.getText().toString();
+        String phoneVal = "^[0-9]+$";
 
         if (val.isEmpty()) {
             signPhone.setError("Phone cannot be empty");
             return false;
-        } else {
+        } else if(!val.matches(phoneVal)){
+            signPhone.setError("Phone must be numbers");
+            return false;
+        } else if(val.length()>11){
+            signPhone.setError("Phone must be less than 12 digits");
+            return false;
+        } else if(val.length()<9){
+            signPhone.setError("Phone must be more than 8 digits");
+            return false;
+        }else{
             signPhone.setError(null);
             return true;
         }
-    }
+    }//validiatePhone end
+
+
 }

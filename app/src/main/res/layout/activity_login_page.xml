@@ -121,7 +121,7 @@
             android:layout_marginTop="15dp"
             android:layout_marginRight="30dp"
             android:text="@string/login"
-            android:onClick="loginUser"
+
             app:layout_constraintBottom_toTopOf="@id/forget_pass"
             app:layout_constraintLeft_toLeftOf="parent"
             app:layout_constraintRight_toRightOf="parent"
