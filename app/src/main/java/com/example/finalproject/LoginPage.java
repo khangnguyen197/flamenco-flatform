@@ -57,7 +57,7 @@ public class LoginPage extends AppCompatActivity implements  View.OnClickListene
             case R.id.submit_btn:
                 loginUser();
                 break;
-            case R.id.login_link:
+            case R.id.sign_link:
                 signupChange();
                 break;
             default:
