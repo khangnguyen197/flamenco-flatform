@@ -85,6 +85,7 @@ public class SignPage extends AppCompatActivity implements View.OnClickListener 
         phone = signPhone.getText().toString().trim();
 
         createEmailUser();
+
         Log.i("LOGGER", "Sign up successfully");
         startActivity(new Intent(SignPage.this, LoginPage.class));
         finish();
@@ -97,7 +98,6 @@ public class SignPage extends AppCompatActivity implements View.OnClickListener 
                     public void onComplete(@NonNull Task<AuthResult> task) {
                         if (task.isSuccessful()) {
                             Users users = new Users(name, email, password, phone, "0");
-
                             data.collection("users").document(email)
                                     .set(users)
                                     .addOnSuccessListener(new OnSuccessListener<Void>() {
@@ -180,7 +180,7 @@ public class SignPage extends AppCompatActivity implements View.OnClickListener 
         if (val.isEmpty()) {
             signConfirm_pass.setError("Confirm Password cannot be empty");
             return false;
-        } else if (val != val2) {
+        } else if (!val.equals(val2)) {
             signConfirm_pass.setError("Confirm Password must be the same as Password");
             return false;
         } else {

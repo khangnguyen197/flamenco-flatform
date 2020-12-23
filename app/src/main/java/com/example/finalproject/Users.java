@@ -1,16 +1,16 @@
 package com.example.finalproject;
 
 public class Users {
-    String name, email, password, phoneNo, isAdmin;
+    String name, email, password, phone, isAdmin;
 
     public Users() {
     }
 
-    public Users(String name, String email, String password, String phoneNo, String isAdmin) {
+    public Users(String name, String email, String password, String phone, String isAdmin) {
         this.name = name;
         this.email = email;
         this.password = password;
-        this.phoneNo = phoneNo;
+        this.phone = phone;
         this.isAdmin = isAdmin;
     }
 
@@ -26,8 +26,8 @@ public class Users {
         return password;
     }
 
-    public String getPhoneNo() {
-        return phoneNo;
+    public String getPhone() {
+        return phone;
     }
 
     public String getIsAdmin() {
