@@ -26,7 +26,7 @@ import com.google.firebase.firestore.FirebaseFirestore;
 
 import java.util.HashMap;
 
-public class LoginPage extends AppCompatActivity {
+public class LoginPage extends AppCompatActivity implements  View.OnClickListener{
 
     EditText logEmail, logPass;
     private FirebaseAuth mAuth;
@@ -38,37 +38,48 @@ public class LoginPage extends AppCompatActivity {
         setContentView(R.layout.activity_login_page);
         Globals globals = new Globals();
         globals.transStatus(getWindow());
-        onClick();
+
+
+        Button submit = (Button) findViewById(R.id.submit_btn);
+        TextView signUpActivity = (TextView) findViewById(R.id.sign_link);
+
         logEmail    = (EditText) findViewById(R.id.email);
         logPass     = (EditText) findViewById(R.id.password);
         mAuth = FirebaseAuth.getInstance();
 
+        submit.setOnClickListener(this);
+        signUpActivity.setOnClickListener(this);
     }
 
-    void onClick() {
-        TextView signUpActivity = (TextView) findViewById(R.id.sign_link);
-        signUpActivity.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                Intent signPage = new Intent(LoginPage.this, SignPage.class);
-                startActivity(signPage);
-            }
-        });
-    }
+    @Override
+    public void onClick(View v) {
+        switch (v.getId()){
+            case R.id.submit_btn:
+                loginUser();
+                break;
+            case R.id.login_link:
+                signupChange();
+                break;
+            default:
+                break;
+        }
+    } // onClick end
 
-    /*void onSubmit(){
-        Button submit_btn = (Button) findViewById(R.id.submit_btn);
-        //if-else check if it is mapped to Firebase
-        //if return true -> go Home
-    }*/
+    public void signupChange(){
+        Intent signPage = new Intent(LoginPage.this, SignPage.class);
+        startActivity(signPage);
+    } // signupChange end
 
     private Boolean validUsername(){
         String val = logEmail.getText().toString().trim();
+        String emailPattern = "[a-zA-Z0-9._-]+@[a-z]+\\.+[a-z]+";
         if(val.isEmpty()){
             logEmail.setError("Username cannot be empty ");
             return false;
-        }
-        else{
+        } else if (!val.matches(emailPattern)) {
+            logEmail.setError("Invalid email, try again");
+            return false;
+        }else{
             logEmail.setError(null);
             return true;
         }
@@ -86,7 +97,7 @@ public class LoginPage extends AppCompatActivity {
         }
     } // validPassword end
 
-    public void loginUser(View view){
+    public void loginUser(){
         if(!validUsername() | !validPassword()){
             return;
         }
