@@ -12,10 +12,12 @@ import com.google.android.material.snackbar.Snackbar;
 import com.google.firebase.auth.AuthResult;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.firestore.FirebaseFirestore;
+import com.google.firebase.firestore.auth.User;
 
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.Toolbar;
+import androidx.core.provider.FontsContractCompat;
 
 import android.util.Log;
 import android.view.View;
@@ -26,7 +28,8 @@ import android.widget.Toast;
 
 public class SignPage extends AppCompatActivity implements View.OnClickListener {
     EditText signName, signEmail, signPassword, signConfirm_pass, signPhone;
-    String name, email, password, confirm_pass, phone;
+    String name, email, password, phone;
+
     private FirebaseAuth mAuth;
     private FirebaseFirestore data;
 
@@ -79,16 +82,12 @@ public class SignPage extends AppCompatActivity implements View.OnClickListener 
             return;
         }
 
-        name = signName.getText().toString().trim();
-        email = signEmail.getText().toString().trim();
-        password = signPassword.getText().toString().trim();
-        phone = signPhone.getText().toString().trim();
+        name        = signName.getText().toString().trim();
+        email       = signEmail.getText().toString().trim();
+        password    = signPassword.getText().toString().trim();
+        phone       = signPhone.getText().toString().trim();
 
         createEmailUser();
-
-        Log.i("LOGGER", "Sign up successfully");
-        startActivity(new Intent(SignPage.this, LoginPage.class));
-        finish();
     }// signup end
 
     private void createEmailUser() {
@@ -98,12 +97,15 @@ public class SignPage extends AppCompatActivity implements View.OnClickListener 
                     public void onComplete(@NonNull Task<AuthResult> task) {
                         if (task.isSuccessful()) {
                             Users users = new Users(name, email, password, phone, "0");
+                            Log.i("LOGGER","Get here");
                             data.collection("users").document(email)
                                     .set(users)
                                     .addOnSuccessListener(new OnSuccessListener<Void>() {
                                         @Override
                                         public void onSuccess(Void aVoid) {
                                             Toast.makeText(SignPage.this, "Your email is using for your account now", Toast.LENGTH_SHORT).show();
+                                            startActivity(new Intent(SignPage.this, LoginPage.class));
+                                            finish();
                                         }
                                     }).addOnFailureListener(new OnFailureListener() {
                                 @Override

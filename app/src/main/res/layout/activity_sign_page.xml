@@ -105,7 +105,6 @@
             android:id="@+id/email"
             style="@style/Widget.Input"
             android:hint="@string/enter_you_email"
-            android:inputType="textEmailAddress"
 
             app:layout_constraintBottom_toTopOf="@id/password_lbl"
             app:layout_constraintLeft_toLeftOf="@id/g3"

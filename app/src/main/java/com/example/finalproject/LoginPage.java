@@ -45,6 +45,7 @@ public class LoginPage extends AppCompatActivity implements  View.OnClickListene
 
         logEmail    = (EditText) findViewById(R.id.email);
         logPass     = (EditText) findViewById(R.id.password);
+
         mAuth = FirebaseAuth.getInstance();
 
         submit.setOnClickListener(this);
@@ -109,7 +110,7 @@ public class LoginPage extends AppCompatActivity implements  View.OnClickListene
     private void isUser(){
         final String email        =  logEmail.getText().toString().trim();
         final String password     =  logPass.getText().toString().trim();
-        data                =  FirebaseFirestore.getInstance();
+        data =  FirebaseFirestore.getInstance();
         HashMap<String, String> hm = new HashMap<>();
         hm.put("password",password);
 
