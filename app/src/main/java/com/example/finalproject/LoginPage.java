@@ -77,10 +77,10 @@ public class LoginPage extends AppCompatActivity implements  View.OnClickListene
         String val = logEmail.getText().toString().trim();
         String emailPattern = "[a-zA-Z0-9._-]+@[a-z]+\\.+[a-z]+";
         if(val.isEmpty()){
-            logEmail.setError("Username cannot be empty ");
+            logEmail.setError("Email must not be empty.");
             return false;
         } else if (!val.matches(emailPattern)) {
-            logEmail.setError("Invalid email, try again");
+            logEmail.setError("Invalid email, please try again.");
             return false;
         }else{
             logEmail.setError(null);
@@ -91,14 +91,14 @@ public class LoginPage extends AppCompatActivity implements  View.OnClickListene
     private Boolean validatePassword(){
         String val = logPass.getText().toString().trim();
         if(val.isEmpty()){
-            logPass.setError("Password cannot be empty ");
+            logPass.setError("Password must not be empty.");
             return false;
         }
         else{
             logPass.setError(null);
             return true;
         }
-    } // validPassword end
+    } // Pvalidassword end
 
     public void loginUser(){
         if(!validateEmail() | !validatePassword()){
@@ -125,7 +125,8 @@ public class LoginPage extends AppCompatActivity implements  View.OnClickListene
                             LoginPage.this.startActivity(new Intent(LoginPage.this, Home.class));
                             LoginPage.this.finish();
                         } else {
-                            logPass.setError("Password or Email is wrong");
+                            logPass.setError("User is not found. Please check your email and your password");
+
                             Log.e("Error", "Login Failed");
                         }
                     }
@@ -144,7 +145,6 @@ public class LoginPage extends AppCompatActivity implements  View.OnClickListene
         final TextView previous = (TextView) findViewById(R.id.return_label);
 
         resetPass.setOnClickListener(new View.OnClickListener() {
-            @SuppressLint("SetTextI18n")
             @Override
             public void onClick(View v) {
                 notice.setText(
@@ -153,7 +153,6 @@ public class LoginPage extends AppCompatActivity implements  View.OnClickListene
         });
 
         previous.setOnClickListener(new View.OnClickListener() {
-            @SuppressLint("SetTextI18n")
             @Override
             public void onClick(View v) {
                 Intent returnPrevious = new Intent(LoginPage.this, LoginPage.class);
