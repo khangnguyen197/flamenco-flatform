@@ -36,4 +36,8 @@
     <string name="phone">Phone</string>
     <string name="enter_your_phone">Enter your phone</string>
     <string name="have_an_account_t">Have an account?\t\t\t</string>
+    <string name="title_activity_change_pass">ChangePass</string>
+    <string name="reset_your_password">Reset your password</string>
+    <string name="reset_password">Reset Password</string>
+    <string name="return_to_login">Return to login</string>
 </resources>

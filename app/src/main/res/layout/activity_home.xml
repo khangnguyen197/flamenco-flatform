@@ -5,12 +5,13 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     tools:context=".Home">
+
     <androidx.constraintlayout.widget.Guideline
         android:id="@+id/h1"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:orientation="horizontal"
-        app:layout_constraintGuide_percent="0.12" />
+        app:layout_constraintGuide_percent="0.1" />
     <androidx.constraintlayout.widget.Guideline
         android:id="@+id/h2"
         android:layout_width="wrap_content"
@@ -38,15 +39,15 @@
         <ImageButton
             android:id="@+id/imageButton"
             android:layout_width="wrap_content"
-            android:layout_height="80dp"
+            android:layout_height="wrap_content"
             android:layout_weight="1"
             android:background="#00F8F8F8"
-            app:srcCompat="@drawable/menu_52px" />
+            app:srcCompat="@drawable/menu_36px" />
 
         <ImageView
             android:id="@+id/imageView3"
             android:layout_width="30dp"
-            android:layout_height="60dp"
+            android:layout_height="wrap_content"
             android:layout_weight="5"
             android:paddingLeft="30dp"
             android:paddingRight="30dp"
@@ -55,11 +56,11 @@
         <ImageView
             android:id="@+id/imageView4"
             android:layout_width="wrap_content"
-            android:layout_height="60dp"
+            android:layout_height="wrap_content"
             android:layout_weight="1"
 
 
-            app:srcCompat="@drawable/alarm_52px" />
+            app:srcCompat="@drawable/alarm_36px" />
     </LinearLayout>
 
     <androidx.constraintlayout.widget.ConstraintLayout

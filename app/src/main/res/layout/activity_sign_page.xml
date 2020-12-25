@@ -126,7 +126,7 @@
             android:id="@+id/password"
             style="@style/Widget.Input"
             android:hint="@string/enter_your_password"
-
+            android:inputType="textPassword"
             app:layout_constraintBottom_toTopOf="@id/confirm_pass_lbl"
             app:layout_constraintLeft_toLeftOf="@id/g3"
             app:layout_constraintRight_toRightOf="@id/g4"
@@ -147,10 +147,9 @@
 
         <EditText
             android:id="@+id/confirm_pass"
-
             style="@style/Widget.Input"
-
             android:hint="@string/confirm_your_password"
+            android:inputType="textPassword"
 
             app:layout_constraintBottom_toTopOf="@id/phone_lbl"
             app:layout_constraintLeft_toLeftOf="@id/g3"
