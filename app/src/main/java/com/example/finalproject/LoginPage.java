@@ -76,7 +76,7 @@ public class LoginPage extends AppCompatActivity implements  View.OnClickListene
         startActivity(signPage);
     } // signupChange end
 
-    private Boolean validiateEmail(){
+    private Boolean validateEmail(){
         String val = logEmail.getText().toString().trim();
         String emailPattern = "[a-zA-Z0-9._-]+@[a-z]+\\.+[a-z]+";
         if(val.isEmpty()){
@@ -91,7 +91,7 @@ public class LoginPage extends AppCompatActivity implements  View.OnClickListene
         }
     }// validEmail end
 
-    private Boolean validiatePassword(){
+    private Boolean validatePassword(){
         String val = logPass.getText().toString().trim();
         if(val.isEmpty()){
             logPass.setError("Password cannot be empty ");
@@ -104,7 +104,7 @@ public class LoginPage extends AppCompatActivity implements  View.OnClickListene
     } // validPassword end
 
     public void loginUser(){
-        if(!validiateEmail() | !validiatePassword()){
+        if(!validateEmail() | !validatePassword()){
             return;
         }
         else{

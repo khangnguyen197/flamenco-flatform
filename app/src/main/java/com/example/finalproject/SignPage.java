@@ -78,7 +78,7 @@ public class SignPage extends AppCompatActivity implements View.OnClickListener 
 
     public void signup() {
 
-        if (!validiateName() | !validiateEmail() | !validiatePassword() | !validiatePhone() | !validiateConfirm()) {
+        if (!validateName() | !validateEmail() | !validatePassword() | !validatePhone() | !validateConfirm()) {
             return;
         }
 
@@ -119,7 +119,7 @@ public class SignPage extends AppCompatActivity implements View.OnClickListener 
                 });
     }// createEmailUser end
 
-    private Boolean validiateName() {
+    private Boolean validateName() {
         String val = signName.getText().toString();
         String nameVal = "^\\p{L}+[\\p{L}\\p{Z}\\p{P}]{0,}";
 
@@ -133,9 +133,9 @@ public class SignPage extends AppCompatActivity implements View.OnClickListener 
             signName.setError(null);
             return true;
         }
-    }//validiateName end
+    }//validateName end
 
-    private Boolean validiateEmail() {
+    private Boolean validateEmail() {
         String val = signEmail.getText().toString();
         String emailPattern = "[a-zA-Z0-9._-]+@[a-z]+\\.+[a-z]+";
 
@@ -149,9 +149,9 @@ public class SignPage extends AppCompatActivity implements View.OnClickListener 
             signEmail.setError(null);
             return true;
         }
-    }//validiateEmail end
+    }//validateEmail end
 
-    private Boolean validiatePassword() {
+    private Boolean validatePassword() {
         String val = signPassword.getText().toString();
         String passVal = "^" +
                 //"(?=.*[0-9])" +         //at least 1 digit
@@ -173,9 +173,9 @@ public class SignPage extends AppCompatActivity implements View.OnClickListener 
             signPassword.setError(null);
             return true;
         }
-    }//validiatePassword end
+    }//validatePassword end
 
-    private boolean validiateConfirm() {
+    private boolean validateConfirm() {
         String val = signConfirm_pass.getText().toString();
         String val2 = signPassword.getText().toString();
 
@@ -190,9 +190,9 @@ public class SignPage extends AppCompatActivity implements View.OnClickListener 
             return true;
         }
 
-    }//validiateConfirm end
+    }//validateConfirm end
 
-    private Boolean validiatePhone() {
+    private Boolean validatePhone() {
         String val = signPhone.getText().toString();
         String phoneVal = "^[0-9]+$";
 
@@ -212,7 +212,7 @@ public class SignPage extends AppCompatActivity implements View.OnClickListener 
             signPhone.setError(null);
             return true;
         }
-    }//validiatePhone end
+    }//validatePhone end
 
 
 }
