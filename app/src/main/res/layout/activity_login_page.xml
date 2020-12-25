@@ -119,7 +119,8 @@
             android:id="@+id/password"
             style="@style/Widget.Input"
             android:hint="@string/enter_your_password"
-
+            app:passwordToggleEnabled="true"
+            android:inputType="textPassword"
             app:layout_constraintBottom_toTopOf="@id/submit_btn"
             app:layout_constraintLeft_toLeftOf="@id/h1"
             app:layout_constraintRight_toRightOf="@id/h2"
@@ -201,7 +202,6 @@
                 android:textColor="@color/link"
                 android:fontFamily="@font/calibri_bold"
                 android:textSize="21sp"
-
                 />
         </LinearLayout>
 
