@@ -1,13 +1,10 @@
 package com.example.finalproject;
 
 import androidx.annotation.NonNull;
-import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatActivity;
 
-import android.content.DialogInterface;
 import android.content.Intent;
 import android.os.Bundle;
-import android.text.method.LinkMovementMethod;
 import android.util.Log;
 import android.view.View;
 import android.widget.Button;
@@ -39,10 +36,9 @@ public class LoginPage extends AppCompatActivity implements  View.OnClickListene
         Globals globals = new Globals();
         globals.transStatus(getWindow());
 
-
         Button submit = (Button) findViewById(R.id.submit_btn);
         TextView signUpActivity = (TextView) findViewById(R.id.sign_link);
-        TextView forgetpassActivity = (TextView) findViewById(R.id.forget_pass);
+        TextView changePassActive = (TextView) findViewById(R.id.forget_pass);
 
         logEmail    = (EditText) findViewById(R.id.email);
         logPass     = (EditText) findViewById(R.id.password);
@@ -51,7 +47,7 @@ public class LoginPage extends AppCompatActivity implements  View.OnClickListene
 
         submit.setOnClickListener(this);
         signUpActivity.setOnClickListener(this);
-        forgetpassActivity.setOnClickListener(this);
+        changePassActive.setOnClickListener(this);
     }
 
     @Override
@@ -64,8 +60,9 @@ public class LoginPage extends AppCompatActivity implements  View.OnClickListene
                 signupChange();
                 break;
             case R.id.forget_pass:
-                //forgot(v);
-                break;
+                switchToForgetLayout();
+            
+                break;        
             default:
                 break;
         }
@@ -135,35 +132,32 @@ public class LoginPage extends AppCompatActivity implements  View.OnClickListene
                 });
     } // isUser end
 
-    /*public void forgot(View view){
-        final EditText resetEmail = new EditText(view.getContext());
-        AlertDialog.Builder passwordReset = new AlertDialog.Builder(view.getContext());
-        passwordReset.setTitle("Reset Password?");
-        passwordReset.setMessage("Enter Your Email: ");
-        passwordReset.setView(resetEmail);
+    
+    void switchToForgetLayout() {
+             setContentView(R.layout.change_pass_layout);
+             changePassActive();      
+    }
 
-        passwordReset.setPositiveButton("Yes", new DialogInterface.OnClickListener() {
+    void changePassActive(){
+        Button resetPass = (Button) findViewById(R.id.reset_pass_btn) ;
+        final TextView notice = (TextView) findViewById(R.id.reset_description);
+        final TextView previous = (TextView) findViewById(R.id.return_label);
+
+        resetPass.setOnClickListener(new View.OnClickListener() {
+            @SuppressLint("SetTextI18n")
             @Override
-            public void onClick(DialogInterface dialog, int which) {
-                String mail = resetEmail.getText().toString();
-                mAuth.sendPasswordResetEmail(mail).addOnSuccessListener(new OnSuccessListener<Void>() {
-                    @Override
-                    public void onSuccess(Void aVoid) {
-                        Toast.makeText(LoginPage.this, "Reset link sent to your email", Toast.LENGTH_SHORT).show();
-                    }
-                }).addOnFailureListener(new OnFailureListener() {
-                    @Override
-                    public void onFailure(@NonNull Exception e) {
-                        Toast.makeText(LoginPage.this, "Reset link not sent "+e.getMessage(), Toast.LENGTH_SHORT).show();
-                    }
-                });
+            public void onClick(View v) {
+                notice.setText(
+                    "Please check your email and wait at least 60 seconds before sending your new reset request by pressing the reset button.");
             }
         });
-        passwordReset.setNegativeButton("No", new DialogInterface.OnClickListener() {
+
+        previous.setOnClickListener(new View.OnClickListener() {
+            @SuppressLint("SetTextI18n")
             @Override
-            public void onClick(DialogInterface dialog, int which) {
-            }
-        });
-        passwordReset.create().show();
-    }*/
+            public void onClick(View v) {
+                Intent returnPrevious = new Intent(LoginPage.this, LoginPage.class);
+                startActivity(returnPrevious);
+            }});
+    }  
 }

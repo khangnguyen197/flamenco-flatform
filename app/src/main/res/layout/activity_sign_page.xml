@@ -12,7 +12,7 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:orientation="horizontal"
-        app:layout_constraintGuide_percent="0.25" />
+        app:layout_constraintGuide_percent="0.3" />
 
 
     <androidx.constraintlayout.widget.ConstraintLayout
@@ -54,7 +54,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:orientation="horizontal"
-            app:layout_constraintGuide_percent="0.93" />
+            app:layout_constraintGuide_percent="0.87" />
 
         <androidx.constraintlayout.widget.Guideline
             android:id="@+id/g3"
@@ -126,7 +126,7 @@
             android:id="@+id/password"
             style="@style/Widget.Input"
             android:hint="@string/enter_your_password"
-
+            android:inputType="textPassword"
             app:layout_constraintBottom_toTopOf="@id/confirm_pass_lbl"
             app:layout_constraintLeft_toLeftOf="@id/g3"
             app:layout_constraintRight_toRightOf="@id/g4"
@@ -147,10 +147,9 @@
 
         <EditText
             android:id="@+id/confirm_pass"
-
             style="@style/Widget.Input"
-
             android:hint="@string/confirm_your_password"
+            android:inputType="textPassword"
 
             app:layout_constraintBottom_toTopOf="@id/phone_lbl"
             app:layout_constraintLeft_toLeftOf="@id/g3"
@@ -185,7 +184,7 @@
             android:layout_height="wrap_content"
             android:layout_marginLeft="30dp"
 
-            android:layout_marginTop="15dp"
+            android:layout_marginTop="17dp"
             android:layout_marginRight="30dp"
             android:text="@string/sign_up"
 
@@ -201,7 +200,6 @@
             android:layout_height="wrap_content"
             android:gravity="center_horizontal"
             android:layout_marginTop="10dp"
-            android:layout_marginBottom="15dp"
             app:layout_constraintRight_toRightOf="@id/g4"
             app:layout_constraintLeft_toLeftOf="@id/g3"
             app:layout_constraintTop_toBottomOf="@id/submit_btn"
@@ -216,7 +214,7 @@
 
                 android:textColor="#333333"
                 android:fontFamily="@font/calibri_bold"
-                android:textSize="16sp"
+                android:textSize="20sp"
                 />
             <TextView
                 android:id="@+id/login_link"
@@ -227,9 +225,30 @@
 
                 android:textColor="@color/link"
                 android:fontFamily="@font/calibri_bold"
-                android:textSize="19sp"
+                android:textSize="21sp"
                 />
         </LinearLayout>
+
+        <TextView
+            android:id="@+id/description"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="50dp"
+            android:layout_marginTop="5dp"
+            android:layout_marginRight="50dp"
+            android:fontFamily="@font/calibri_regular"
+            android:text="By using FLAMENCO, you agree with our Term and Policy of FLAMENCO"
+            android:textAlignment="center"
+            android:textColor="@color/hint"
+            android:textSize="18sp"
+
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintLeft_toLeftOf="parent"
+            app:layout_constraintRight_toRightOf="parent"
+            app:layout_constraintTop_toTopOf="@id/g2"
+
+
+            app:layout_constraintVertical_bias="0.277" />
 
 
     </androidx.constraintlayout.widget.ConstraintLayout>

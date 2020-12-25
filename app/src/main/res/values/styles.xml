@@ -11,6 +11,7 @@
         <item name="android:layout_marginLeft">50dp</item>
         <item name="android:layout_height">70dp</item>
         <item name="android:layout_width">match_parent</item>
+
         <item name="android:textAllCaps">false</item>
         <item name="android:textColor">#FFFFFF</item>
         <item name="android:textSize">22sp</item>
@@ -22,6 +23,7 @@
         <item name="android:layout_marginLeft">50dp</item>
         <item name="android:layout_height">70dp</item>
         <item name="android:layout_width">match_parent</item>
+
         <item name="android:textAllCaps">false</item>
         <item name="android:textColor">#FFFFFF</item>
         <item name="android:textSize">22sp</item>
@@ -30,7 +32,7 @@
 
     <style name="Widget.Input" parent="android:Widget">
         <item name="android:background">@drawable/input</item>
-        <item name="android:layout_height">wrap_content</item>
+        <item name="android:layout_height">50dp</item>
         <item name="android:layout_width">match_parent</item>
         <item name="android:textColor">@color/matteBlack</item>
         <item name="android:textSize">20sp</item>
@@ -41,14 +43,13 @@
         <item name="android:textColorHint">@color/hint</item>
         <item name="android:layout_marginRight">30dp</item>
         <item name="android:layout_marginLeft">30dp</item>
-
     </style>
 
     <style name="Widget.Label" parent="android:Widget">
         <item name="android:layout_height">wrap_content</item>
         <item name="android:layout_width">match_parent</item>
         <item name="android:textColor">@color/label</item>
-        <item name="android:textSize">18sp</item>
+        <item name="android:textSize">24sp</item>
         <item name="fontFamily">@font/calibri_regular</item>
         <item name="android:layout_marginRight">30dp</item>
         <item name="android:layout_marginLeft">30dp</item>
