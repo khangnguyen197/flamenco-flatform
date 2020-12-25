@@ -103,7 +103,7 @@ public class SignPage extends AppCompatActivity implements View.OnClickListener 
                                     .addOnSuccessListener(new OnSuccessListener<Void>() {
                                         @Override
                                         public void onSuccess(Void aVoid) {
-                                            Toast.makeText(SignPage.this, "Your email is using for your account now", Toast.LENGTH_SHORT).show();
+                                            Toast.makeText(SignPage.this, "Sign up successfully!", Toast.LENGTH_SHORT).show();
                                             startActivity(new Intent(SignPage.this, LoginPage.class));
                                             finish();
                                         }
@@ -113,7 +113,7 @@ public class SignPage extends AppCompatActivity implements View.OnClickListener 
                                 }
                             });
                         } else {
-                            Toast.makeText(SignPage.this, "Your email has an error, try again!", Toast.LENGTH_SHORT).show();
+                            Toast.makeText(SignPage.this, "Network Error! Please re-open your FLAMENCO", Toast.LENGTH_SHORT).show();
                         }
                     }
                 });
