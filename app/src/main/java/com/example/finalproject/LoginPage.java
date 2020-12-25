@@ -64,7 +64,7 @@ public class LoginPage extends AppCompatActivity implements  View.OnClickListene
                 signupChange();
                 break;
             case R.id.forget_pass:
-                forgot(v);
+                //forgot(v);
                 break;
             default:
                 break;
@@ -135,7 +135,7 @@ public class LoginPage extends AppCompatActivity implements  View.OnClickListene
                 });
     } // isUser end
 
-    public void forgot(View view){
+    /*public void forgot(View view){
         final EditText resetEmail = new EditText(view.getContext());
         AlertDialog.Builder passwordReset = new AlertDialog.Builder(view.getContext());
         passwordReset.setTitle("Reset Password?");
@@ -165,5 +165,5 @@ public class LoginPage extends AppCompatActivity implements  View.OnClickListene
             }
         });
         passwordReset.create().show();
-    }
+    }*/
 }
