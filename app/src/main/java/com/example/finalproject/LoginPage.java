@@ -42,6 +42,7 @@ public class LoginPage extends AppCompatActivity implements  View.OnClickListene
 
         Button submit = (Button) findViewById(R.id.submit_btn);
         TextView signUpActivity = (TextView) findViewById(R.id.sign_link);
+        TextView forgetpassActivity = (TextView) findViewById(R.id.forget_pass);
 
         logEmail    = (EditText) findViewById(R.id.email);
         logPass     = (EditText) findViewById(R.id.password);
@@ -50,6 +51,7 @@ public class LoginPage extends AppCompatActivity implements  View.OnClickListene
 
         submit.setOnClickListener(this);
         signUpActivity.setOnClickListener(this);
+        forgetpassActivity.setOnClickListener(this);
     }
 
     @Override
@@ -60,6 +62,9 @@ public class LoginPage extends AppCompatActivity implements  View.OnClickListene
                 break;
             case R.id.sign_link:
                 signupChange();
+                break;
+            case R.id.forget_pass:
+                forgot(v);
                 break;
             default:
                 break;
@@ -130,8 +135,8 @@ public class LoginPage extends AppCompatActivity implements  View.OnClickListene
                 });
     } // isUser end
 
-    /*public void forgot(View view){
-        EditText resetEmail = new EditText(view.getContext());
+    public void forgot(View view){
+        final EditText resetEmail = new EditText(view.getContext());
         AlertDialog.Builder passwordReset = new AlertDialog.Builder(view.getContext());
         passwordReset.setTitle("Reset Password?");
         passwordReset.setMessage("Enter Your Email: ");
@@ -144,12 +149,12 @@ public class LoginPage extends AppCompatActivity implements  View.OnClickListene
                 mAuth.sendPasswordResetEmail(mail).addOnSuccessListener(new OnSuccessListener<Void>() {
                     @Override
                     public void onSuccess(Void aVoid) {
-                        Toast.makeText(Login.this, "Reset link sent to your email", Toast.LENGTH_SHORT).show();
+                        Toast.makeText(LoginPage.this, "Reset link sent to your email", Toast.LENGTH_SHORT).show();
                     }
                 }).addOnFailureListener(new OnFailureListener() {
                     @Override
                     public void onFailure(@NonNull Exception e) {
-                        Toast.makeText(Login.this, "Reset link not sent "+e.getMessage(), Toast.LENGTH_SHORT).show();
+                        Toast.makeText(LoginPage.this, "Reset link not sent "+e.getMessage(), Toast.LENGTH_SHORT).show();
                     }
                 });
             }
@@ -160,5 +165,5 @@ public class LoginPage extends AppCompatActivity implements  View.OnClickListene
             }
         });
         passwordReset.create().show();
-    }*/
+    }
 }
