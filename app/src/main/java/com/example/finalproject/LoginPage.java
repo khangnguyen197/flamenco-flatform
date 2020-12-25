@@ -128,7 +128,7 @@ public class LoginPage extends AppCompatActivity implements  View.OnClickListene
                             LoginPage.this.startActivity(new Intent(LoginPage.this, Home.class));
                             LoginPage.this.finish();
                         } else {
-                            logPass.setError("Pass or Email is wrong");
+                            logPass.setError("Password or Email is wrong");
                             Log.e("Error", "Login Failed");
                         }
                     }
