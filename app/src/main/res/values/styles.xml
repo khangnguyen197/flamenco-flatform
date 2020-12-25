@@ -33,8 +33,9 @@
         <item name="android:layout_height">wrap_content</item>
         <item name="android:layout_width">match_parent</item>
         <item name="android:textColor">@color/matteBlack</item>
-        <item name="android:textSize">22sp</item>
-        <item name="android:padding">12dp</item>
+        <item name="android:textSize">20sp</item>
+        <item name="android:paddingLeft">12dp</item>
+        <item name="android:paddingRight">12dp</item>
         <item name="fontFamily">@font/calibri_regular</item>
         <item name="android:textColorHint">@color/hint</item>
         <item name="android:layout_marginRight">30dp</item>
