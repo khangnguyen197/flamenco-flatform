@@ -25,7 +25,7 @@ import java.util.HashMap;
 
 public class LoginPage extends AppCompatActivity implements  View.OnClickListener{
 
-    EditText logEmail, logPass;
+    EditText logEmail, logPass, resetEmail;
     private FirebaseAuth mAuth;
     private FirebaseFirestore data;
 
@@ -37,8 +37,8 @@ public class LoginPage extends AppCompatActivity implements  View.OnClickListene
         globals.transStatus(getWindow());
 
         Button submit = (Button) findViewById(R.id.submit_btn);
-        TextView signUpActivity = (TextView) findViewById(R.id.sign_link);
-        TextView changePassActive = (TextView) findViewById(R.id.forget_pass);
+        final TextView signUpActivity = (TextView) findViewById(R.id.sign_link);
+        final TextView changePassActive = (TextView) findViewById(R.id.forget_pass);
 
         logEmail    = (EditText) findViewById(R.id.email);
         logPass     = (EditText) findViewById(R.id.password);
@@ -126,8 +126,6 @@ public class LoginPage extends AppCompatActivity implements  View.OnClickListene
                             LoginPage.this.finish();
                         } else {
                             logPass.setError("User is not found. Please check your email and your password");
-
-                            Log.e("Error", "Login Failed");
                         }
                     }
                 });
@@ -140,15 +138,23 @@ public class LoginPage extends AppCompatActivity implements  View.OnClickListene
     }
 
     void changePassActive(){
-        Button resetPass = (Button) findViewById(R.id.reset_pass_btn) ;
-        final TextView notice = (TextView) findViewById(R.id.reset_description);
+        Button resetPass        = (Button) findViewById(R.id.reset_pass_btn) ;
+        final TextView notice   = (TextView) findViewById(R.id.reset_description);
         final TextView previous = (TextView) findViewById(R.id.return_label);
+
+        resetEmail     = (EditText) findViewById(R.id.reset_email);
 
         resetPass.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                notice.setText(
-                    "Please check your email and wait at least 60 seconds before sending your new reset request by pressing the reset button.");
+                if(!validateChangepass()){
+                    return;
+                }
+                else {
+                    notice.setText(
+                            "Please check your email and wait at least 60 seconds before sending your new reset request by pressing the reset button.");
+                    forgotPassword();
+                }
             }
         });
 
@@ -158,5 +164,36 @@ public class LoginPage extends AppCompatActivity implements  View.OnClickListene
                 Intent returnPrevious = new Intent(LoginPage.this, LoginPage.class);
                 startActivity(returnPrevious);
             }});
-    }  
+    }
+
+    private Boolean validateChangepass(){
+        String val = resetEmail.getText().toString().trim();
+        String emailPattern = "[a-zA-Z0-9._-]+@[a-z]+\\.+[a-z]+";
+        if(val.isEmpty()){
+            resetEmail.setError("Email must not be empty.");
+            return false;
+        } else if (!val.matches(emailPattern)) {
+            resetEmail.setError("Invalid email, please try again.");
+            return false;
+        }else{
+            resetEmail.setError(null);
+            return true;
+        }
+    }// validChangepass end
+
+    private void forgotPassword(){
+        String mail = resetEmail.getText().toString().trim();
+        mAuth.sendPasswordResetEmail(mail).addOnSuccessListener(new OnSuccessListener<Void>() {
+            @Override
+            public void onSuccess(Void aVoid) {
+                    Toast.makeText(LoginPage.this, "Reset link sent to your email", Toast.LENGTH_SHORT).show();
+            }
+        }).addOnFailureListener(new OnFailureListener() {
+            @Override
+            public void onFailure(@NonNull Exception e) {
+                Toast.makeText(LoginPage.this, e.getMessage(), Toast.LENGTH_SHORT).show();
+            }
+        });
+
+    }// forgotPassword end
 }

@@ -97,7 +97,6 @@ public class SignPage extends AppCompatActivity implements View.OnClickListener 
                     public void onComplete(@NonNull Task<AuthResult> task) {
                         if (task.isSuccessful()) {
                             Users users = new Users(name, email, password, phone, "0");
-                            Log.i("LOGGER","Get here");
                             data.collection("users").document(email)
                                     .set(users)
                                     .addOnSuccessListener(new OnSuccessListener<Void>() {
