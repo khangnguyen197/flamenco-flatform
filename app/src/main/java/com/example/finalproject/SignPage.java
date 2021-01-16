@@ -1,5 +1,6 @@
 package com.example.finalproject;
 
+import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
 
@@ -21,6 +22,8 @@ import androidx.core.provider.FontsContractCompat;
 
 import android.util.Log;
 import android.view.View;
+import android.view.WindowManager;
+import android.view.inputmethod.InputMethodManager;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.TextView;
@@ -42,13 +45,13 @@ public class SignPage extends AppCompatActivity implements View.OnClickListener 
 
         Button submit = (Button) findViewById(R.id.submit_btn);
         TextView signUpActivity = (TextView) findViewById(R.id.login_link);
+        getWindow().setSoftInputMode(WindowManager.LayoutParams.SOFT_INPUT_ADJUST_NOTHING);
 
         signName = (EditText) findViewById(R.id.name);
         signEmail = (EditText) findViewById(R.id.email);
         signPassword = (EditText) findViewById(R.id.password);
         signPhone = (EditText) findViewById(R.id.phone);
         signConfirm_pass = (EditText) findViewById(R.id.confirm_pass);
-
         mAuth = FirebaseAuth.getInstance();
         data = FirebaseFirestore.getInstance();
 
@@ -59,7 +62,7 @@ public class SignPage extends AppCompatActivity implements View.OnClickListener 
 
     @Override
     public void onClick(View v) {
-        switch (v.getId()){
+        switch (v.getId()) {
             case R.id.submit_btn:
                 signup();
                 break;
@@ -71,7 +74,7 @@ public class SignPage extends AppCompatActivity implements View.OnClickListener 
         }
     } // onClick end
 
-    public void loginChange(){
+    public void loginChange() {
         Intent logPage = new Intent(SignPage.this, LoginPage.class);
         startActivity(logPage);
     }// loginChange end
@@ -82,41 +85,41 @@ public class SignPage extends AppCompatActivity implements View.OnClickListener 
             return;
         }
 
-        name        = signName.getText().toString().trim();
-        email       = signEmail.getText().toString().trim();
-        password    = signPassword.getText().toString().trim();
-        phone       = signPhone.getText().toString().trim();
+        name = signName.getText().toString().trim();
+        email = signEmail.getText().toString().trim();
+        password = signPassword.getText().toString().trim();
+        phone = signPhone.getText().toString().trim();
 
         createEmailUser();
     }// signup end
 
     private void createEmailUser() {
         mAuth.createUserWithEmailAndPassword(email, password)
-                .addOnCompleteListener(this, new OnCompleteListener<AuthResult>() {
-                    @Override
-                    public void onComplete(@NonNull Task<AuthResult> task) {
-                        if (task.isSuccessful()) {
-                            Users users = new Users(name, email, password, phone, "0");
-                            Log.i("LOGGER","Get here");
-                            data.collection("users").document(email)
-                                    .set(users)
-                                    .addOnSuccessListener(new OnSuccessListener<Void>() {
-                                        @Override
-                                        public void onSuccess(Void aVoid) {
-                                            Toast.makeText(SignPage.this, "Sign up successfully!", Toast.LENGTH_SHORT).show();
-                                            startActivity(new Intent(SignPage.this, LoginPage.class));
-                                            finish();
-                                        }
-                                    }).addOnFailureListener(new OnFailureListener() {
+            .addOnCompleteListener(this, new OnCompleteListener<AuthResult>() {
+                @Override
+                public void onComplete(@NonNull Task<AuthResult> task) {
+                    if (task.isSuccessful()) {
+                        Users users = new Users(name, email, password, phone, "0");
+                        Log.i("LOGGER", "Get here");
+                        data.collection("users").document(email)
+                            .set(users)
+                            .addOnSuccessListener(new OnSuccessListener<Void>() {
                                 @Override
-                                public void onFailure(@NonNull Exception e) {
+                                public void onSuccess(Void aVoid) {
+                                    Toast.makeText(SignPage.this, "Sign up successfully!", Toast.LENGTH_SHORT).show();
+                                    startActivity(new Intent(SignPage.this, LoginPage.class));
+                                    finish();
                                 }
-                            });
-                        } else {
-                            Toast.makeText(SignPage.this, "Network Error! Please re-open your FLAMENCO", Toast.LENGTH_SHORT).show();
-                        }
+                            }).addOnFailureListener(new OnFailureListener() {
+                            @Override
+                            public void onFailure(@NonNull Exception e) {
+                            }
+                        });
+                    } else {
+                        Toast.makeText(SignPage.this, "Network Error! Please re-open your FLAMENCO", Toast.LENGTH_SHORT).show();
                     }
-                });
+                }
+            });
     }// createEmailUser end
 
     private Boolean validateName() {
@@ -154,14 +157,14 @@ public class SignPage extends AppCompatActivity implements View.OnClickListener 
     private Boolean validatePassword() {
         String val = signPassword.getText().toString();
         String passVal = "^" +
-                //"(?=.*[0-9])" +         //at least 1 digit
-                //"(?=.*[a-z])" +         //at least 1 lower case letter
-                //"(?=.*[A-Z])" +         //at least 1 upper case letter
-                "(?=.*[a-zA-Z])" +        //any letter
-                "(?=.*[@#$%^&+=])" +      //at least 1 special character
-                "(?=\\S+$)" +             //no white spaces
-                ".{4,}" +                 //at least 4 characters
-                "$";
+            //"(?=.*[0-9])" +         //at least 1 digit
+            //"(?=.*[a-z])" +         //at least 1 lower case letter
+            //"(?=.*[A-Z])" +         //at least 1 upper case letter
+            "(?=.*[a-zA-Z])" +        //any letter
+            "(?=.*[@#$%^&+=])" +      //at least 1 special character
+            "(?=\\S+$)" +             //no white spaces
+            ".{4,}" +                 //at least 4 characters
+            "$";
 
         if (val.isEmpty()) {
             signPassword.setError("Password cannot be empty");
@@ -199,20 +202,18 @@ public class SignPage extends AppCompatActivity implements View.OnClickListener 
         if (val.isEmpty()) {
             signPhone.setError("Phone cannot be empty");
             return false;
-        } else if(!val.matches(phoneVal)){
+        } else if (!val.matches(phoneVal)) {
             signPhone.setError("Phone must be numbers");
             return false;
-        } else if(val.length()>11){
+        } else if (val.length() > 11) {
             signPhone.setError("Phone must be less than 12 digits");
             return false;
-        } else if(val.length()<9){
+        } else if (val.length() < 9) {
             signPhone.setError("Phone must be more than 8 digits");
             return false;
-        }else{
+        } else {
             signPhone.setError(null);
             return true;
         }
     }//validatePhone end
-
-
 }
