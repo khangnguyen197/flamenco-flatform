@@ -17,6 +17,7 @@
         <item name="android:textSize">22sp</item>
         <item name="fontFamily">@font/calibri_bold</item>
     </style>
+
     <style name="Widget.Button_Outline" parent="android:Widget">
         <item name="android:background">@drawable/home_outline_btn</item>
         <item name="android:layout_marginRight">50dp</item>
@@ -30,6 +31,7 @@
         <item name="fontFamily">@font/calibri_bold</item>
     </style>
 
+
     <style name="Widget.Input" parent="android:Widget">
         <item name="android:background">@drawable/input</item>
         <item name="android:layout_height">50dp</item>
@@ -38,8 +40,16 @@
         <item name="android:textSize">20sp</item>
         <item name="android:paddingLeft">12dp</item>
         <item name="android:paddingRight">12dp</item>
-
         <item name="fontFamily">@font/calibri_regular</item>
+        <item name="android:textColorHint">@color/hint</item>
+        <item name="android:layout_marginBottom">4dp</item>
+
+    </style>
+
+    <style name="Widget.InputContainer" parent="android:Widget">
+        <item name="android:background">@color/transparent</item>
+        <item name="android:layout_height">wrap_content</item>
+        <item name="android:layout_width">match_parent</item>
         <item name="android:textColorHint">@color/hint</item>
         <item name="android:layout_marginRight">30dp</item>
         <item name="android:layout_marginLeft">30dp</item>
@@ -55,6 +65,10 @@
         <item name="android:layout_marginLeft">30dp</item>
     </style>
 
+    <style name="ErrText" parent="TextAppearance.Design.Hint">
+        <item name="android:textSize">14.5sp</item>
+        <item name="android:textColor">#ff0000</item>
+    </style>
 
 
 

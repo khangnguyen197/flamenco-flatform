@@ -1,13 +1,13 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-    <color name="colorPrimary">#edf5fd</color>
+    <color name="colorPrimary">#F3F7F7</color>
     <color name="label">#ffa500</color>
     <color name="hint">#b4b4b4</color>
-    <color name="inputBrg">#D8E8FF</color>
+    <color name="inputBrg">#E6F0FF</color>
     <color name="link">#4d79ff</color>
     <color name="orange">#ff6500</color>
     <color name="matteBlack">#333333</color>
     <color name="iconColor">#F1F1F1</color>
-
-
+    <color name="transparent">#00000000</color>
+    <color name="border">#999999</color>
 </resources>
