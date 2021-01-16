@@ -26,7 +26,7 @@ import java.util.HashMap;
 
 public class LoginPage extends AppCompatActivity implements  View.OnClickListener{
 
-    EditText logEmail, logPass;
+    TextInputLayout logEmail; EditText logPass, logEmail1;
     private FirebaseAuth mAuth;
     private FirebaseFirestore data;
 
@@ -42,8 +42,9 @@ public class LoginPage extends AppCompatActivity implements  View.OnClickListene
         TextView signUpActivity = (TextView) findViewById(R.id.sign_link);
         TextView changePassActive = (TextView) findViewById(R.id.forget_pass);
 
-        logEmail    = (EditText) findViewById(R.id.email);
+        logEmail    = (TextInputLayout) findViewById(R.id.TILemail);
         logPass     = (EditText) findViewById(R.id.password);
+        logEmail1     = (EditText) findViewById(R.id.email);
 
         mAuth = FirebaseAuth.getInstance();
 
@@ -76,16 +77,19 @@ public class LoginPage extends AppCompatActivity implements  View.OnClickListene
     } // signupChange end
 
     private Boolean validateEmail(){
-        String val = logEmail.getText().toString().trim();
+        String val = logEmail.getEditText().getText().toString().trim();
         String emailPattern = "[a-zA-Z0-9._-]+@[a-z]+\\.+[a-z]+";
         if(val.isEmpty()){
             logEmail.setError("Email must not be empty.");
+            logEmail.setErrorEnabled(true);
             return false;
         } else if (!val.matches(emailPattern)) {
             logEmail.setError("Invalid email, please try again.");
+            logEmail.setErrorEnabled(true);
             return false;
         }else{
             logEmail.setError(null);
+            logEmail.setErrorEnabled(false);
             return true;
         }
     }// validEmail end
@@ -112,7 +116,7 @@ public class LoginPage extends AppCompatActivity implements  View.OnClickListene
     } // loginUser end
 
     private void isUser(){
-        final String email        =  logEmail.getText().toString().trim();
+        final String email        =  logEmail.getEditText().getText().toString().trim();
         final String password     =  logPass.getText().toString().trim();
         data =  FirebaseFirestore.getInstance();
         HashMap<String, String> hm = new HashMap<>();

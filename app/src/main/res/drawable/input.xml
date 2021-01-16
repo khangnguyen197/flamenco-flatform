@@ -1,13 +1,11 @@
 <?xml version="1.0" encoding="utf-8"?>
-<shape xmlns:android="http://schemas.android.com/apk/res/android"
-    android:tint="@color/inputBrg"
-    >
-
+<shape xmlns:android="http://schemas.android.com/apk/res/android">
+    <solid
+        android:color="@color/transparent"
+        />
     <stroke
-        android:width="4px"
-        android:color="#85B7FD" />
+        android:width="1.5px"
+        android:color="@color/border" />
+
     <corners android:radius="4dp" />
-
-
-
 </shape>
