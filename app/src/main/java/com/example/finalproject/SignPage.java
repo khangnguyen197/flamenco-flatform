@@ -21,11 +21,13 @@ import androidx.appcompat.widget.Toolbar;
 import androidx.core.provider.FontsContractCompat;
 
 import android.util.Log;
+import android.view.MotionEvent;
 import android.view.View;
 import android.view.WindowManager;
 import android.view.inputmethod.InputMethodManager;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.ScrollView;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -45,7 +47,6 @@ public class SignPage extends AppCompatActivity implements View.OnClickListener 
 
         Button submit = (Button) findViewById(R.id.submit_btn);
         TextView signUpActivity = (TextView) findViewById(R.id.login_link);
-        getWindow().setSoftInputMode(WindowManager.LayoutParams.SOFT_INPUT_ADJUST_NOTHING);
 
         signName = (EditText) findViewById(R.id.name);
         signEmail = (EditText) findViewById(R.id.email);
@@ -57,6 +58,16 @@ public class SignPage extends AppCompatActivity implements View.OnClickListener 
 
         submit.setOnClickListener(this);
         signUpActivity.setOnClickListener(this);
+
+
+        ScrollView scrollView = (ScrollView) findViewById(R.id.scrollView2);
+
+        scrollView.setOnTouchListener(new View.OnTouchListener() {
+            @Override
+            public boolean onTouch(View v, MotionEvent event) {
+                return true;
+            }
+        });
 
     }// onCreate end
 
@@ -216,4 +227,7 @@ public class SignPage extends AppCompatActivity implements View.OnClickListener 
             return true;
         }
     }//validatePhone end
+
 }
+
+

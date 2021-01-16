@@ -14,9 +14,7 @@
         android:theme="@style/Theme.AppCompat.NoActionBar">
         <activity
             android:name=".SignPage"
-            android:label="@string/title_activity_sign_page"
-            android:theme="@style/NoActionBar"
-            android:windowSoftInputMode="adjustPan"
+            android:windowSoftInputMode="stateAlwaysHidden|adjustPan"
             />
         <activity
             android:name=".LoginPage"
