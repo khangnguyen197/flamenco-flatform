@@ -122,7 +122,8 @@
                         android:id="@+id/email"
                         style="@style/Widget.Input"
                         android:hint="@string/enter_you_email"
-                        android:inputType="textEmailAddress" />
+                        android:inputType="textEmailAddress"
+                        />
 
                 </com.google.android.material.textfield.TextInputLayout>
 
