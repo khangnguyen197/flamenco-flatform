@@ -185,6 +185,7 @@
                     style="@style/Widget.InputContainer"
                     app:hintEnabled="false"
                     app:errorTextAppearance="@style/ErrText"
+                    app:passwordToggleEnabled="true"
 
                     app:layout_constraintBottom_toTopOf="@id/phone_lbl"
                     app:layout_constraintLeft_toLeftOf="@id/g3"
