@@ -42,8 +42,6 @@
         <item name="android:paddingRight">12dp</item>
         <item name="fontFamily">@font/calibri_regular</item>
         <item name="android:textColorHint">@color/hint</item>
-        <item name="android:layout_marginBottom">4dp</item>
-
     </style>
 
     <style name="Widget.InputContainer" parent="android:Widget">
