@@ -93,19 +93,26 @@
             app:layout_constraintLeft_toLeftOf="@id/h1"
             app:layout_constraintTop_toTopOf="@id/v2" />
 
-        <EditText
-            android:id="@+id/reset_email"
-            style="@style/Widget.Input"
-            android:hint="@string/enter_you_email"
-            android:inputType="textEmailAddress"
-            android:layout_marginTop="10dp"
-            android:layout_marginBottom="10dp"
+        <com.google.android.material.textfield.TextInputLayout
+            android:id="@+id/TILreset_email"
+            style="@style/Widget.InputContainer"
+            app:hintEnabled="false"
+            app:errorTextAppearance="@style/ErrText"
+
             app:layout_constraintLeft_toLeftOf="@id/h1"
             app:layout_constraintRight_toRightOf="@id/h2"
             app:layout_constraintTop_toBottomOf="@id/reset_lbl"
-            app:layout_constraintBottom_toTopOf="@id/reset_pass_btn"/>
+            app:layout_constraintBottom_toTopOf="@id/reset_pass_btn">
 
-
+            <EditText
+                android:id="@+id/reset_email"
+                style="@style/Widget.Input"
+                android:hint="@string/enter_you_email"
+                android:inputType="textEmailAddress"
+                android:layout_marginTop="10dp"
+                android:layout_marginBottom="10dp"
+                />
+        </com.google.android.material.textfield.TextInputLayout>
 
         <Button
             android:id="@+id/reset_pass_btn"
@@ -117,7 +124,7 @@
             android:text="@string/reset_password"
 
 
-            app:layout_constraintTop_toBottomOf="@id/reset_email"
+            app:layout_constraintTop_toBottomOf="@id/TILreset_email"
             app:layout_constraintBottom_toTopOf="@id/return_label"
             app:layout_constraintLeft_toLeftOf="parent"
             app:layout_constraintRight_toRightOf="parent" />
