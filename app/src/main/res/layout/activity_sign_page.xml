@@ -89,19 +89,28 @@
                     android:text="@string/name"
                     android:textFontWeight="800"
 
-                    app:layout_constraintBottom_toTopOf="@id/name"
+                    app:layout_constraintBottom_toTopOf="@id/TILname"
                     app:layout_constraintLeft_toLeftOf="@id/g3"
                     app:layout_constraintTop_toTopOf="parent" />
 
-                <EditText
-                    android:id="@+id/name"
-                    style="@style/Widget.Input"
-                    android:hint="Enter your name"
+                <com.google.android.material.textfield.TextInputLayout
+                    android:id="@+id/TILname"
+                    style="@style/Widget.InputContainer"
+                    app:hintEnabled="false"
+                    app:errorTextAppearance="@style/ErrText"
 
                     app:layout_constraintBottom_toTopOf="@id/email_lbl"
                     app:layout_constraintLeft_toLeftOf="@id/g3"
                     app:layout_constraintRight_toRightOf="@id/g4"
-                    app:layout_constraintTop_toBottomOf="@id/name_lbl" />
+                    app:layout_constraintTop_toBottomOf="@id/name_lbl"
+                    >
+                    <EditText
+                        android:id="@+id/name"
+                        style="@style/Widget.Input"
+                        android:hint="Enter your name"
+                        />
+
+                </com.google.android.material.textfield.TextInputLayout>
 
                 <TextView
                     android:id="@+id/email_lbl"
@@ -109,39 +118,57 @@
                     android:text="@string/email"
                     android:textFontWeight="800"
 
-                    app:layout_constraintBottom_toTopOf="@id/email"
+                    app:layout_constraintBottom_toTopOf="@id/TILemail"
                     app:layout_constraintLeft_toLeftOf="@id/g3"
-                    app:layout_constraintTop_toBottomOf="@id/name" />
+                    app:layout_constraintTop_toBottomOf="@id/TILname" />
 
-                <EditText
-                    android:id="@+id/email"
-                    style="@style/Widget.Input"
-                    android:hint="@string/enter_you_email"
+                <com.google.android.material.textfield.TextInputLayout
+                    android:id="@+id/TILemail"
+                    style="@style/Widget.InputContainer"
+                    app:hintEnabled="false"
+                    app:errorTextAppearance="@style/ErrText"
 
                     app:layout_constraintBottom_toTopOf="@id/password_lbl"
                     app:layout_constraintLeft_toLeftOf="@id/g3"
                     app:layout_constraintRight_toRightOf="@id/g4"
-                    app:layout_constraintTop_toBottomOf="@id/email_lbl" />
-
+                    app:layout_constraintTop_toBottomOf="@id/email_lbl"
+                    >
+                    <EditText
+                        android:id="@+id/email"
+                        style="@style/Widget.Input"
+                        android:hint="@string/enter_you_email"
+                         />
+                </com.google.android.material.textfield.TextInputLayout>
                 <TextView
                     android:id="@+id/password_lbl"
                     style="@style/Widget.Label"
                     android:text="@string/password"
                     android:textFontWeight="800"
 
-                    app:layout_constraintBottom_toTopOf="@id/password"
+                    app:layout_constraintBottom_toTopOf="@id/TILpassword"
                     app:layout_constraintLeft_toLeftOf="@id/g3"
-                    app:layout_constraintTop_toBottomOf="@id/email" />
+                    app:layout_constraintTop_toBottomOf="@id/TILemail" />
+
+                <com.google.android.material.textfield.TextInputLayout
+                    android:id="@+id/TILpassword"
+                    style="@style/Widget.InputContainer"
+                    app:hintEnabled="false"
+                    app:errorTextAppearance="@style/ErrText"
+                    app:passwordToggleEnabled="true"
+
+                    app:layout_constraintBottom_toTopOf="@id/confirm_pass_lbl"
+                    app:layout_constraintLeft_toLeftOf="@id/g3"
+                    app:layout_constraintRight_toRightOf="@id/g4"
+                    app:layout_constraintTop_toBottomOf="@id/password_lbl">
 
                 <EditText
                     android:id="@+id/password"
                     style="@style/Widget.Input"
                     android:hint="@string/enter_your_password"
                     android:inputType="textPassword"
-                    app:layout_constraintBottom_toTopOf="@id/confirm_pass_lbl"
-                    app:layout_constraintLeft_toLeftOf="@id/g3"
-                    app:layout_constraintRight_toRightOf="@id/g4"
-                    app:layout_constraintTop_toBottomOf="@id/password_lbl" />
+                    />
+
+                </com.google.android.material.textfield.TextInputLayout>
 
                 <TextView
                     android:id="@+id/confirm_pass_lbl"
@@ -151,39 +178,59 @@
                     android:textFontWeight="800"
 
 
-                    app:layout_constraintBottom_toTopOf="@id/confirm_pass"
+                    app:layout_constraintBottom_toTopOf="@id/TILconfirm_pass"
                     app:layout_constraintLeft_toLeftOf="@id/g3"
-                    app:layout_constraintTop_toBottomOf="@id/password" />
+                    app:layout_constraintTop_toBottomOf="@id/TILpassword" />
 
-                <EditText
-                    android:id="@+id/confirm_pass"
-                    style="@style/Widget.Input"
-                    android:hint="@string/confirm_your_password"
-                    android:inputType="textPassword"
+                <com.google.android.material.textfield.TextInputLayout
+                    android:id="@+id/TILconfirm_pass"
+                    style="@style/Widget.InputContainer"
+                    app:hintEnabled="false"
+                    app:errorTextAppearance="@style/ErrText"
+                    app:passwordToggleEnabled="true"
 
                     app:layout_constraintBottom_toTopOf="@id/phone_lbl"
                     app:layout_constraintLeft_toLeftOf="@id/g3"
                     app:layout_constraintRight_toRightOf="@id/g4"
-                    app:layout_constraintTop_toBottomOf="@id/confirm_pass_lbl" />
+                    app:layout_constraintTop_toBottomOf="@id/confirm_pass_lbl"
+                    >
+
+                    <EditText
+                        android:id="@+id/confirm_pass"
+                        style="@style/Widget.Input"
+                        android:hint="@string/confirm_your_password"
+                        android:inputType="textPassword"
+                       />
+
+                </com.google.android.material.textfield.TextInputLayout>
 
                 <TextView
                     android:id="@+id/phone_lbl"
                     style="@style/Widget.Label"
                     android:text="@string/phone"
                     android:textFontWeight="800"
-                    app:layout_constraintBottom_toTopOf="@id/phone"
+                    app:layout_constraintBottom_toTopOf="@id/TILphone"
                     app:layout_constraintLeft_toLeftOf="@id/g3"
-                    app:layout_constraintTop_toBottomOf="@id/confirm_pass" />
+                    app:layout_constraintTop_toBottomOf="@id/TILconfirm_pass" />
 
-                <EditText
-                    android:id="@+id/phone"
-                    style="@style/Widget.Input"
-                    android:hint="@string/enter_your_phone"
-
+                <com.google.android.material.textfield.TextInputLayout
+                    android:id="@+id/TILphone"
+                    style="@style/Widget.InputContainer"
+                    app:hintEnabled="false"
+                    app:errorTextAppearance="@style/ErrText"
                     app:layout_constraintBottom_toTopOf="@id/submit_btn"
                     app:layout_constraintLeft_toLeftOf="@id/g3"
                     app:layout_constraintRight_toRightOf="@id/g4"
-                    app:layout_constraintTop_toBottomOf="@id/phone_lbl" />
+                    app:layout_constraintTop_toBottomOf="@id/phone_lbl"
+                    >
+
+                    <EditText
+                        android:id="@+id/phone"
+                        style="@style/Widget.Input"
+                        android:hint="@string/enter_your_phone"
+                        />
+
+                </com.google.android.material.textfield.TextInputLayout>
 
                 <Button
                     android:id="@+id/submit_btn"
@@ -199,7 +246,7 @@
                     app:layout_constraintBottom_toTopOf="@id/footer"
                     app:layout_constraintLeft_toLeftOf="parent"
                     app:layout_constraintRight_toRightOf="parent"
-                    app:layout_constraintTop_toBottomOf="@id/phone" />
+                    app:layout_constraintTop_toBottomOf="@id/TILphone" />
 
 
                 <LinearLayout

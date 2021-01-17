@@ -10,6 +10,7 @@ import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.android.gms.tasks.Task;
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
 import com.google.android.material.snackbar.Snackbar;
+import com.google.android.material.textfield.TextInputLayout;
 import com.google.firebase.auth.AuthResult;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.firestore.FirebaseFirestore;
@@ -20,6 +21,8 @@ import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.Toolbar;
 import androidx.core.provider.FontsContractCompat;
 
+import android.text.Editable;
+import android.text.TextWatcher;
 import android.util.Log;
 import android.view.View;
 import android.view.WindowManager;
@@ -31,6 +34,7 @@ import android.widget.Toast;
 
 public class SignPage extends AppCompatActivity implements View.OnClickListener {
     EditText signName, signEmail, signPassword, signConfirm_pass, signPhone;
+    TextInputLayout tilName, tilEmail, tilPassword, tilConfirm_pass, tilPhone;
     String name, email, password, phone;
 
     private FirebaseAuth mAuth;
@@ -47,11 +51,102 @@ public class SignPage extends AppCompatActivity implements View.OnClickListener 
         TextView signUpActivity = (TextView) findViewById(R.id.login_link);
         getWindow().setSoftInputMode(WindowManager.LayoutParams.SOFT_INPUT_ADJUST_NOTHING);
 
-        signName = (EditText) findViewById(R.id.name);
-        signEmail = (EditText) findViewById(R.id.email);
-        signPassword = (EditText) findViewById(R.id.password);
-        signPhone = (EditText) findViewById(R.id.phone);
-        signConfirm_pass = (EditText) findViewById(R.id.confirm_pass);
+        signName            = (EditText) findViewById(R.id.name);
+        signEmail           = (EditText) findViewById(R.id.email);
+        signPassword        = (EditText) findViewById(R.id.password);
+        signPhone           = (EditText) findViewById(R.id.phone);
+        signConfirm_pass    = (EditText) findViewById(R.id.confirm_pass);
+
+        tilName             = (TextInputLayout) findViewById(R.id.TILname);
+        tilEmail            = (TextInputLayout) findViewById(R.id.TILemail);
+        tilPassword         = (TextInputLayout) findViewById(R.id.TILpassword);
+        tilPhone            = (TextInputLayout) findViewById(R.id.TILphone);
+        tilConfirm_pass     = (TextInputLayout) findViewById(R.id.TILconfirm_pass);
+
+
+        signName.addTextChangedListener(new TextWatcher() {
+            @Override
+            public void beforeTextChanged(CharSequence s, int start, int count, int after) {
+
+            }
+
+            @Override
+            public void onTextChanged(CharSequence s, int start, int before, int count) {
+                validateName();
+            }
+
+            @Override
+            public void afterTextChanged(Editable s) {
+
+            }
+        });
+        signEmail.addTextChangedListener(new TextWatcher() {
+            @Override
+            public void beforeTextChanged(CharSequence s, int start, int count, int after) {
+
+            }
+
+            @Override
+            public void onTextChanged(CharSequence s, int start, int before, int count) {
+                validateEmail();
+            }
+
+            @Override
+            public void afterTextChanged(Editable s) {
+
+            }
+        });
+        signPassword.addTextChangedListener(new TextWatcher() {
+            @Override
+            public void beforeTextChanged(CharSequence s, int start, int count, int after) {
+
+            }
+
+            @Override
+            public void onTextChanged(CharSequence s, int start, int before, int count) {
+                validatePassword();
+            }
+
+            @Override
+            public void afterTextChanged(Editable s) {
+
+            }
+        });
+        signPhone.addTextChangedListener(new TextWatcher() {
+            @Override
+            public void beforeTextChanged(CharSequence s, int start, int count, int after) {
+
+            }
+
+            @Override
+            public void onTextChanged(CharSequence s, int start, int before, int count) {
+                validatePhone();
+            }
+
+            @Override
+            public void afterTextChanged(Editable s) {
+
+            }
+        });
+        signConfirm_pass.addTextChangedListener(new TextWatcher() {
+            @Override
+            public void beforeTextChanged(CharSequence s, int start, int count, int after) {
+
+            }
+
+            @Override
+            public void onTextChanged(CharSequence s, int start, int before, int count) {
+                validateConfirm();
+            }
+
+            @Override
+            public void afterTextChanged(Editable s) {
+
+            }
+        });
+
+
+
         mAuth = FirebaseAuth.getInstance();
         data = FirebaseFirestore.getInstance();
 
@@ -85,10 +180,10 @@ public class SignPage extends AppCompatActivity implements View.OnClickListener 
             return;
         }
 
-        name = signName.getText().toString().trim();
-        email = signEmail.getText().toString().trim();
-        password = signPassword.getText().toString().trim();
-        phone = signPhone.getText().toString().trim();
+        name        = tilName.getEditText().getText().toString().trim();
+        email       = tilEmail.getEditText().getText().toString().trim();
+        password    = tilPassword.getEditText().getText().toString().trim();
+        phone       = tilPhone.getEditText().getText().toString().trim();
 
         createEmailUser();
     }// signup end
@@ -123,39 +218,45 @@ public class SignPage extends AppCompatActivity implements View.OnClickListener 
     }// createEmailUser end
 
     private Boolean validateName() {
-        String val = signName.getText().toString();
+        String val = tilName.getEditText().getText().toString();
         String nameVal = "^\\p{L}+[\\p{L}\\p{Z}\\p{P}]{0,}";
 
         if (val.isEmpty()) {
-            signName.setError("Name cannot be empty");
+            tilName.setError("Name cannot be empty");
+            tilName.setErrorEnabled(true);
             return false;
         } else if (!val.matches(nameVal)) {
-            signName.setError("Numbers are not allowed");
+            tilName.setError("Numbers are not allowed");
+            tilName.setErrorEnabled(true);
             return false;
         } else {
-            signName.setError(null);
+            tilName.setError(null);
+            tilName.setErrorEnabled(false);
             return true;
         }
     }//validateName end
 
     private Boolean validateEmail() {
-        String val = signEmail.getText().toString();
+        String val = tilEmail.getEditText().getText().toString();
         String emailPattern = "[a-zA-Z0-9._-]+@[a-z]+\\.+[a-z]+";
 
         if (val.isEmpty()) {
-            signEmail.setError("Email cannot be empty");
+            tilEmail.setError("Email cannot be empty");
+            tilEmail.setErrorEnabled(true);
             return false;
         } else if (!val.matches(emailPattern)) {
-            signEmail.setError("Invalid email, try again");
+            tilEmail.setError("Invalid email, try again");
+            tilEmail.setErrorEnabled(true);
             return false;
         } else {
-            signEmail.setError(null);
+            tilEmail.setError(null);
+            tilEmail.setErrorEnabled(false);
             return true;
         }
     }//validateEmail end
 
     private Boolean validatePassword() {
-        String val = signPassword.getText().toString();
+        String val = tilPassword.getEditText().getText().toString();
         String passVal = "^" +
             //"(?=.*[0-9])" +         //at least 1 digit
             //"(?=.*[a-z])" +         //at least 1 lower case letter
@@ -167,52 +268,63 @@ public class SignPage extends AppCompatActivity implements View.OnClickListener 
             "$";
 
         if (val.isEmpty()) {
-            signPassword.setError("Password cannot be empty");
+            tilPassword.setError("Password cannot be empty");
+            tilPassword.setErrorEnabled(true);
             return false;
         } else if (!val.matches(passVal)) {
-            signPassword.setError("Password is too weak");
+            tilPassword.setError("Password is too weak");
+            tilPassword.setErrorEnabled(true);
             return false;
         } else {
-            signPassword.setError(null);
+            tilPassword.setError(null);
+            tilPassword.setErrorEnabled(false);
             return true;
         }
     }//validatePassword end
 
     private boolean validateConfirm() {
-        String val = signConfirm_pass.getText().toString();
-        String val2 = signPassword.getText().toString();
+        String val = tilConfirm_pass.getEditText().getText().toString();
+        String val2 = tilPassword.getEditText().getText().toString();
 
         if (val.isEmpty()) {
-            signConfirm_pass.setError("Confirm Password cannot be empty");
+            tilConfirm_pass.setError("Confirm Password cannot be empty");
+            tilConfirm_pass.setErrorEnabled(true);
             return false;
         } else if (!val.equals(val2)) {
-            signConfirm_pass.setError("Confirm Password must be the same as Password");
+            tilConfirm_pass.setError("Confirm Password must be the same as Password");
+            tilConfirm_pass.setErrorEnabled(true);
             return false;
         } else {
-            signConfirm_pass.setError(null);
+            tilConfirm_pass.setError(null);
+            tilConfirm_pass.setErrorEnabled(false);
             return true;
         }
 
     }//validateConfirm end
 
     private Boolean validatePhone() {
-        String val = signPhone.getText().toString();
+        String val = tilPhone.getEditText().getText().toString();
         String phoneVal = "^[0-9]+$";
 
         if (val.isEmpty()) {
-            signPhone.setError("Phone cannot be empty");
+            tilPhone.setError("Phone cannot be empty");
+            tilPhone.setErrorEnabled(true);
             return false;
         } else if (!val.matches(phoneVal)) {
-            signPhone.setError("Phone must be numbers");
+            tilPhone.setError("Phone must be numbers");
+            tilPhone.setErrorEnabled(true);
             return false;
         } else if (val.length() > 11) {
-            signPhone.setError("Phone must be less than 12 digits");
+            tilPhone.setError("Phone must be less than 12 digits");
+            tilPhone.setErrorEnabled(true);
             return false;
         } else if (val.length() < 9) {
-            signPhone.setError("Phone must be more than 8 digits");
+            tilPhone.setError("Phone must be more than 8 digits");
+            tilPhone.setErrorEnabled(true);
             return false;
         } else {
-            signPhone.setError(null);
+            tilPhone.setError(null);
+            tilPhone.setErrorEnabled(false);
             return true;
         }
     }//validatePhone end
