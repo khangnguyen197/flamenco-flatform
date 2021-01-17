@@ -28,7 +28,7 @@ import java.util.HashMap;
 
 public class LoginPage extends AppCompatActivity implements  View.OnClickListener{
 
-    TextInputLayout logEmail, logPass; EditText edEmail, edPass;
+    TextInputLayout tilEmail, tilPass, tilReset; EditText edEmail, edPass;
     private FirebaseAuth mAuth;
     private FirebaseFirestore data;
 
@@ -44,8 +44,8 @@ public class LoginPage extends AppCompatActivity implements  View.OnClickListene
         TextView signUpActivity = (TextView) findViewById(R.id.sign_link);
         TextView changePassActive = (TextView) findViewById(R.id.forget_pass);
 
-        logEmail    = (TextInputLayout) findViewById(R.id.TILemail);
-        logPass     = (TextInputLayout) findViewById(R.id.TILpassword);
+        tilEmail    = (TextInputLayout) findViewById(R.id.TILemail);
+        tilPass     = (TextInputLayout) findViewById(R.id.TILpassword);
         edEmail     = (EditText) findViewById(R.id.email);
         edPass      = (EditText) findViewById(R.id.password);
 
@@ -100,8 +100,8 @@ public class LoginPage extends AppCompatActivity implements  View.OnClickListene
                 break;
             case R.id.forget_pass:
                 switchToForgetLayout();
-            
-                break;        
+
+                break;
             default:
                 break;
         }
@@ -113,31 +113,31 @@ public class LoginPage extends AppCompatActivity implements  View.OnClickListene
     } // signupChange end
 
     private Boolean validateEmail(){
-        String val = logEmail.getEditText().getText().toString().trim();
+        String val = tilEmail.getEditText().getText().toString().trim();
         String emailPattern = "[a-zA-Z0-9._-]+@[a-z]+\\.+[a-z]+";
         if(val.isEmpty()){
-            logEmail.setError("Email must not be empty.");
-            logEmail.setErrorEnabled(true);
+            tilEmail.setError("Email must not be empty.");
+            tilEmail.setErrorEnabled(true);
             return false;
         } else if (!val.matches(emailPattern)) {
-            logEmail.setError("Invalid email, please try again.");
-            logEmail.setErrorEnabled(true);
+            tilEmail.setError("Invalid email, please try again.");
+            tilEmail.setErrorEnabled(true);
             return false;
         }else{
-            logEmail.setError(null);
-            logEmail.setErrorEnabled(false);
+            tilEmail.setError(null);
+            tilEmail.setErrorEnabled(false);
             return true;
         }
     }// validEmail end
 
     private Boolean validatePassword(){
-        String val = logPass.getEditText().getText().toString().trim();
+        String val = tilPass.getEditText().getText().toString().trim();
         if(val.isEmpty()){
-            logPass.setError("Password must not be empty.");
+            tilPass.setError("Password must not be empty.");
             return false;
         }
         else{
-            logPass.setError(null);
+            tilPass.setError(null);
             return true;
         }
     } // Pvalidassword end
@@ -152,8 +152,8 @@ public class LoginPage extends AppCompatActivity implements  View.OnClickListene
     } // loginUser end
 
     private void isUser(){
-        final String email        =  logEmail.getEditText().getText().toString().trim();
-        final String password     =  logPass.getEditText().getText().toString().trim();
+        final String email        =  tilEmail.getEditText().getText().toString().trim();
+        final String password     =  tilPass.getEditText().getText().toString().trim();
         data =  FirebaseFirestore.getInstance();
         HashMap<String, String> hm = new HashMap<>();
         hm.put("password",password);
@@ -167,7 +167,7 @@ public class LoginPage extends AppCompatActivity implements  View.OnClickListene
                             LoginPage.this.startActivity(new Intent(LoginPage.this, Home.class));
                             LoginPage.this.finish();
                         } else {
-                            logPass.setError("User is not found. Please check your email and your password");
+                            tilPass.setError("User is not found. Please check your email and your password");
 
                             Log.e("Error", "Login Failed");
                         }
@@ -175,22 +175,56 @@ public class LoginPage extends AppCompatActivity implements  View.OnClickListene
                 });
     } // isUser end
 
-    
+    private Boolean validateEmailReset(){
+        String val = tilReset.getEditText().getText().toString().trim();
+        String emailPattern = "[a-zA-Z0-9._-]+@[a-z]+\\.+[a-z]+";
+        if(val.isEmpty()){
+            tilReset.setError("Email must not be empty.");
+            tilReset.setErrorEnabled(true);
+            return false;
+        } else if (!val.matches(emailPattern)) {
+            tilReset.setError("Invalid email, please try again.");
+            tilReset.setErrorEnabled(true);
+            return false;
+        }else{
+            tilReset.setError(null);
+            tilReset.setErrorEnabled(false);
+            return true;
+        }
+    }// validEmailReset end
     void switchToForgetLayout() {
-             setContentView(R.layout.change_pass_layout);
-             changePassActive();      
+        setContentView(R.layout.change_pass_layout);
+        changePassActive();
     }
 
     void changePassActive(){
-        Button resetPass = (Button) findViewById(R.id.reset_pass_btn) ;
-        final TextView notice = (TextView) findViewById(R.id.reset_description);
-        final TextView previous = (TextView) findViewById(R.id.return_label);
+        Button resetPass         = (Button) findViewById(R.id.reset_pass_btn) ;
+        final TextView notice    = (TextView) findViewById(R.id.reset_description);
+        final TextView previous  = (TextView) findViewById(R.id.return_label);
+        final EditText edReset   = (EditText) findViewById(R.id.reset_email);
+        tilReset                 = (TextInputLayout) findViewById(R.id.TILreset_email);
 
+        edReset.addTextChangedListener(new TextWatcher() {
+            @Override
+            public void beforeTextChanged(CharSequence s, int start, int count, int after) {
+
+            }
+
+            @Override
+            public void onTextChanged(CharSequence s, int start, int before, int count) {
+                validateEmailReset();
+            }
+
+            @Override
+            public void afterTextChanged(Editable s) {
+
+            }
+        });
         resetPass.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 notice.setText(
-                    "Please check your email and wait at least 60 seconds before sending your new reset request by pressing the reset button.");
+                        "Please check your email and wait at least 60 seconds before sending your new reset request by pressing the reset button.");
             }
         });
 
@@ -200,5 +234,5 @@ public class LoginPage extends AppCompatActivity implements  View.OnClickListene
                 Intent returnPrevious = new Intent(LoginPage.this, LoginPage.class);
                 startActivity(returnPrevious);
             }});
-    }  
+    }
 }
