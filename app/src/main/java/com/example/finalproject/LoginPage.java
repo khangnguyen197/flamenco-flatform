@@ -5,6 +5,8 @@ import androidx.appcompat.app.AppCompatActivity;
 
 import android.content.Intent;
 import android.os.Bundle;
+import android.text.Editable;
+import android.text.TextWatcher;
 import android.util.Log;
 import android.view.View;
 import android.view.WindowManager;
@@ -26,7 +28,7 @@ import java.util.HashMap;
 
 public class LoginPage extends AppCompatActivity implements  View.OnClickListener{
 
-    TextInputLayout logEmail; EditText logPass, logEmail1;
+    TextInputLayout logEmail, logPass; EditText edEmail, edPass;
     private FirebaseAuth mAuth;
     private FirebaseFirestore data;
 
@@ -43,10 +45,44 @@ public class LoginPage extends AppCompatActivity implements  View.OnClickListene
         TextView changePassActive = (TextView) findViewById(R.id.forget_pass);
 
         logEmail    = (TextInputLayout) findViewById(R.id.TILemail);
-        logPass     = (EditText) findViewById(R.id.password);
-        logEmail1     = (EditText) findViewById(R.id.email);
+        logPass     = (TextInputLayout) findViewById(R.id.TILpassword);
+        edEmail     = (EditText) findViewById(R.id.email);
+        edPass      = (EditText) findViewById(R.id.password);
 
         mAuth = FirebaseAuth.getInstance();
+
+        edEmail.addTextChangedListener(new TextWatcher() {
+            @Override
+            public void beforeTextChanged(CharSequence s, int start, int count, int after) {
+
+            }
+
+            @Override
+            public void onTextChanged(CharSequence s, int start, int before, int count) {
+                validateEmail();
+            }
+
+            @Override
+            public void afterTextChanged(Editable s) {
+
+            }
+        });
+        edPass.addTextChangedListener(new TextWatcher() {
+            @Override
+            public void beforeTextChanged(CharSequence s, int start, int count, int after) {
+
+            }
+
+            @Override
+            public void onTextChanged(CharSequence s, int start, int before, int count) {
+                validatePassword();
+            }
+
+            @Override
+            public void afterTextChanged(Editable s) {
+
+            }
+        });
 
         submit.setOnClickListener(this);
         signUpActivity.setOnClickListener(this);
@@ -95,7 +131,7 @@ public class LoginPage extends AppCompatActivity implements  View.OnClickListene
     }// validEmail end
 
     private Boolean validatePassword(){
-        String val = logPass.getText().toString().trim();
+        String val = logPass.getEditText().getText().toString().trim();
         if(val.isEmpty()){
             logPass.setError("Password must not be empty.");
             return false;
@@ -110,14 +146,14 @@ public class LoginPage extends AppCompatActivity implements  View.OnClickListene
         if(!validateEmail() | !validatePassword()){
             return;
         }
-        else{
+        else
             isUser();
-        }
+
     } // loginUser end
 
     private void isUser(){
         final String email        =  logEmail.getEditText().getText().toString().trim();
-        final String password     =  logPass.getText().toString().trim();
+        final String password     =  logPass.getEditText().getText().toString().trim();
         data =  FirebaseFirestore.getInstance();
         HashMap<String, String> hm = new HashMap<>();
         hm.put("password",password);
