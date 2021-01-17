@@ -173,10 +173,8 @@
                 <TextView
                     android:id="@+id/confirm_pass_lbl"
                     style="@style/Widget.Label"
-
                     android:text="@string/confirm_password"
                     android:textFontWeight="800"
-
 
                     app:layout_constraintBottom_toTopOf="@id/TILconfirm_pass"
                     app:layout_constraintLeft_toLeftOf="@id/g3"
