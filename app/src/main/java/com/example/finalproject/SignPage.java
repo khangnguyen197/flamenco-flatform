@@ -49,7 +49,6 @@ public class SignPage extends AppCompatActivity implements View.OnClickListener 
 
         Button submit = (Button) findViewById(R.id.submit_btn);
         TextView signUpActivity = (TextView) findViewById(R.id.login_link);
-        getWindow().setSoftInputMode(WindowManager.LayoutParams.SOFT_INPUT_ADJUST_NOTHING);
 
         signName            = (EditText) findViewById(R.id.name);
         signEmail           = (EditText) findViewById(R.id.email);
