@@ -110,6 +110,7 @@
                 <com.google.android.material.textfield.TextInputLayout
                     android:id="@+id/TILemail"
                     style="@style/Widget.InputContainer"
+
                     app:hintEnabled="false"
                     app:errorTextAppearance="@style/ErrText"
                     app:layout_constraintBottom_toTopOf="@id/password_lbl"
@@ -131,21 +132,29 @@
                     android:text="@string/password"
                     android:textFontWeight="800"
 
-                    app:layout_constraintBottom_toTopOf="@id/password"
+                    app:layout_constraintBottom_toTopOf="@id/TILpassword"
                     app:layout_constraintLeft_toLeftOf="@id/h1"
                     app:layout_constraintTop_toBottomOf="@id/TILemail" />
 
-                <EditText
-                    android:id="@+id/password"
-                    style="@style/Widget.Input"
-                    android:hint="@string/enter_your_password"
-                    android:inputType="textPassword"
+                <com.google.android.material.textfield.TextInputLayout
+                    android:id="@+id/TILpassword"
+                    style="@style/Widget.InputContainer"
+
+                    app:hintEnabled="false"
+                    app:errorTextAppearance="@style/ErrText"
                     app:layout_constraintBottom_toTopOf="@id/submit_btn"
                     app:layout_constraintLeft_toLeftOf="@id/h1"
                     app:layout_constraintRight_toRightOf="@id/h2"
                     app:layout_constraintTop_toBottomOf="@id/password_lbl"
-                    app:passwordToggleEnabled="true" />
-
+                    app:passwordToggleEnabled="true"
+                    >
+                    <EditText
+                        android:id="@+id/password"
+                        style="@style/Widget.Input"
+                        android:hint="@string/enter_your_password"
+                        android:inputType="textPassword"
+                        />
+                </com.google.android.material.textfield.TextInputLayout>
                 <Button
                     android:id="@+id/submit_btn"
                     style="@style/Widget.Button_Gradient"
@@ -159,7 +168,7 @@
                     app:layout_constraintBottom_toTopOf="@id/h4"
                     app:layout_constraintLeft_toLeftOf="parent"
                     app:layout_constraintRight_toRightOf="parent"
-                    app:layout_constraintTop_toBottomOf="@id/password" />
+                    app:layout_constraintTop_toBottomOf="@id/TILpassword" />
 
                 <TextView
                     android:id="@+id/forget_pass"
