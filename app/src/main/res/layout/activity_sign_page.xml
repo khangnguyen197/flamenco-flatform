@@ -146,14 +146,15 @@
                 <com.google.android.material.textfield.TextInputLayout
                     android:id="@+id/TILpassword"
                     style="@style/Widget.InputContainer"
-                    app:errorTextAppearance="@style/ErrText"
                     app:hintEnabled="false"
-                    app:layout_constraintBottom_toTopOf="@id/confirm_pass_lbl"
+                    app:passwordToggleEnabled="true"
+                    app:errorTextAppearance="@style/ErrText"
 
+                    app:layout_constraintBottom_toTopOf="@id/confirm_pass_lbl"
                     app:layout_constraintLeft_toLeftOf="@id/g3"
                     app:layout_constraintRight_toRightOf="@id/g4"
                     app:layout_constraintTop_toBottomOf="@id/password_lbl"
-                    app:passwordToggleEnabled="true">
+                    >
 
                     <EditText
                         android:id="@+id/password"
@@ -176,14 +177,15 @@
                 <com.google.android.material.textfield.TextInputLayout
                     android:id="@+id/TILconfirm_pass"
                     style="@style/Widget.InputContainer"
-                    app:errorTextAppearance="@style/ErrText"
                     app:hintEnabled="false"
-                    app:layout_constraintBottom_toTopOf="@id/phone_lbl"
+                    app:passwordToggleEnabled="true"
+                    app:errorTextAppearance="@style/ErrText"
 
+                    app:layout_constraintBottom_toTopOf="@id/phone_lbl"
                     app:layout_constraintLeft_toLeftOf="@id/g3"
                     app:layout_constraintRight_toRightOf="@id/g4"
                     app:layout_constraintTop_toBottomOf="@id/confirm_pass_lbl"
-                    app:passwordToggleEnabled="true">
+                    >
 
                     <EditText
                         android:id="@+id/confirm_pass"

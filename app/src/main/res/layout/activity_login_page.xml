@@ -139,14 +139,13 @@
                 <com.google.android.material.textfield.TextInputLayout
                     android:id="@+id/TILpassword"
                     style="@style/Widget.InputContainer"
-
                     app:hintEnabled="false"
                     app:errorTextAppearance="@style/ErrText"
+
                     app:layout_constraintBottom_toTopOf="@id/submit_btn"
                     app:layout_constraintLeft_toLeftOf="@id/h1"
                     app:layout_constraintRight_toRightOf="@id/h2"
                     app:layout_constraintTop_toBottomOf="@id/password_lbl"
-                    app:passwordToggleEnabled="true"
                     >
                     <EditText
                         android:id="@+id/password"
