@@ -81,7 +81,7 @@ public class Home extends AppCompatActivity {
                         if(task.isSuccessful()) {
                             content.removeAllViews();
                             for (QueryDocumentSnapshot document : task.getResult()) {
-                                String district = "dist " + document.getString("district");
+                                String district = document.getString("district");
                                 if (newText.equals("")) {
                                     setupRecyclerView();
                                 } else if (newText.equalsIgnoreCase(district)) {

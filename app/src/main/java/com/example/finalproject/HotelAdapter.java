@@ -38,7 +38,7 @@ public class HotelAdapter extends RecyclerView.Adapter<HotelAdapter.HotelHolder>
     public void onBindViewHolder(@NonNull HotelHolder holder, int i) {
 
         holder.hotelName.setText(hotelList.get(i).hotelName);
-        holder.hotelAdd.setText("Address: "+hotelList.get(i).numberAdd +", District: "+hotelList.get(i).district);
+        holder.hotelAdd.setText("Address: "+hotelList.get(i).numberAdd +", "+hotelList.get(i).district+ " Dist");
         holder.hotelPhone.setText("Phone: +"+hotelList.get(i).phone);
         holder.hotelSpecial.setText("SPECIAL: "+hotelList.get(i).special);
         holder.priceRange.setText("Price: "+hotelList.get(i).price);
