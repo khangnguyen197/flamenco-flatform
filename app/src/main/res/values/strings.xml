@@ -1,5 +1,7 @@
 <resources>
     <string name="app_name"></string>
+    <string name="navigation_drawer_open">Open navigation drawer</string>
+    <string name="navigation_drawer_close">Close navigation drawer</string>
     <string name="have_an_account">Have an account</string>
     <string name="guest">GUEST</string>
     <string name="title_activity_login">LoginActivity</string>
@@ -44,4 +46,16 @@
     <string name="phone">Phone</string>
     <string name="special">Special</string>
     <string name="price">Price</string>
+    <string name="search">Search</string>
+    <string name="favorite">Favorite</string>
+    <string name="manage_account">Manage Account</string>
+    <string name="rate">Rate</string>
+    <string name="help_and_support">Help and Support</string>
+    <string name="give_app_rating">Give app rating</string>
+    <string name="useful_link">Useful link</string>
+    <string name="customer_service">Customer Service</string>
+    <string name="language">Language</string>
+    <string name="about_us">About Us</string>
+    <string name="deals">Deals</string>
+    <string name="feedback">Feedback</string>
 </resources>

@@ -3,6 +3,7 @@
     <style name="NoActionBar" parent="Theme.AppCompat.Light.NoActionBar">
         <item name="android:windowTranslucentStatus">true</item>
         <item name="android:windowTranslucentNavigation">true</item>
+        <item name="android:textColor">@color/matteBlack</item>
     </style>
 
     <style name="Widget.Button_Gradient" parent="android:Widget">
@@ -76,5 +77,10 @@
         <item name="android:background">@drawable/search_input</item>
     </style>
 
+    <style name="NavigationView" >
+        <item name="android:listDivider">@color/border</item>
+        <item name="android:textColorSecondary">@color/border</item>
+
+    </style>
 
 </resources>
