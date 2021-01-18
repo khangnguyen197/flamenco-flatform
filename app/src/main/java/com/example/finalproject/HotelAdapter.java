@@ -30,13 +30,22 @@ public class HotelAdapter extends RecyclerView.Adapter<HotelAdapter.HotelHolder>
     }
 
     @Override
-    public void onBindViewHolder(@NonNull HotelHolder holder, int position) {
+    public void onBindViewHolder(@NonNull HotelHolder holder, int i) {
+
+        holder.hotelName.setText(hotelList.get(i).hotelName);
+        holder.hotelAdd.setText("Address: "+hotelList.get(i).numberAdd +", District: "+hotelList.get(i).district);
+        holder.hotelPhone.setText("Phone: +"+hotelList.get(i).phone);
+        holder.hotelSpecial.setText("SPECIAL: "+hotelList.get(i).special);
+        holder.priceRange.setText("Price: "+hotelList.get(i).price);
 
     }
 
     @Override
     public int getItemCount() {
-        return 0;
+        if(hotelList == null)
+            return 0;
+        else
+            return hotelList.size();
     }
 
     public static class HotelHolder extends RecyclerView.ViewHolder {
