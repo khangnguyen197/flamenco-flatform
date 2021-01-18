@@ -15,6 +15,7 @@ import android.provider.MediaStore;
 import android.util.Log;
 import android.view.View;
 import android.widget.LinearLayout;
+import android.widget.SearchView;
 
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.Task;
@@ -40,6 +41,7 @@ public class Home extends AppCompatActivity {
     private RecyclerView content;
     protected List<Hotel> hotelList = new ArrayList<Hotel>();;
     private HotelAdapter hotelAdapter;
+    public SearchView search;
 
     private  static final String STORAGE_IMAGE_PATH = "hotel_Images";
     private  static final String DATABASE_IMAGE_PATH = "hotelImages";
@@ -58,9 +60,76 @@ public class Home extends AppCompatActivity {
 
         fs = FirebaseFirestore.getInstance();
 
+
        // hotelsrRef = FirebaseStorage.getInstance().getReference(STORAGE_IMAGE_PATH);
+        hotelDBRef = FirebaseDatabase.getInstance().getReference(DATABASE_IMAGE_PATH);
 
         content = (RecyclerView) findViewById(R.id.contentView);
+        search = (SearchView) findViewById(R.id.search);
+
+        search.setOnQueryTextListener(new SearchView.OnQueryTextListener() {
+            @Override
+            public boolean onQueryTextSubmit(String query) {
+                return false;
+            }
+
+            @Override
+            public boolean onQueryTextChange(final String newText) {
+                fs.collection("hotel_info").get().addOnCompleteListener(new OnCompleteListener<QuerySnapshot>() {
+                    @Override
+                    public void onComplete(@NonNull Task<QuerySnapshot> task) {
+                        if(task.isSuccessful()) {
+                            content.removeAllViews();
+                            for (QueryDocumentSnapshot document : task.getResult()) {
+                                String district = "dist " + document.getString("district");
+                                if (newText.equals("")) {
+                                    setupRecyclerView();
+                                } else if (newText.equalsIgnoreCase(district)) {
+                                    Hotel hotelInfo = new Hotel();
+                                    final hotelImages img = new hotelImages();
+                                    List<Hotel> hotelList = new ArrayList<Hotel>();
+
+                                    hotelInfo.hotelName = document.getString("name");
+                                    hotelInfo.numberAdd = document.getString("numberAddress");
+                                    hotelInfo.district = document.getString("district");
+                                    hotelInfo.ward = document.getString("ward");
+                                    hotelInfo.phone = document.getString("phone");
+                                    hotelInfo.special = document.getString("special");
+                                    hotelInfo.price = document.getString("priceRange");
+
+                                    final String hotelID = document.getId();
+
+                                    hotelDBRef.child(hotelID).addValueEventListener(new ValueEventListener() {
+                                        @Override
+                                        public void onDataChange(@NonNull DataSnapshot snapshot) {
+                                            if (snapshot.exists()) {
+                                                img.name = snapshot.child("homeImage").child("name").getValue(String.class);
+                                                img.imageUrl = snapshot.child("homeImage").child("imageUrl").getValue(String.class);
+                                            } else {
+                                                Log.e("ERROR: ", "get error");
+                                            }
+                                        }
+
+                                        @Override
+                                        public void onCancelled(@NonNull DatabaseError error) {
+                                        }
+                                    });
+
+                                    hotelInfo.images = img;
+                                    hotelList.add(hotelInfo);
+
+                                    hotelAdapter = new HotelAdapter(Home.this, hotelList);
+                                    content.setAdapter(hotelAdapter);
+                                    break;
+                                }
+                            }
+
+                        }}
+                });
+                return false;
+            }
+        });
+
         content.removeAllViews();
 
         content.setHasFixedSize(true);
@@ -74,12 +143,11 @@ public class Home extends AppCompatActivity {
     }
 
     private void setupRecyclerView() {
-
-        hotelDBRef = FirebaseDatabase.getInstance().getReference(DATABASE_IMAGE_PATH);
         fs.collection("hotel_info").get().addOnCompleteListener(new OnCompleteListener<QuerySnapshot>() {
             @Override
             public void onComplete(@NonNull Task<QuerySnapshot> task) {
                 if(task.isSuccessful()){
+                    content.removeAllViews();
                     for (QueryDocumentSnapshot document : task.getResult()) {
                         Hotel hotelInfo = new Hotel();
                         final hotelImages img = new hotelImages();

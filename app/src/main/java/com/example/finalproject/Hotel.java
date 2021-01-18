@@ -21,4 +21,8 @@ public class Hotel {
     public hotelImages getImages() {
         return images;
     }
+
+    public String getDistrict() {
+        return district;
+    }
 }
