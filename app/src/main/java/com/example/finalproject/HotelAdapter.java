@@ -1,5 +1,6 @@
 package com.example.finalproject;
 
+import android.content.Context;
 import android.media.Image;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -11,14 +12,18 @@ import androidx.annotation.NonNull;
 import androidx.constraintlayout.widget.ConstraintLayout;
 import androidx.recyclerview.widget.RecyclerView;
 
+import com.squareup.picasso.Picasso;
+
 import java.util.List;
 
 public class HotelAdapter extends RecyclerView.Adapter<HotelAdapter.HotelHolder> {
 
     private List<Hotel> hotelList;
+    private Context context;
 
-    public HotelAdapter(List<Hotel> hotelList) {
+    public HotelAdapter(Context context, List<Hotel> hotelList) {
         this.hotelList = hotelList;
+        this.context = context;
     }
 
     @NonNull
@@ -37,6 +42,11 @@ public class HotelAdapter extends RecyclerView.Adapter<HotelAdapter.HotelHolder>
         holder.hotelPhone.setText("Phone: +"+hotelList.get(i).phone);
         holder.hotelSpecial.setText("SPECIAL: "+hotelList.get(i).special);
         holder.priceRange.setText("Price: "+hotelList.get(i).price);
+
+        Picasso.with(context).load(hotelList.get(i).getImages().getImageUrl())
+                .fit()
+                .centerCrop()
+                .into(holder.hotelImage);
 
     }
 

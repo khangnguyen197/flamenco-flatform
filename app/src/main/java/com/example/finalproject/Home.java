@@ -6,27 +6,48 @@ import androidx.constraintlayout.widget.ConstraintLayout;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
+import android.content.Intent;
 import android.graphics.Color;
+import android.net.Uri;
 import android.os.Bundle;
+import android.os.Handler;
+import android.provider.MediaStore;
 import android.util.Log;
+import android.view.View;
 import android.widget.LinearLayout;
 
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.Task;
+import com.google.firebase.database.DataSnapshot;
+import com.google.firebase.database.DatabaseError;
+import com.google.firebase.database.DatabaseReference;
+import com.google.firebase.database.FirebaseDatabase;
+import com.google.firebase.database.Query;
+import com.google.firebase.database.ValueEventListener;
 import com.google.firebase.firestore.FirebaseFirestore;
 import com.google.firebase.firestore.QueryDocumentSnapshot;
 import com.google.firebase.firestore.QuerySnapshot;
+import com.google.firebase.storage.FirebaseStorage;
+import com.google.firebase.storage.StorageReference;
+import com.squareup.picasso.Picasso;
 
 import java.util.ArrayList;
 import java.util.List;
 
 public class Home extends AppCompatActivity {
 
+    private  static final int IMAGE_CODE = 1;
     private RecyclerView content;
     protected List<Hotel> hotelList = new ArrayList<Hotel>();;
     private HotelAdapter hotelAdapter;
 
+    private  static final String STORAGE_IMAGE_PATH = "hotel_Images";
+    private  static final String DATABASE_IMAGE_PATH = "hotelImages";
+
+    private Uri imageUri;
     private FirebaseFirestore fs;
+   // private StorageReference hotelsrRef;
+    private DatabaseReference hotelDBRef;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -36,7 +57,17 @@ public class Home extends AppCompatActivity {
         globals.transStatus(getWindow());
 
         fs = FirebaseFirestore.getInstance();
+
+       // hotelsrRef = FirebaseStorage.getInstance().getReference(STORAGE_IMAGE_PATH);
+
         content = (RecyclerView) findViewById(R.id.contentView);
+        content.removeAllViews();
+
+        content.setHasFixedSize(true);
+        LinearLayoutManager LLM = new LinearLayoutManager(Home.this);
+        content.setLayoutManager(LLM);
+        hotelAdapter = new HotelAdapter(Home.this, null);
+        content.setAdapter(hotelAdapter);
 
         setupRecyclerView();
 
@@ -44,31 +75,46 @@ public class Home extends AppCompatActivity {
 
     private void setupRecyclerView() {
 
+        hotelDBRef = FirebaseDatabase.getInstance().getReference(DATABASE_IMAGE_PATH);
         fs.collection("hotel_info").get().addOnCompleteListener(new OnCompleteListener<QuerySnapshot>() {
             @Override
             public void onComplete(@NonNull Task<QuerySnapshot> task) {
                 if(task.isSuccessful()){
                     for (QueryDocumentSnapshot document : task.getResult()) {
+                        Hotel hotelInfo = new Hotel();
+                        final hotelImages img = new hotelImages();
 
-                        String hotelName = document.getString("name");
-                        String numberAdd = document.getString("numberAddress");
-                        String district = document.getString("district");
-                        String ward = document.getString("ward");
-                        String phone = document.getString("phone");
-                        String special = document.getString("special");
-                        String price = document.getString("priceRange");
+                        hotelInfo.hotelName = document.getString("name");
+                        hotelInfo.numberAdd = document.getString("numberAddress");
+                        hotelInfo.district = document.getString("district");
+                        hotelInfo.ward = document.getString("ward");
+                        hotelInfo.phone = document.getString("phone");
+                        hotelInfo.special = document.getString("special");
+                        hotelInfo.price = document.getString("priceRange");
 
-                        Hotel hotelInfo = new Hotel(hotelName, numberAdd, district, ward, phone, special,price);
+                        final String hotelID = document.getId();
+
+                        hotelDBRef.child(hotelID).addValueEventListener(new ValueEventListener() {
+                            @Override
+                            public void onDataChange(@NonNull DataSnapshot snapshot) {
+                                if(snapshot.exists()) {
+                                    img.name         = snapshot.child("homeImage").child("name").getValue(String.class);
+                                    img.imageUrl     = snapshot.child("homeImage").child("imageUrl").getValue(String.class);
+                                }
+                                else{
+                                    Log.e("ERROR: ","get error");
+                                }
+                            }
+
+                            @Override
+                            public void onCancelled(@NonNull DatabaseError error) {
+                            }
+                        });
+
+                        hotelInfo.images = img;
                         hotelList.add(hotelInfo);
-
                     }
-                    hotelAdapter = new HotelAdapter(hotelList);
-
-                    Log.e("Size",": "+hotelAdapter.getItemCount());
-
-                    content.setHasFixedSize(true);
-                    LinearLayoutManager LLM = new LinearLayoutManager(Home.this);
-                    content.setLayoutManager(LLM);
+                    hotelAdapter = new HotelAdapter(Home.this, hotelList);
                     content.setAdapter(hotelAdapter);
                 }
             }
@@ -76,8 +122,18 @@ public class Home extends AppCompatActivity {
 
     }// setupRecyclerView end
 
-    private void setList(){
+    /*// get photo in your phone
+    public void openGallery(View view) {
+        Intent gallery = new Intent(Intent.ACTION_PICK, MediaStore.Images.Media.INTERNAL_CONTENT_URI);
+        startActivityForResult(gallery, IMAGE_CODE);
+    }
 
-    }// setList end
+    @Override
+    protected void onActivityResult(int requestCode, int resultCode, Intent data){
+        super.onActivityResult(requestCode, resultCode, data);
+        if (resultCode == RESULT_OK && requestCode == IMAGE_CODE){
+            imageUri = data.getData();
+        }*/
+
 
 }
