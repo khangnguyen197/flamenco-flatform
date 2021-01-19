@@ -1,12 +1,14 @@
 package com.example.finalproject;
 
 import android.content.Context;
+import android.content.Intent;
 import android.media.Image;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
+import android.widget.LinearLayout;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -37,34 +39,40 @@ public class HotelAdapter extends RecyclerView.Adapter<HotelAdapter.HotelHolder>
     }
 
     @Override
-    public void onBindViewHolder(@NonNull HotelHolder holder, int i) {
+    public void onBindViewHolder(@NonNull HotelHolder holder, final int i) {
 
         holder.hotelName.setText(hotelList.get(i).hotelName);
-        holder.hotelAdd.setText("Address: "+hotelList.get(i).numberAdd+", Dist. "+hotelList.get(i).district);
-        holder.hotelPhone.setText("Phone: +"+hotelList.get(i).phone);
-        holder.hotelSpecial.setText("SPECIAL: "+hotelList.get(i).special);
-        holder.priceRange.setText("Price: "+hotelList.get(i).price);
+        holder.hotelAdd.setText("Address: " + hotelList.get(i).numberAdd + ", Dist. " + hotelList.get(i).district);
+        holder.hotelPhone.setText("Phone: +" + hotelList.get(i).phone);
+        holder.hotelSpecial.setText("SPECIAL: " + hotelList.get(i).special);
+        holder.priceRange.setText("Price: " + hotelList.get(i).price);
 
         Picasso.with(context).setLoggingEnabled(true);
         Picasso.with(context).load(hotelList.get(i).imageUrl)
-                .fit()
-                .centerCrop()
-                .into(holder.hotelImage);
+            .fit()
+            .centerCrop()
+            .into(holder.hotelImage);
+
 
         holder.setItemClickListener(new ItemClickListener() {
             @Override
             public void onClick(View view, int position, boolean isLongClick) {
-                if(isLongClick)
+                if (isLongClick)
                     Toast.makeText(context, "Long Clicked: ", Toast.LENGTH_SHORT).show();
-                else
-                    Toast.makeText(context, "Clicked: ", Toast.LENGTH_SHORT).show();
+                else{
+                    Intent intent = new Intent(context,HotelDetail.class);
+                    intent.putExtra("name",hotelList.get(i).hotelName);
+                    intent.putExtra("url", hotelList.get(i).imageUrl);
+                    context.startActivity(intent);
+
+                    Toast.makeText(context, "Clicked: ", Toast.LENGTH_SHORT).show();}
             }
         });
     }
 
     @Override
     public int getItemCount() {
-        if(hotelList == null)
+        if (hotelList == null)
             return 0;
         else
             return hotelList.size();
@@ -80,7 +88,6 @@ public class HotelAdapter extends RecyclerView.Adapter<HotelAdapter.HotelHolder>
 
         public HotelHolder(@NonNull View itemView) {
             super(itemView);
-
             hotelImage = itemView.findViewById(R.id.hotel_img);
             hotelName = itemView.findViewById(R.id.hotel_name);
             hotelAdd = itemView.findViewById(R.id.hotel_address);
@@ -94,19 +101,20 @@ public class HotelAdapter extends RecyclerView.Adapter<HotelAdapter.HotelHolder>
 
         @Override
         public void onClick(View v) {
-            itemClickListener.onClick(v,getAdapterPosition(),false);
+            itemClickListener.onClick(v, getAdapterPosition(), false);
         }
 
         @Override
         public boolean onLongClick(View v) {
-            itemClickListener.onClick(v,getAdapterPosition(),true);
+            itemClickListener.onClick(v, getAdapterPosition(), true);
             return true;
         }
-        public void setItemClickListener(ItemClickListener itemClickListener)
-        {
+
+        public void setItemClickListener(ItemClickListener itemClickListener) {
             this.itemClickListener = itemClickListener;
         }
     }
+
     public interface ItemClickListener {
         void onClick(View view, int position, boolean isLongClick);
     }
