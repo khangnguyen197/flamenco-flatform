@@ -8,6 +8,7 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 import androidx.constraintlayout.widget.ConstraintLayout;
@@ -32,7 +33,6 @@ public class HotelAdapter extends RecyclerView.Adapter<HotelAdapter.HotelHolder>
     @Override
     public HotelHolder onCreateViewHolder(@NonNull ViewGroup viewGroup, int i) {
         View view = LayoutInflater.from(viewGroup.getContext()).inflate(R.layout.cell, viewGroup, false);
-
         return new HotelHolder(view);
     }
 
@@ -50,6 +50,16 @@ public class HotelAdapter extends RecyclerView.Adapter<HotelAdapter.HotelHolder>
                 .fit()
                 .centerCrop()
                 .into(holder.hotelImage);
+
+        holder.setItemClickListener(new ItemClickListener() {
+            @Override
+            public void onClick(View view, int position, boolean isLongClick) {
+                if(isLongClick)
+                    Toast.makeText(context, "Long Clicked: ", Toast.LENGTH_SHORT).show();
+                else
+                    Toast.makeText(context, "Clicked: ", Toast.LENGTH_SHORT).show();
+            }
+        });
     }
 
     @Override
@@ -60,11 +70,13 @@ public class HotelAdapter extends RecyclerView.Adapter<HotelAdapter.HotelHolder>
             return hotelList.size();
     }
 
-    public static class HotelHolder extends RecyclerView.ViewHolder {
+    public static class HotelHolder extends RecyclerView.ViewHolder implements View.OnClickListener, View.OnLongClickListener {
 
         public ConstraintLayout container;
         public ImageView hotelImage;
         public TextView hotelName, hotelAdd, hotelPhone, hotelSpecial, priceRange;
+
+        private ItemClickListener itemClickListener;
 
         public HotelHolder(@NonNull View itemView) {
             super(itemView);
@@ -75,7 +87,27 @@ public class HotelAdapter extends RecyclerView.Adapter<HotelAdapter.HotelHolder>
             hotelPhone = itemView.findViewById(R.id.hotel_phone);
             hotelSpecial = itemView.findViewById(R.id.hotel_special);
             priceRange = itemView.findViewById(R.id.price_range);
+
+            itemView.setOnClickListener(this);
+            itemView.setOnLongClickListener(this);
         }
 
+        @Override
+        public void onClick(View v) {
+            itemClickListener.onClick(v,getAdapterPosition(),false);
+        }
+
+        @Override
+        public boolean onLongClick(View v) {
+            itemClickListener.onClick(v,getAdapterPosition(),true);
+            return true;
+        }
+        public void setItemClickListener(ItemClickListener itemClickListener)
+        {
+            this.itemClickListener = itemClickListener;
+        }
+    }
+    public interface ItemClickListener {
+        void onClick(View view, int position, boolean isLongClick);
     }
 }

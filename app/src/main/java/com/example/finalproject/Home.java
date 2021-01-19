@@ -118,7 +118,6 @@ public class Home extends AppCompatActivity {
         });
 
         clearAllData();
-
         setupRecyclerView();
     }
 
