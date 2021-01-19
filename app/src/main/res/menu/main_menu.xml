@@ -1,5 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
-<menu xmlns:android="http://schemas.android.com/apk/res/android">
+<menu xmlns:android="http://schemas.android.com/apk/res/android"
+    >
     <group android:checkableBehavior="single">
         <item
             android:id="@+id/account_manage"
@@ -9,7 +10,7 @@
         <item
             android:id="@+id/favorite"
             android:icon="@drawable/like"
-            android:title="@string/favorite"/>
+            android:title="@string/favorite" />
 
         <item
             android:id="@+id/rate"
@@ -17,10 +18,9 @@
             android:title="@string/feedback" />
     </group>
 
-    <group android:checkableBehavior="single">
-        <item android:title="@string/help_and_support">
-
-            <menu>
+    <item android:title="@string/help_and_support">
+        <menu>
+            <group android:checkableBehavior="single">
                 <item
                     android:id="@+id/customer_service"
                     android:icon="@drawable/service"
@@ -29,14 +29,14 @@
                     android:id="@+id/rating_us"
                     android:icon="@drawable/rating"
                     android:title="@string/give_app_rating" />
+            </group>
+        </menu>
+    </item>
 
-            </menu>
-        </item>
-    </group>
-    <group android:checkableBehavior="single">
-        <item android:title="@string/useful_link">
+    <item android:title="@string/useful_link">
 
-            <menu>
+        <menu>
+            <group android:checkableBehavior="single">
                 <item
                     android:id="@+id/deals"
                     android:icon="@drawable/discount"
@@ -49,8 +49,7 @@
                     android:id="@+id/about_us"
                     android:icon="@drawable/information"
                     android:title="@string/about_us" />
-
-            </menu>
-        </item>
-    </group>
+            </group>
+        </menu>
+    </item>
 </menu>

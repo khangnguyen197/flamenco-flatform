@@ -1,9 +1,8 @@
 <resources>
     <!-- Base application theme. -->
     <style name="NoActionBar" parent="Theme.AppCompat.Light.NoActionBar">
-        <item name="android:windowTranslucentStatus">true</item>
-        <item name="android:windowTranslucentNavigation">true</item>
-        <item name="android:textColor">@color/matteBlack</item>
+        <item name="drawerArrowStyle">@style/DrawerArrowStyle</item>
+        <item name="android:statusBarColor">@color/transparent</item>
     </style>
 
     <style name="Widget.Button_Gradient" parent="android:Widget">
@@ -80,7 +79,13 @@
     <style name="NavigationView" >
         <item name="android:listDivider">@color/border</item>
         <item name="android:textColorSecondary">@color/border</item>
+    </style>
 
+    <style name="DrawerArrowStyle" parent="Widget.AppCompat.DrawerArrowToggle">
+        <item name="color">@android:color/white</item>
+        <item name="spinBars">true</item>
+        <item name="barLength">30dp</item>
+        <item name="gapBetweenBars">7dp</item>
     </style>
 
 </resources>

@@ -11,20 +11,17 @@
         android:label="FLAMENCO"
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
-        android:theme="@style/Theme.AppCompat.NoActionBar">
+        android:theme="@style/NoActionBar">
+        <activity android:name=".ManageAccount"></activity>
         <activity
             android:name=".SignPage"
-            android:windowSoftInputMode="stateAlwaysHidden|adjustPan"
-            />
+            android:windowSoftInputMode="stateAlwaysHidden|adjustPan" />
         <activity
             android:name=".LoginPage"
-            android:windowSoftInputMode="stateHidden|adjustPan"
-           />
+            android:windowSoftInputMode="stateHidden|adjustPan" />
         <activity android:name=".WelcomeActivity" />
         <activity android:name=".Home" />
-        <activity
-            android:name=".OnCreate"
-           >
+        <activity android:name=".OnCreate">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
