@@ -39,7 +39,7 @@ public class Home extends AppCompatActivity {
 
     private  static final int IMAGE_CODE = 1;
     private RecyclerView content;
-    protected List<Hotel> hotelList = new ArrayList<Hotel>();;
+    private List<Hotel> hotelList = new ArrayList<>();;
     private HotelAdapter hotelAdapter;
     public SearchView search;
 
@@ -60,7 +60,6 @@ public class Home extends AppCompatActivity {
 
         fs = FirebaseFirestore.getInstance();
 
-
        // hotelsrRef = FirebaseStorage.getInstance().getReference(STORAGE_IMAGE_PATH);
         hotelDBRef = FirebaseDatabase.getInstance().getReference(DATABASE_IMAGE_PATH);
 
@@ -75,15 +74,17 @@ public class Home extends AppCompatActivity {
 
             @Override
             public boolean onQueryTextChange(final String newText) {
+
                 fs.collection("hotel_info").get().addOnCompleteListener(new OnCompleteListener<QuerySnapshot>() {
                     @Override
                     public void onComplete(@NonNull Task<QuerySnapshot> task) {
                         if(task.isSuccessful()) {
-                            content.removeAllViews();
+                            clearAllData();
                             for (QueryDocumentSnapshot document : task.getResult()) {
                                 String district = document.getString("district");
                                 if (newText.equals("")) {
                                     setupRecyclerView();
+                                    break;
                                 } else if (newText.equalsIgnoreCase(district)) {
                                     Hotel hotelInfo = new Hotel();
                                     final hotelImages img = new hotelImages();
@@ -109,7 +110,6 @@ public class Home extends AppCompatActivity {
                                                 Log.e("ERROR: ", "get error");
                                             }
                                         }
-
                                         @Override
                                         public void onCancelled(@NonNull DatabaseError error) {
                                         }
@@ -118,28 +118,23 @@ public class Home extends AppCompatActivity {
                                     hotelInfo.images = img;
                                     hotelList.add(hotelInfo);
 
+                                    content.setHasFixedSize(true);
                                     hotelAdapter = new HotelAdapter(Home.this, hotelList);
+                                    LinearLayoutManager LLM = new LinearLayoutManager(Home.this);
+                                    content.setLayoutManager(LLM);
                                     content.setAdapter(hotelAdapter);
                                     break;
                                 }
                             }
-
                         }}
                 });
                 return false;
             }
         });
 
-        content.removeAllViews();
-
-        content.setHasFixedSize(true);
-        LinearLayoutManager LLM = new LinearLayoutManager(Home.this);
-        content.setLayoutManager(LLM);
-        hotelAdapter = new HotelAdapter(Home.this, null);
-        content.setAdapter(hotelAdapter);
+        clearAllData();
 
         setupRecyclerView();
-
     }
 
     private void setupRecyclerView() {
@@ -147,7 +142,7 @@ public class Home extends AppCompatActivity {
             @Override
             public void onComplete(@NonNull Task<QuerySnapshot> task) {
                 if(task.isSuccessful()){
-                    content.removeAllViews();
+                    clearAllData();
                     for (QueryDocumentSnapshot document : task.getResult()) {
                         Hotel hotelInfo = new Hotel();
                         final hotelImages img = new hotelImages();
@@ -178,17 +173,33 @@ public class Home extends AppCompatActivity {
                             public void onCancelled(@NonNull DatabaseError error) {
                             }
                         });
-
                         hotelInfo.images = img;
                         hotelList.add(hotelInfo);
+
+                        if(hotelList == null){
+                            Log.e("NULL","DM CUOC DOI");
+                        }else{
+                            Log.e("NULL","OK: "+ hotelList.get(0).getImages().imageUrl);
+                        }
                     }
+
                     hotelAdapter = new HotelAdapter(Home.this, hotelList);
+                    LinearLayoutManager LLM = new LinearLayoutManager(Home.this);
+                    content.setLayoutManager(LLM);
                     content.setAdapter(hotelAdapter);
                 }
             }
         });
 
     }// setupRecyclerView end
+
+    public void clearAllData(){
+        content.setHasFixedSize(true);
+        content.setAdapter(null);
+        content.setLayoutManager(null);
+        hotelList.clear();
+    }
+
 
     /*// get photo in your phone
     public void openGallery(View view) {
@@ -202,6 +213,7 @@ public class Home extends AppCompatActivity {
         if (resultCode == RESULT_OK && requestCode == IMAGE_CODE){
             imageUri = data.getData();
         }*/
+
 
 
 }

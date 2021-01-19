@@ -2,6 +2,7 @@ package com.example.finalproject;
 
 import android.content.Context;
 import android.media.Image;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -14,6 +15,7 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import com.squareup.picasso.Picasso;
 
+import java.net.CookieHandler;
 import java.util.List;
 
 public class HotelAdapter extends RecyclerView.Adapter<HotelAdapter.HotelHolder> {
@@ -38,16 +40,16 @@ public class HotelAdapter extends RecyclerView.Adapter<HotelAdapter.HotelHolder>
     public void onBindViewHolder(@NonNull HotelHolder holder, int i) {
 
         holder.hotelName.setText(hotelList.get(i).hotelName);
-        holder.hotelAdd.setText("Address: "+hotelList.get(i).numberAdd +", "+hotelList.get(i).district+ " Dist");
+        holder.hotelAdd.setText("Address: "+hotelList.get(i).getImages().getImageUrl());
         holder.hotelPhone.setText("Phone: +"+hotelList.get(i).phone);
         holder.hotelSpecial.setText("SPECIAL: "+hotelList.get(i).special);
         holder.priceRange.setText("Price: "+hotelList.get(i).price);
 
+        Picasso.with(context).setLoggingEnabled(true);
         Picasso.with(context).load(hotelList.get(i).getImages().getImageUrl())
                 .fit()
                 .centerCrop()
                 .into(holder.hotelImage);
-
     }
 
     @Override
