@@ -1,5 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
+    <color name="white">#FFFFFF</color>
     <color name="colorPrimary">#FAF7F7</color>
     <color name="label">#ffa500</color>
     <color name="hint">#b4b4b4</color>
