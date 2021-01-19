@@ -1,11 +1,13 @@
 package com.example.finalproject;
 
 import androidx.annotation.NonNull;
+import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.constraintlayout.widget.ConstraintLayout;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.graphics.Color;
 import android.net.Uri;
@@ -16,6 +18,7 @@ import android.util.Log;
 import android.view.View;
 import android.widget.LinearLayout;
 import android.widget.SearchView;
+import android.widget.Toast;
 
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.Task;
@@ -172,6 +175,37 @@ public class Home extends AppCompatActivity {
             imageUri = data.getData();
         }*/
 
+    public void selectRoom(View v){
+        AlertDialog.Builder builder = new AlertDialog.Builder(this);
+        builder.setTitle("CHOOSE YOUR ROOMS");
 
+        String[] selsem = {"deluxe", "double", "single","family","president"};
+
+        builder.setItems(selsem, new DialogInterface.OnClickListener() {
+            @Override
+            public void onClick(DialogInterface dialog, int which) {
+                switch (which) {
+                    case 0:
+                        Toast.makeText(Home.this, "Deluxe room", Toast.LENGTH_SHORT).show();
+                        break;
+                    case 1:
+                        Toast.makeText(Home.this, "Double room", Toast.LENGTH_SHORT).show();
+                        break;
+                    case 2:
+                        Toast.makeText(Home.this, "Single room", Toast.LENGTH_SHORT).show();
+                        break;
+                    case 3:
+                        Toast.makeText(Home.this, "Family room", Toast.LENGTH_SHORT).show();
+                        break;
+                    case 4:
+                        Toast.makeText(Home.this, "President room", Toast.LENGTH_SHORT).show();
+                        break;
+                }
+            }
+        });
+
+        AlertDialog dialog = builder.create();
+        dialog.show();
+    }
 
 }
