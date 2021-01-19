@@ -10,6 +10,7 @@
 
     <androidx.constraintlayout.widget.ConstraintLayout
         android:id="@+id/container"
+        android:background="@color/colorPrimary"
         android:layout_width="match_parent"
         android:layout_height="match_parent">
 
@@ -36,6 +37,7 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:text="@string/hotel_name"
+        style="@style/RowRecyclerView"
 
         app:layout_constraintTop_toTopOf="parent"
         app:layout_constraintBottom_toTopOf="@id/hotel_address"
@@ -48,6 +50,7 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:text="@string/hotel_address"
+        style="@style/RowRecyclerView"
 
         app:layout_constraintTop_toBottomOf="@id/hotel_name"
         app:layout_constraintLeft_toLeftOf="@id/v1"
@@ -59,6 +62,8 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:text="@string/phone"
+        style="@style/RowRecyclerView"
+
         app:layout_constraintTop_toBottomOf="@id/hotel_address"
         app:layout_constraintLeft_toLeftOf="@id/v1"
         app:layout_constraintBottom_toTopOf="@id/hotel_special" />
@@ -68,6 +73,8 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:text="@string/special"
+        style="@style/RowRecyclerView"
+
         app:layout_constraintTop_toBottomOf="@id/hotel_phone"
         app:layout_constraintLeft_toLeftOf="@id/v1"
         app:layout_constraintBottom_toTopOf="@id/price_range" />
@@ -77,6 +84,8 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:text="@string/price"
+        style="@style/RowRecyclerView"
+
         app:layout_constraintTop_toBottomOf="@id/hotel_special"
         app:layout_constraintLeft_toLeftOf="@id/v1"
         app:layout_constraintBottom_toBottomOf="parent" />
