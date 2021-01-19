@@ -1,13 +1,12 @@
 package com.example.finalproject;
 
 public class Hotel {
-    String hotelName, numberAdd, district, ward, phone, special, price;
-    hotelImages images;
+    String hotelName, numberAdd, district, ward, phone, special, price, imageUrl;
 
     public Hotel() {
     }
 
-    public Hotel(String hotelName, String numberAdd, String district, String ward, String phone, String special, String price, hotelImages images) {
+    public Hotel(String hotelName, String numberAdd, String district, String ward, String phone, String special, String price, String imageUrl) {
         this.hotelName = hotelName;
         this.numberAdd = numberAdd;
         this.district = district;
@@ -15,11 +14,11 @@ public class Hotel {
         this.phone = phone;
         this.special = special;
         this.price = price;
-        this.images = images;
+        this.imageUrl = imageUrl;
     }
 
-    public hotelImages getImages() {
-        return images;
+    public String getImageUrl() {
+        return imageUrl;
     }
 
     public String getDistrict() {

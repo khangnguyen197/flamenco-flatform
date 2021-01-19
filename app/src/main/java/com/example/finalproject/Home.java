@@ -87,7 +87,6 @@ public class Home extends AppCompatActivity {
                                     break;
                                 } else if (newText.equalsIgnoreCase(district)) {
                                     Hotel hotelInfo = new Hotel();
-                                    final hotelImages img = new hotelImages();
                                     List<Hotel> hotelList = new ArrayList<Hotel>();
 
                                     hotelInfo.hotelName = document.getString("name");
@@ -97,25 +96,8 @@ public class Home extends AppCompatActivity {
                                     hotelInfo.phone = document.getString("phone");
                                     hotelInfo.special = document.getString("special");
                                     hotelInfo.price = document.getString("priceRange");
+                                    hotelInfo.imageUrl = document.getString("imageUrl");
 
-                                    final String hotelID = document.getId();
-
-                                    hotelDBRef.child(hotelID).addValueEventListener(new ValueEventListener() {
-                                        @Override
-                                        public void onDataChange(@NonNull DataSnapshot snapshot) {
-                                            if (snapshot.exists()) {
-                                                img.name = snapshot.child("homeImage").child("name").getValue(String.class);
-                                                img.imageUrl = snapshot.child("homeImage").child("imageUrl").getValue(String.class);
-                                            } else {
-                                                Log.e("ERROR: ", "get error");
-                                            }
-                                        }
-                                        @Override
-                                        public void onCancelled(@NonNull DatabaseError error) {
-                                        }
-                                    });
-
-                                    hotelInfo.images = img;
                                     hotelList.add(hotelInfo);
 
                                     content.setHasFixedSize(true);
@@ -145,7 +127,6 @@ public class Home extends AppCompatActivity {
                     clearAllData();
                     for (QueryDocumentSnapshot document : task.getResult()) {
                         Hotel hotelInfo = new Hotel();
-                        final hotelImages img = new hotelImages();
 
                         hotelInfo.hotelName = document.getString("name");
                         hotelInfo.numberAdd = document.getString("numberAddress");
@@ -154,33 +135,10 @@ public class Home extends AppCompatActivity {
                         hotelInfo.phone = document.getString("phone");
                         hotelInfo.special = document.getString("special");
                         hotelInfo.price = document.getString("priceRange");
+                        hotelInfo.imageUrl = document.getString("imageUrl");
 
-                        final String hotelID = document.getId();
-
-                        hotelDBRef.child(hotelID).addValueEventListener(new ValueEventListener() {
-                            @Override
-                            public void onDataChange(@NonNull DataSnapshot snapshot) {
-                                if(snapshot.exists()) {
-                                    img.name         = snapshot.child("homeImage").child("name").getValue(String.class);
-                                    img.imageUrl     = snapshot.child("homeImage").child("imageUrl").getValue(String.class);
-                                }
-                                else{
-                                    Log.e("ERROR: ","get error");
-                                }
-                            }
-
-                            @Override
-                            public void onCancelled(@NonNull DatabaseError error) {
-                            }
-                        });
-                        hotelInfo.images = img;
                         hotelList.add(hotelInfo);
 
-                        if(hotelList == null){
-                            Log.e("NULL","DM CUOC DOI");
-                        }else{
-                            Log.e("NULL","OK: "+ hotelList.get(0).getImages().imageUrl);
-                        }
                     }
 
                     hotelAdapter = new HotelAdapter(Home.this, hotelList);
