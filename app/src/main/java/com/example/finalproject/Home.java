@@ -289,6 +289,10 @@ public class Home extends AppCompatActivity implements NavigationView.OnNavigati
                 break;
             case R.id.about_us:
                 break;
+            case R.id.rating_us:
+                Intent intent1 = new Intent(Home.this,Rating.class);
+                startActivity(intent1);
+                break;
         }
         drawerLayout.closeDrawer(GravityCompat.START);
         return true;

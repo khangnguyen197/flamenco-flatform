@@ -89,7 +89,7 @@
                         android:layout_height="wrap_content"
                         android:layout_weight="1"
                         android:contentDescription="@string/description"
-                        app:srcCompat="@drawable/alarm_36px" />
+                        app:srcCompat="@drawable/bell_36px" />
                 </LinearLayout>
 
                 <androidx.constraintlayout.widget.ConstraintLayout

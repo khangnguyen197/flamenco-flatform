@@ -2,11 +2,11 @@
 <androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
-    style="@style/NoActionBar"
     android:layout_width="match_parent"
-    android:layout_height="fill_parent"
-    tools:context=".Home">
-
+    android:layout_height="match_parent"
+    android:orientation="vertical"
+    android:gravity="center"
+    tools:context=".Rating">
     <androidx.constraintlayout.widget.Guideline
         android:id="@+id/h1"
         android:layout_width="wrap_content"
@@ -28,7 +28,9 @@
         android:background="@drawable/bg"
         android:gravity="center"
         android:orientation="horizontal"
+        android:paddingLeft="10dp"
         android:paddingTop="20dp"
+        android:paddingRight="10dp"
         app:layout_constraintBottom_toTopOf="@id/h1"
         app:layout_constraintLeft_toLeftOf="parent"
         app:layout_constraintRight_toRightOf="parent"
@@ -48,7 +50,7 @@
             android:layout_height="match_parent"
             android:layout_weight="5"
             android:gravity="center_vertical"
-            android:text="First Hotel" />
+            android:text="Rating stars" />
 
         <ImageView
             android:layout_width="wrap_content"
@@ -57,14 +59,35 @@
             android:src="@drawable/like" />
     </LinearLayout>
 
-    <RelativeLayout
-        android:layout_width="match_parent"
+    <RatingBar
+        android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        app:layout_constraintBottom_toBottomOf="@id/h2"
+        android:id="@+id/rating_bar"
+        android:backgroundTint="@color/colorPrimary"
+        android:numStars="5"
+        android:progressTint="@color/label"
+        android:rating="0"
+        android:secondaryProgressTint="@android:color/transparent"
+        android:stepSize="1"
+
+        app:layout_constraintTop_toBottomOf="@id/header"
+        app:layout_constraintBottom_toTopOf="@id/submit_button"
+        app:layout_constraintRight_toRightOf="parent"
+        app:layout_constraintLeft_toLeftOf="parent"
+        />
+
+    <Button
+        android:layout_width="150dp"
+        android:layout_height="wrap_content"
+        android:id="@+id/submit_button"
+        android:text="Rating"
+        style="@style/Widget.Button_Gradient"
+
+        app:layout_constraintTop_toBottomOf="@id/rating_bar"
         app:layout_constraintLeft_toLeftOf="parent"
         app:layout_constraintRight_toRightOf="parent"
-        app:layout_constraintTop_toTopOf="@id/h1">
+        app:layout_constraintBottom_toBottomOf="parent"
+        />
 
 
-    </RelativeLayout>
 </androidx.constraintlayout.widget.ConstraintLayout>
