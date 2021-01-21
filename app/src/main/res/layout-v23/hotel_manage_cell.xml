@@ -1,0 +1,183 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/cell"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:layout_marginTop="5dp"
+    android:layout_marginBottom="5dp"
+    android:background="@color/white"
+    android:clickable="true"
+    android:focusable="true"
+    android:foreground="?attr/selectableItemBackground">
+
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:id="@+id/container"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:paddingTop="10dp"
+        android:paddingBottom="10dp">
+
+        <ImageView
+            android:id="@+id/hotel_img"
+            android:layout_width="163dp"
+            android:layout_height="200dp"
+            android:clickable="false"
+            android:contentDescription="@string/description"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintLeft_toLeftOf="parent"
+            app:layout_constraintRight_toLeftOf="@id/v1"
+            app:layout_constraintTop_toTopOf="parent" />
+
+        <androidx.constraintlayout.widget.Guideline
+            android:id="@+id/v1"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:orientation="vertical"
+            app:layout_constraintGuide_percent="0.4" />
+
+        <androidx.constraintlayout.widget.Guideline
+            android:id="@+id/v2"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:orientation="vertical"
+            app:layout_constraintGuide_percent="0.86" />
+
+        <TextView
+            android:id="@+id/hotel_name"
+            style="@style/RowRecyclerView"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:fontFamily="@font/calibri_bold"
+            android:text="@string/hotel_name"
+            android:textColor="@color/link"
+            android:textSize="25sp"
+            android:textStyle="bold"
+            app:layout_constraintBottom_toTopOf="@id/star_frame"
+            app:layout_constraintLeft_toLeftOf="@id/v1"
+            app:layout_constraintTop_toTopOf="parent" />
+
+        <LinearLayout
+            android:id="@+id/star_frame"
+            style="@style/RowRecyclerView"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal"
+            android:text="@string/hotel_address"
+            app:layout_constraintBottom_toTopOf="@id/address_frame"
+            app:layout_constraintLeft_toLeftOf="@id/v1"
+            app:layout_constraintTop_toBottomOf="@id/hotel_name">
+
+            <ImageView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:contentDescription="@string/description"
+                app:srcCompat="@drawable/star_24px" />
+
+            <ImageView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:contentDescription="@string/description"
+                app:srcCompat="@drawable/star_24px" />
+
+            <ImageView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:contentDescription="@string/description"
+                app:srcCompat="@drawable/star_24px" />
+        </LinearLayout>
+
+
+        <LinearLayout
+            android:id="@+id/address_frame"
+            style="@style/RowRecyclerView"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal"
+            app:layout_constraintBottom_toTopOf="@id/phone_frame"
+            app:layout_constraintLeft_toLeftOf="@id/v1"
+            app:layout_constraintTop_toBottomOf="@id/star_frame">
+
+            <ImageView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                app:srcCompat="@drawable/address" />
+
+            <TextView
+                android:id="@+id/hotel_address"
+                style="@style/RowRecyclerView"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:ellipsize="none"
+                android:maxLines="100"
+                android:scrollHorizontally="false"
+                android:text="@string/hotel_address" />
+
+        </LinearLayout>
+
+        <LinearLayout
+            android:id="@+id/phone_frame"
+            style="@style/RowRecyclerView"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal"
+            app:layout_constraintBottom_toTopOf="@id/hotel_special"
+            app:layout_constraintLeft_toLeftOf="@id/v1"
+            app:layout_constraintTop_toBottomOf="@id/address_frame"
+            tools:ignore="UseCompoundDrawables">
+
+            <ImageView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:contentDescription="@string/description"
+                app:srcCompat="@drawable/phone_24px" />
+
+            <TextView
+                android:id="@+id/hotel_phone"
+                style="@style/RowRecyclerView"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="@string/phone"
+                app:layout_constraintBottom_toTopOf="@id/hotel_special"
+                app:layout_constraintLeft_toLeftOf="@id/v1"
+                app:layout_constraintTop_toBottomOf="@id/hotel_address" />
+
+        </LinearLayout>
+
+        <TextView
+            android:id="@+id/hotel_special"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:background="@drawable/rectangle_gradient"
+            android:paddingLeft="8dp"
+            android:paddingTop="2dp"
+            android:paddingRight="8dp"
+            android:paddingBottom="2dp"
+            android:text="@string/special"
+            android:textColor="@color/white"
+            android:textStyle="bold"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintLeft_toLeftOf="@id/v1"
+            app:layout_constraintTop_toBottomOf="@id/phone_frame" />
+
+        <ImageButton
+            android:id="@+id/edit_btn"
+            style="@style/Widget.Ripple"
+            android:layout_width="35dp"
+            android:layout_height="wrap_content"
+            android:paddingTop="5dp"
+            android:paddingBottom="5dp"
+            android:background="@drawable/rectangular_outline"
+            android:contentDescription="@string/description"
+            android:scaleType="centerInside"
+            android:src="@drawable/edit_24px"
+            android:tint="@color/orange"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintLeft_toLeftOf="@id/v2"
+            app:layout_constraintRight_toRightOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
+            app:layout_constraintVertical_bias="0.07"/>
+    </androidx.constraintlayout.widget.ConstraintLayout>
+</LinearLayout>
