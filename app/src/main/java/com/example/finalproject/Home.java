@@ -11,10 +11,12 @@ import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
 import android.annotation.SuppressLint;
+import android.app.Dialog;
 import android.content.Intent;
 import android.graphics.Color;
 import android.os.Build;
 import android.os.Bundle;
+import android.view.Gravity;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
@@ -22,6 +24,9 @@ import android.view.View;
 import com.google.android.material.navigation.NavigationView;
 
 import android.content.DialogInterface;
+import android.view.ViewGroup;
+import android.view.Window;
+import android.view.WindowManager;
 import android.widget.SearchView;
 
 import com.google.android.gms.tasks.OnCompleteListener;
@@ -264,7 +269,14 @@ public class Home extends AppCompatActivity implements NavigationView.OnNavigati
             }
         });
 
-        AlertDialog dialog = builder.create();
+        Dialog dialog = builder.create();
+        Window window = dialog.getWindow();
+        WindowManager.LayoutParams wlp = window.getAttributes();
+        window.setLayout(ViewGroup.LayoutParams.MATCH_PARENT, ViewGroup.LayoutParams.MATCH_PARENT);
+
+        wlp.gravity = Gravity.BOTTOM;
+     //wlp.flags &= ~WindowManager.LayoutParams.FLAG_DIM_BEHIND;
+      //  window.setAttributes(wlp);
         dialog.show();
     }
 

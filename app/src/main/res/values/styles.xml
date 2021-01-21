@@ -67,7 +67,8 @@
 
     <style name="SearchInput" parent="android:Widget">
         <item name="android:editTextColor">@color/matteBlack</item>
-        <item name="android:textColorHint">@color/matteBlack</item>
+        <item name="android:textColorHint">@color/hint</item>
+        <item name="fontFamily">@font/calibri_light</item>
     </style>
 
     <style name="SearchInputFrame" parent="android:Widget">
@@ -126,6 +127,11 @@
         <item name="android:layout_margin">10dp</item>
         <item name="android:textSize">22sp</item>
         <item name="android:textColor">@color/matteBlack</item>
+    </style>
+
+    <style name="Theme_Dialog" parent="android:Theme.Holo.Dialog">
+        <item name="android:windowMinWidthMajor">100%</item>
+        <item name="android:windowMinWidthMinor">100%</item>
     </style>
 
 </resources>
