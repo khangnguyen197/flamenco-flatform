@@ -113,6 +113,7 @@ public class Home extends AppCompatActivity implements NavigationView.OnNavigati
                                     Hotel hotelInfo = new Hotel();
                                     List<Hotel> hotelList = new ArrayList<Hotel>();
 
+                                    hotelInfo.hotelID = document.getId();
                                     hotelInfo.hotelName = document.getString("name");
                                     hotelInfo.numberAdd = document.getString("numberAddress");
                                     hotelInfo.district = document.getString("district");
@@ -151,6 +152,7 @@ public class Home extends AppCompatActivity implements NavigationView.OnNavigati
                     for (QueryDocumentSnapshot document : task.getResult()) {
                         Hotel hotelInfo = new Hotel();
 
+                        hotelInfo.hotelID = document.getId();
                         hotelInfo.hotelName = document.getString("name");
                         hotelInfo.numberAdd = document.getString("numberAddress");
                         hotelInfo.district = document.getString("district");

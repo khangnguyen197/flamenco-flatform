@@ -61,10 +61,9 @@ public class HotelAdapter extends RecyclerView.Adapter<HotelAdapter.HotelHolder>
                     Toast.makeText(context, "Long Clicked: ", Toast.LENGTH_SHORT).show();
                 else{
                     Intent intent = new Intent(context,HotelDetail.class);
-                    intent.putExtra("name",hotelList.get(i).hotelName);
-                    intent.putExtra("url", hotelList.get(i).imageUrl);
+                    intent.putExtra("hotelID", hotelList.get(i).hotelID);
+                    Log.e("ID",": "+hotelList.get(i).hotelID);
                     context.startActivity(intent);
-
                     Toast.makeText(context, "Clicked: ", Toast.LENGTH_SHORT).show();}
             }
         });
