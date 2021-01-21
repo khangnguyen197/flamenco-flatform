@@ -60,18 +60,14 @@ public class Home extends AppCompatActivity implements NavigationView.OnNavigati
     DrawerLayout drawerLayout;
     NavigationView navigationView;
     Toolbar toolbar;
-    private  static final int IMAGE_CODE = 1;
     private RecyclerView content;
     private List<Hotel> hotelList = new ArrayList<>();;
     private HotelAdapter hotelAdapter;
     public SearchView search;
 
-    private  static final String STORAGE_IMAGE_PATH = "hotel_Images";
     private  static final String DATABASE_IMAGE_PATH = "hotelImages";
 
-    private Uri imageUri;
     private FirebaseFirestore fs;
-   // private StorageReference hotelsrRef;
     private DatabaseReference hotelDBRef;
 
     @Override
@@ -84,7 +80,6 @@ public class Home extends AppCompatActivity implements NavigationView.OnNavigati
 
         fs = FirebaseFirestore.getInstance();
 
-       // hotelsrRef = FirebaseStorage.getInstance().getReference(STORAGE_IMAGE_PATH);
         hotelDBRef = FirebaseDatabase.getInstance().getReference(DATABASE_IMAGE_PATH);
 
         content = (RecyclerView) findViewById(R.id.contentView);
@@ -113,6 +108,7 @@ public class Home extends AppCompatActivity implements NavigationView.OnNavigati
                                     Hotel hotelInfo = new Hotel();
                                     List<Hotel> hotelList = new ArrayList<Hotel>();
 
+                                    hotelInfo.hotelID = document.getId();
                                     hotelInfo.hotelName = document.getString("name");
                                     hotelInfo.numberAdd = document.getString("numberAddress");
                                     hotelInfo.district = document.getString("district");
@@ -121,6 +117,7 @@ public class Home extends AppCompatActivity implements NavigationView.OnNavigati
                                     hotelInfo.special = document.getString("special");
                                     hotelInfo.price = document.getString("priceRange");
                                     hotelInfo.imageUrl = document.getString("imageUrl");
+                                    hotelInfo.deal = document.getString("deal");
 
                                     hotelList.add(hotelInfo);
 
@@ -151,6 +148,7 @@ public class Home extends AppCompatActivity implements NavigationView.OnNavigati
                     for (QueryDocumentSnapshot document : task.getResult()) {
                         Hotel hotelInfo = new Hotel();
 
+                        hotelInfo.hotelID = document.getId();
                         hotelInfo.hotelName = document.getString("name");
                         hotelInfo.numberAdd = document.getString("numberAddress");
                         hotelInfo.district = document.getString("district");
@@ -159,6 +157,7 @@ public class Home extends AppCompatActivity implements NavigationView.OnNavigati
                         hotelInfo.special = document.getString("special");
                         hotelInfo.price = document.getString("priceRange");
                         hotelInfo.imageUrl = document.getString("imageUrl");
+                        hotelInfo.deal = document.getString("deal");
 
                         hotelList.add(hotelInfo);
 
@@ -180,20 +179,6 @@ public class Home extends AppCompatActivity implements NavigationView.OnNavigati
         content.setLayoutManager(null);
         hotelList.clear();
     }
-
-
-    /*// get photo in your phone
-    public void openGallery(View view) {
-        Intent gallery = new Intent(Intent.ACTION_PICK, MediaStore.Images.Media.INTERNAL_CONTENT_URI);
-        startActivityForResult(gallery, IMAGE_CODE);
-    }
-
-    @Override
-    protected void onActivityResult(int requestCode, int resultCode, Intent data){
-        super.onActivityResult(requestCode, resultCode, data);
-        if (resultCode == RESULT_OK && requestCode == IMAGE_CODE){
-            imageUri = data.getData();
-        }*/
 
     public void selectRoom(View v){
         AlertDialog.Builder builder = new AlertDialog.Builder(this);

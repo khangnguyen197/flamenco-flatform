@@ -1,20 +1,32 @@
 package com.example.finalproject;
 
+import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 
 import android.content.Intent;
 import android.os.Bundle;
+import android.util.Log;
+import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.TextView;
 
+import com.google.android.gms.tasks.OnCompleteListener;
+import com.google.android.gms.tasks.Task;
+import com.google.firebase.firestore.DocumentSnapshot;
+import com.google.firebase.firestore.FirebaseFirestore;
+import com.google.firebase.firestore.QueryDocumentSnapshot;
+import com.google.firebase.firestore.QuerySnapshot;
 import com.squareup.picasso.Picasso;
 
 import javax.microedition.khronos.opengles.GL;
 
 public class HotelDetail extends AppCompatActivity {
 
-    TextView tx;
-    ImageView img;
+    Button btnSelectRoom, btnDeal;
+    TextView tvHotelName, tvHotelSpecial, tvHotelPrice, tvHotelAddress, tvHotelPhone;
+    ImageView lgImg, subImg1, subImg2;
+
+    private FirebaseFirestore fs;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -23,19 +35,98 @@ public class HotelDetail extends AppCompatActivity {
         Globals globals = new Globals();
         globals.transStatus(getWindow());
 
-//        tx = findViewById(R.id.name);
-//        img = findViewById(R.id.image_detail);
-//
-//        Intent intent = getIntent();
-//        String name = intent.getStringExtra("name");
-//        String url  = intent.getStringExtra("url");
-//
-//        tx.setText(name);
-//
-//        Picasso.with(this).load(url)
-//            .fit()
-//            .centerCrop()
-//            .into(img);
+        fs = FirebaseFirestore.getInstance();
 
+        btnDeal = findViewById(R.id.hotel_deal);
+        btnSelectRoom = findViewById(R.id.select_room);
+
+        tvHotelName = findViewById(R.id.hotel_name);
+        tvHotelSpecial = findViewById(R.id.hotel_special);
+        tvHotelPrice = findViewById(R.id.hotel_price);
+        tvHotelAddress = findViewById(R.id.hotel_address);
+        tvHotelPhone = findViewById(R.id.hotel_phone);
+
+        lgImg = findViewById(R.id.lg_img);
+        subImg1 = findViewById(R.id.sub_img_1);
+        subImg2 = findViewById(R.id.sub_img_2);
+
+        Intent intent = getIntent();
+        String hotelID = intent.getStringExtra("hotelID");
+
+        setupInfo(hotelID);
+        setupImage(hotelID);
+
+    }
+
+    private void setupInfo(String hotelID) {
+        fs.collection("hotel_info").document(hotelID).get().addOnCompleteListener(new OnCompleteListener<DocumentSnapshot>() {
+            @Override
+            public void onComplete(@NonNull Task<DocumentSnapshot> task) {
+                if (task.isSuccessful()) {
+                    DocumentSnapshot document = task.getResult();
+
+                    String name = document.getString("name");
+                    String numberAdd = document.getString("numberAddress");
+                    String district = document.getString("district");
+                    String ward = document.getString("ward");
+                    String phone = document.getString("phone");
+                    String special = document.getString("special");
+                    String price = document.getString("priceRange");
+                    String deal = document.getString("deal");
+
+                    tvHotelName.setText(name);
+                    tvHotelAddress.setText(numberAdd+", "+district+" District, "+ward+" Ward");
+                    tvHotelPhone.setText("+"+phone);
+                    tvHotelSpecial.setText(special);
+                    tvHotelPrice.setText(price);
+                    btnDeal.setText(deal);
+
+                }
+            }
+        });
+    }
+
+    private void setupImage(String hotelID) {
+        fs.collection("hotel_info").document(hotelID).collection("imageDetail").get()
+                .addOnCompleteListener(new OnCompleteListener<QuerySnapshot>() {
+                    @Override
+                    public void onComplete(@NonNull Task<QuerySnapshot> task) {
+                        if (task.isSuccessful()) {
+                            int i = 0; String url = null;
+                            for (QueryDocumentSnapshot document : task.getResult()) {
+
+                                url = document.getString("imageUrl");
+
+                                setupImage_2(url, ++i);
+                            }
+                        }
+                    }
+                });
+    }
+
+    private void setupImage_2(String url, int i){
+        switch(i){
+            case 1:
+                Picasso.with(HotelDetail.this).load(url)
+                        .fit()
+                        .centerCrop()
+                        .into(lgImg);
+                Log.e("ERROR 1",": OK");
+                break;
+            case 2:
+                Picasso.with(HotelDetail.this).load(url)
+                        .fit()
+                        .centerCrop()
+                        .into(subImg1);
+                break;
+            case 3:
+                Picasso.with(HotelDetail.this).load(url)
+                        .fit()
+                        .centerCrop()
+                        .into(subImg2);
+                break;
+            default:
+                break;
+        }
     }
 }
