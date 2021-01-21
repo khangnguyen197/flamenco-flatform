@@ -33,7 +33,7 @@ public class AdminManagement extends AppCompatActivity {
 
 
         doSignout();
-
+        doCheckReserve();
         doEdit();
 
     }
@@ -44,6 +44,19 @@ public class AdminManagement extends AppCompatActivity {
         Button hotel_mng = (Button) findViewById(R.id.hotel_mng_btn);
 
         hotel_mng.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent = new Intent(AdminManagement.this, HotelManageActivity.class);
+                startActivity(intent);
+                finish();
+            }
+        });
+    }
+
+    private void doCheckReserve(){
+        Button hotel_res = (Button) findViewById(R.id.hotel_res_btn);
+
+        hotel_res.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 Intent intent = new Intent(AdminManagement.this, HotelManageActivity.class);

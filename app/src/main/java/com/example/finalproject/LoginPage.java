@@ -31,7 +31,7 @@ public class LoginPage extends AppCompatActivity implements  View.OnClickListene
 
     TextInputLayout tilEmail, tilPass, tilReset; EditText edEmail, edPass;
     private FirebaseAuth mAuth;
-    private FirebaseFirestore data;
+    private FirebaseFirestore fs;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -155,7 +155,7 @@ public class LoginPage extends AppCompatActivity implements  View.OnClickListene
     private void isUser(){
         final String email        =  tilEmail.getEditText().getText().toString().trim();
         final String password     =  tilPass.getEditText().getText().toString().trim();
-        data =  FirebaseFirestore.getInstance();
+        fs =  FirebaseFirestore.getInstance();
         HashMap<String, String> hm = new HashMap<>();
         hm.put("password",password);
 
@@ -164,8 +164,8 @@ public class LoginPage extends AppCompatActivity implements  View.OnClickListene
                     @Override
                     public void onComplete(@NonNull Task<AuthResult> task) {
                         if (task.isSuccessful()) {
-                            data.collection("users").document(email).update("password", password);
-                            data.collection("users").document(email).get().addOnCompleteListener(new OnCompleteListener<DocumentSnapshot>() {
+                            fs.collection("users").document(email).update("password", password);
+                            fs.collection("users").document(email).get().addOnCompleteListener(new OnCompleteListener<DocumentSnapshot>() {
                                 @Override
                                 public void onComplete(@NonNull Task<DocumentSnapshot> task) {
                                     if(task.isSuccessful()){

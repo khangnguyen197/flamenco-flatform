@@ -129,9 +129,15 @@ public class Home extends AppCompatActivity implements NavigationView.OnNavigati
         Menu menu = navigationView.getMenu();
         MenuItem menuItem = menu.findItem(R.id.account_manage);
 
+        Log.e("ERROR: "," "+isAdmin);
+
         Intent intent = getIntent();
         isAdmin = intent.getStringExtra("isAdmin");
+
+        Log.e("ERROR 1: "," "+isAdmin);
         mail = intent.getStringExtra("mail");
+
+
 
         if (currentUser == null) {
             menuItem.setTitle("Sign Up / Sign In");

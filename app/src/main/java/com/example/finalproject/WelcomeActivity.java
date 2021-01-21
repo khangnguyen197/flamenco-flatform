@@ -1,22 +1,29 @@
 package com.example.finalproject;
 
+import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 
 import android.content.Intent;
 import android.os.Build;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.View;
 import android.view.Window;
 import android.view.WindowManager;
 import android.widget.Button;
 
+import com.google.android.gms.tasks.OnCompleteListener;
+import com.google.android.gms.tasks.Task;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
+import com.google.firebase.firestore.DocumentSnapshot;
+import com.google.firebase.firestore.FirebaseFirestore;
 
 public class WelcomeActivity extends AppCompatActivity{
 
     private FirebaseAuth mAuth;
     private FirebaseUser currentUser;
+    private FirebaseFirestore fs;
 
     @Override
         protected void onCreate(Bundle savedInstanceState){
@@ -27,11 +34,7 @@ public class WelcomeActivity extends AppCompatActivity{
 
             mAuth = FirebaseAuth.getInstance();
             currentUser = mAuth.getCurrentUser();
-
-            /*if(currentUser != null){
-                Intent homeIntent = new Intent(WelcomeActivity.this, Home.class);
-                startActivity(homeIntent);
-            }*/
+            fs =  FirebaseFirestore.getInstance();
 
             onClick();
             globals.transStatus(getWindow());
@@ -39,7 +42,40 @@ public class WelcomeActivity extends AppCompatActivity{
 
         }
 
-        private void onClick() {
+    @Override
+    protected void onStart() {
+        super.onStart();
+        if(currentUser != null){
+            fs.collection("users").document(currentUser.getEmail()).get().addOnCompleteListener(new OnCompleteListener<DocumentSnapshot>() {
+                @Override
+                public void onComplete(@NonNull Task<DocumentSnapshot> task) {
+                    if(task.isSuccessful()){
+                        DocumentSnapshot document = task.getResult();
+                        String isAdmin = document.getString("isAdmin");
+                        Intent intent = new Intent(getApplicationContext(), Home.class);
+                        intent.putExtra("isAdmin", isAdmin);
+                        intent.putExtra("mail",document.getString("email"));
+
+
+
+                        Log.e("1: "," "+currentUser.getDisplayName());
+                        Log.e("2: "," "+currentUser.getEmail());
+                        Log.e("3: "," "+currentUser.getProviderId());
+                        Log.e("4: "," "+currentUser.getUid());
+                        Log.e("5: "," "+currentUser.getPhoneNumber());
+
+
+
+
+                        startActivity(intent);
+                        finish();
+                    }
+                }
+            });
+        }
+    }
+
+    private void onClick() {
             Button guestBtn = (Button) findViewById(R.id.guest_btn);
             Button signBtn = (Button) findViewById(R.id.sign_btn);
 
