@@ -10,8 +10,13 @@ import android.view.Window;
 import android.view.WindowManager;
 import android.widget.Button;
 
+import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.auth.FirebaseUser;
+
 public class WelcomeActivity extends AppCompatActivity{
 
+    private FirebaseAuth mAuth;
+    private FirebaseUser currentUser;
 
     @Override
         protected void onCreate(Bundle savedInstanceState){
@@ -19,8 +24,19 @@ public class WelcomeActivity extends AppCompatActivity{
 
         super.onCreate(savedInstanceState);
             setContentView(R.layout.activity_main);
+
+            mAuth = FirebaseAuth.getInstance();
+            currentUser = mAuth.getCurrentUser();
+
+            /*if(currentUser != null){
+                Intent homeIntent = new Intent(WelcomeActivity.this, Home.class);
+                startActivity(homeIntent);
+            }*/
+
             onClick();
             globals.transStatus(getWindow());
+
+
         }
 
         private void onClick() {

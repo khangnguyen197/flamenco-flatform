@@ -18,6 +18,7 @@ public class AdminManagement extends AppCompatActivity {
     private FirebaseAuth mAuth;
     private FirebaseUser currentUser;
 
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -29,6 +30,7 @@ public class AdminManagement extends AppCompatActivity {
         fs = FirebaseFirestore.getInstance();
         mAuth = FirebaseAuth.getInstance();
         currentUser = mAuth.getCurrentUser();
+
 
         doSignout();
 
@@ -46,6 +48,7 @@ public class AdminManagement extends AppCompatActivity {
             public void onClick(View v) {
                 Intent intent = new Intent(AdminManagement.this, HotelManageActivity.class);
                 startActivity(intent);
+                finish();
             }
         });
     }
@@ -60,6 +63,7 @@ public class AdminManagement extends AppCompatActivity {
                 mAuth.signOut();
                 Intent intent = new Intent(AdminManagement.this, Home.class);
                 startActivity(intent);
+                finish();
             }
         });
     }

@@ -44,6 +44,7 @@ public class RoomAdapter extends RecyclerView.Adapter<RoomAdapter.RoomHolder> {
 
     @Override
     public void onBindViewHolder(@NonNull RoomHolder holder, final int i) {
+
         holder.roomName.setText(roomList.get(i).name);
         holder.roomDescription.setText(roomList.get(i).description);
         holder.roomPrice.setText("$ "+roomList.get(i).price);

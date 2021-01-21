@@ -163,7 +163,7 @@
             app:layout_constraintTop_toBottomOf="@id/phone_frame" />
 
         <ImageButton
-            android:id="@+id/edit_btn"
+            android:id="@+id/edit_button"
             style="@style/Widget.Ripple"
             android:layout_width="35dp"
             android:layout_height="wrap_content"

@@ -164,6 +164,7 @@
 
         <ImageButton
             style="@style/Widget.Ripple"
+            android:id="@+id/edit_button"
             android:layout_width="0dp"
             android:layout_height="match_parent"
             android:background="@color/hint"

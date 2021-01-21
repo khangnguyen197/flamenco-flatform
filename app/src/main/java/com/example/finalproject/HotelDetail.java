@@ -15,6 +15,8 @@ import android.widget.TextView;
 
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.Task;
+import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.firestore.DocumentSnapshot;
 import com.google.firebase.firestore.FirebaseFirestore;
 import com.google.firebase.firestore.QueryDocumentSnapshot;
@@ -30,6 +32,9 @@ public class HotelDetail extends AppCompatActivity {
     ImageView lgImg, subImg1, subImg2;
 
     private FirebaseFirestore fs;
+    private FirebaseAuth mAuth;
+    private FirebaseUser CurrentUser;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -39,6 +44,8 @@ public class HotelDetail extends AppCompatActivity {
         globals.transStatus(getWindow());
 
         fs = FirebaseFirestore.getInstance();
+        mAuth = FirebaseAuth.getInstance();
+        CurrentUser = mAuth.getCurrentUser();
 
         btnDeal = findViewById(R.id.hotel_deal);
         btnSelectRoom = findViewById(R.id.select_room);
@@ -73,10 +80,16 @@ public class HotelDetail extends AppCompatActivity {
         btnSelectRoom.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Intent roomSeltorIntent = new Intent(HotelDetail.this, RoomSelection.class);
-                roomSeltorIntent.putExtra("hotelID", hotelID);
-                startActivity(roomSeltorIntent);
-                finish();
+                if(CurrentUser != null){
+                    Intent intent = new Intent(HotelDetail.this, RoomSelection.class);
+                    intent.putExtra("hotelID", hotelID);
+                    startActivity(intent);
+                    finish();
+                }else{
+                    Intent intent = new Intent(HotelDetail.this, LoginPage.class);
+                    startActivity(intent);
+                    finish();
+                }
             }
         });
     }

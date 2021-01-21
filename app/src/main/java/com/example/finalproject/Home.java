@@ -15,6 +15,7 @@ import android.content.Intent;
 import android.graphics.Color;
 import android.os.Build;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
@@ -42,13 +43,16 @@ public class Home extends AppCompatActivity implements NavigationView.OnNavigati
     DrawerLayout drawerLayout;
     NavigationView navigationView;
     Toolbar toolbar;
+
+    private String isAdmin = null, mail = null;
     private RecyclerView content;
     private List<Hotel> hotelList = new ArrayList<>();
     ;
     private HotelAdapter hotelAdapter;
     public SearchView search;
 
-    public boolean DEC;
+    private String CODE_DEC_USER_ADMIN = "1";
+    private Boolean DEC;
 
     private static final String DATABASE_ROOT_COLLECTION = "hotel_info";
 
@@ -125,10 +129,21 @@ public class Home extends AppCompatActivity implements NavigationView.OnNavigati
         Menu menu = navigationView.getMenu();
         MenuItem menuItem = menu.findItem(R.id.account_manage);
 
+        Intent intent = getIntent();
+        isAdmin = intent.getStringExtra("isAdmin");
+        mail = intent.getStringExtra("mail");
+
         if (currentUser == null) {
             menuItem.setTitle("Sign Up / Sign In");
             DEC = true;
-        } else {
+        }
+        else if (isAdmin.equals(CODE_DEC_USER_ADMIN)) {
+            menuItem.setTitle("Manage Account");
+            DEC = false;
+            Intent i = new Intent(getApplicationContext(), AdminManagement.class);
+            startActivity(i);
+            finish();
+        } else{
             menuItem.setTitle("Manage Account");
             DEC = false;
         }
@@ -330,8 +345,13 @@ public class Home extends AppCompatActivity implements NavigationView.OnNavigati
                 if (DEC) {
                     startActivity(new Intent(Home.this, LoginPage.class));
                     finish();
-                } else {
-                    startActivity(new Intent(Home.this, AdminManagement.class)); //Fix validate admin
+                } else if (isAdmin.equals(CODE_DEC_USER_ADMIN)){
+                    startActivity(new Intent(Home.this, AdminManagement.class));
+                    finish();
+                } else{
+                    Intent intent = new Intent(Home.this, UserInfo.class);
+                    intent.putExtra("mail", mail);
+                    startActivity(intent);
                     finish();
                 }
                 break;
