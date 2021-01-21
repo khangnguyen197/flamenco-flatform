@@ -161,7 +161,7 @@
             android:id="@+id/submit_btn"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:background="@drawable/outline_rectangular"
+            android:background="@drawable/rectangular_outline"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintTop_toBottomOf="@id/offer_frame"
             android:layout_marginRight="30dp"

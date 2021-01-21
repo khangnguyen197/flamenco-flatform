@@ -13,10 +13,12 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/NoActionBar">
-        <activity android:name=".RoomSelection"></activity>
+        <activity android:name=".HotelManageActivity"></activity>
+        <activity android:name=".AdminManagement" />
+        <activity android:name=".RoomSelection" />
         <activity android:name=".Rating" />
         <activity android:name=".HotelDetail" />
-        <activity android:name=".ManageAccount" />
+        <activity android:name=".UserInfo" />
         <activity
             android:name=".SignPage"
             android:windowSoftInputMode="stateAlwaysHidden|adjustPan" />

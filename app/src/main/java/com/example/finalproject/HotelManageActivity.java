@@ -37,7 +37,7 @@ import com.google.firebase.firestore.QuerySnapshot;
 import java.util.ArrayList;
 import java.util.List;
 
-public class Home extends AppCompatActivity implements NavigationView.OnNavigationItemSelectedListener {
+public class HotelManageActivity extends AppCompatActivity implements NavigationView.OnNavigationItemSelectedListener {
 
     DrawerLayout drawerLayout;
     NavigationView navigationView;
@@ -45,21 +45,22 @@ public class Home extends AppCompatActivity implements NavigationView.OnNavigati
     private RecyclerView content;
     private List<Hotel> hotelList = new ArrayList<>();
     ;
-    private HotelAdapter hotelAdapter;
-    public SearchView search;
+    private HotelManageAdapter hotelAdapter;
 
     public boolean DEC;
 
+    private static final String DATABASE_IMAGE_PATH = "hotelImages";
     private static final String DATABASE_ROOT_COLLECTION = "hotel_info";
 
     private FirebaseFirestore fs;
+    private DatabaseReference hotelDBRef;
     private FirebaseAuth mAuth;
     private FirebaseUser currentUser;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_home);
+        setContentView(R.layout.activity_hotel_manage);
         Globals globals = new Globals();
         globals.transStatus(getWindow());
         menuAction();
@@ -68,59 +69,10 @@ public class Home extends AppCompatActivity implements NavigationView.OnNavigati
         mAuth = FirebaseAuth.getInstance();
         currentUser = mAuth.getCurrentUser();
 
+        hotelDBRef = FirebaseDatabase.getInstance().getReference(DATABASE_IMAGE_PATH);
+
         content = (RecyclerView) findViewById(R.id.contentView);
-        search = (SearchView) findViewById(R.id.search);
 
-        search.setOnQueryTextListener(new SearchView.OnQueryTextListener() {
-            @Override
-            public boolean onQueryTextSubmit(String query) {
-                return false;
-            }
-
-            @Override
-            public boolean onQueryTextChange(final String newText) {
-
-                fs.collection(DATABASE_ROOT_COLLECTION).get().addOnCompleteListener(new OnCompleteListener<QuerySnapshot>() {
-                    @Override
-                    public void onComplete(@NonNull Task<QuerySnapshot> task) {
-                        if (task.isSuccessful()) {
-                            clearAllData();
-                            for (QueryDocumentSnapshot document : task.getResult()) {
-                                String district = document.getString("district");
-                                if (newText.equals("")) {
-                                    setupRecyclerView();
-                                    break;
-                                } else if (newText.equalsIgnoreCase(district)) {
-                                    Hotel hotelInfo = new Hotel();
-                                    List<Hotel> hotelList = new ArrayList<Hotel>();
-
-                                    hotelInfo.hotelID = document.getId();
-                                    hotelInfo.hotelName = document.getString("name");
-                                    hotelInfo.numberAdd = document.getString("numberAddress");
-                                    hotelInfo.district = document.getString("district");
-                                    hotelInfo.ward = document.getString("ward");
-                                    hotelInfo.phone = document.getString("phone");
-                                    hotelInfo.special = document.getString("special");
-                                    hotelInfo.price = document.getString("priceRange");
-                                    hotelInfo.imageUrl = document.getString("imageUrl");
-                                    hotelInfo.deal = document.getString("deal");
-
-                                    hotelList.add(hotelInfo);
-
-                                    content.setHasFixedSize(true);
-                                    hotelAdapter = new HotelAdapter(Home.this, hotelList);
-                                    LinearLayoutManager LLM = new LinearLayoutManager(Home.this);
-                                    content.setLayoutManager(LLM);
-                                    content.setAdapter(hotelAdapter);
-                                    break;
-                                }
-                            }
-                        }
-                    }
-                });
-                return false;
-            }
-        });
 
         Menu menu = navigationView.getMenu();
         MenuItem menuItem = menu.findItem(R.id.account_manage);
@@ -162,8 +114,8 @@ public class Home extends AppCompatActivity implements NavigationView.OnNavigati
 
                         }
 
-                        hotelAdapter = new HotelAdapter(Home.this, hotelList);
-                        LinearLayoutManager LLM = new LinearLayoutManager(Home.this);
+                        hotelAdapter = new HotelManageAdapter(HotelManageActivity.this, hotelList);
+                        LinearLayoutManager LLM = new LinearLayoutManager(HotelManageActivity.this);
                         content.setLayoutManager(LLM);
                         content.setAdapter(hotelAdapter);
                     }
@@ -208,8 +160,8 @@ public class Home extends AppCompatActivity implements NavigationView.OnNavigati
 
                                                 hotelList.add(hotelInfo);
 
-                                                hotelAdapter = new HotelAdapter(Home.this, hotelList);
-                                                LinearLayoutManager LLM = new LinearLayoutManager(Home.this);
+                                                hotelAdapter = new HotelManageAdapter(HotelManageActivity.this, hotelList);
+                                                LinearLayoutManager LLM = new LinearLayoutManager(HotelManageActivity.this);
                                                 content.setLayoutManager(LLM);
                                                 content.setAdapter(hotelAdapter);
 
@@ -328,17 +280,17 @@ public class Home extends AppCompatActivity implements NavigationView.OnNavigati
         switch (menuItem.getItemId()) {
             case R.id.account_manage:
                 if (DEC) {
-                    startActivity(new Intent(Home.this, LoginPage.class));
+                    startActivity(new Intent(HotelManageActivity.this, LoginPage.class));
                     finish();
                 } else {
-                    startActivity(new Intent(Home.this, AdminManagement.class)); //Fix validate admin
+                    startActivity(new Intent(HotelManageActivity.this, UserInfo.class));
                     finish();
                 }
                 break;
             case R.id.about_us:
                 break;
             case R.id.rating_us:
-                Intent intent1 = new Intent(Home.this, Rating.class);
+                Intent intent1 = new Intent(HotelManageActivity.this, Rating.class);
                 startActivity(intent1);
                 break;
         }
