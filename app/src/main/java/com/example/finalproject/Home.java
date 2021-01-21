@@ -70,11 +70,9 @@ public class Home extends AppCompatActivity implements NavigationView.OnNavigati
 
     public boolean DEC;
 
-    private static final String DATABASE_IMAGE_PATH = "hotelImages";
     private static final String DATABASE_ROOT_COLLECTION = "hotel_info";
 
     private FirebaseFirestore fs;
-    private DatabaseReference hotelDBRef;
     private FirebaseAuth mAuth;
     private FirebaseUser currentUser;
 
@@ -89,8 +87,6 @@ public class Home extends AppCompatActivity implements NavigationView.OnNavigati
         fs = FirebaseFirestore.getInstance();
         mAuth = FirebaseAuth.getInstance();
         currentUser = mAuth.getCurrentUser();
-
-        hotelDBRef = FirebaseDatabase.getInstance().getReference(DATABASE_IMAGE_PATH);
 
         content = (RecyclerView) findViewById(R.id.contentView);
         search = (SearchView) findViewById(R.id.search);

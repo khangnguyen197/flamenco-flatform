@@ -65,7 +65,7 @@ public class HotelDetail extends AppCompatActivity {
 
 
         Intent intent = getIntent();
-        String hotelID = intent.getStringExtra("hotelID");
+        final String hotelID = intent.getStringExtra("hotelID");
 
         setupInfo(hotelID);
         setupImage(hotelID);
@@ -74,7 +74,9 @@ public class HotelDetail extends AppCompatActivity {
             @Override
             public void onClick(View v) {
                 Intent roomSeltorIntent = new Intent(HotelDetail.this, RoomSelection.class);
+                roomSeltorIntent.putExtra("hotelID", hotelID);
                 startActivity(roomSeltorIntent);
+                finish();
             }
         });
     }
@@ -134,7 +136,6 @@ public class HotelDetail extends AppCompatActivity {
                         .fit()
                         .centerCrop()
                         .into(lgImg);
-                Log.e("ERROR 1",": OK");
                 break;
             case 2:
                 Picasso.with(HotelDetail.this).load(url)

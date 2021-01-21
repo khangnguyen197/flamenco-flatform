@@ -56,15 +56,10 @@ public class HotelAdapter extends RecyclerView.Adapter<HotelAdapter.HotelHolder>
 
         holder.setItemClickListener(new ItemClickListener() {
             @Override
-            public void onClick(View view, int position, boolean isLongClick) {
-                if (isLongClick)
-                    Toast.makeText(context, "Long Clicked: ", Toast.LENGTH_SHORT).show();
-                else{
+            public void onClick(View view, int position) {
                     Intent intent = new Intent(context,HotelDetail.class);
                     intent.putExtra("hotelID", hotelList.get(i).hotelID);
                     context.startActivity(intent);
-
-                    Toast.makeText(context, "Clicked: ", Toast.LENGTH_SHORT).show();}
             }
         });
     }
@@ -77,9 +72,8 @@ public class HotelAdapter extends RecyclerView.Adapter<HotelAdapter.HotelHolder>
             return hotelList.size();
     }
 
-    public static class HotelHolder extends RecyclerView.ViewHolder implements View.OnClickListener, View.OnLongClickListener {
+    public static class HotelHolder extends RecyclerView.ViewHolder implements View.OnClickListener{
 
-        public ConstraintLayout container;
         public ImageView hotelImage;
         public TextView hotelName, hotelAdd, hotelPhone, hotelSpecial, priceRange;
 
@@ -95,26 +89,19 @@ public class HotelAdapter extends RecyclerView.Adapter<HotelAdapter.HotelHolder>
             priceRange = itemView.findViewById(R.id.price_range);
 
             itemView.setOnClickListener(this);
-            itemView.setOnLongClickListener(this);
         }
 
         @Override
         public void onClick(View v) {
-            itemClickListener.onClick(v, getAdapterPosition(), false);
-        }
-
-        @Override
-        public boolean onLongClick(View v) {
-            itemClickListener.onClick(v, getAdapterPosition(), true);
-            return true;
+            itemClickListener.onClick(v, getAdapterPosition());
         }
 
         public void setItemClickListener(ItemClickListener itemClickListener) {
             this.itemClickListener = itemClickListener;
         }
-    }
+        }
 
-    public interface ItemClickListener {
-        void onClick(View view, int position, boolean isLongClick);
-    }
+        public interface ItemClickListener {
+            void onClick(View view, int position);
+        }
 }
