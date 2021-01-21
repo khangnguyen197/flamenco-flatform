@@ -5,6 +5,7 @@ import android.content.Intent;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.ImageButton;
 import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
@@ -38,30 +39,23 @@ public class HotelManageAdapter extends RecyclerView.Adapter<HotelManageAdapter.
     public void onBindViewHolder(@NonNull HotelHolder holder, final int i) {
 
         holder.hotelName.setText(hotelList.get(i).hotelName);
-        holder.hotelAdd.setText(hotelList.get(i).numberAdd + ", " + hotelList.get(i).district +" "+ "District" );
+        holder.hotelAdd.setText(hotelList.get(i).numberAdd + ", " + hotelList.get(i).district + " " + "District");
         holder.hotelPhone.setText(hotelList.get(i).phone);
         holder.hotelSpecial.setText(hotelList.get(i).special);
 
         Picasso.with(context).setLoggingEnabled(true);
         Picasso.with(context).load(hotelList.get(i).imageUrl)
-            .fit()
-            .centerCrop()
-            .into(holder.hotelImage);
+                .fit()
+                .centerCrop()
+                .into(holder.hotelImage);
 
-
-        holder.setItemClickListener(new ItemClickListener() {
+        holder.btnEdit.setOnClickListener(new View.OnClickListener() {
             @Override
-            public void onClick(View view, int position, boolean isLongClick) {
-                if (isLongClick)
-                    Toast.makeText(context, "Long Clicked: ", Toast.LENGTH_SHORT).show();
-                else{
-                    Intent intent = new Intent(context,HotelDetail.class);
-                    intent.putExtra("hotelID", hotelList.get(i).hotelID);
-                    context.startActivity(intent);
-
-                    Toast.makeText(context, "Clicked: ", Toast.LENGTH_SHORT).show();}
+            public void onClick(View v) {
+                removeItem(i);
             }
         });
+
     }
 
     @Override
@@ -72,13 +66,18 @@ public class HotelManageAdapter extends RecyclerView.Adapter<HotelManageAdapter.
             return hotelList.size();
     }
 
-    public static class HotelHolder extends RecyclerView.ViewHolder implements View.OnClickListener, View.OnLongClickListener {
+    public void removeItem(int i) {
+        hotelList.remove(i);
+        notifyItemRemoved(i);
+        notifyItemRangeChanged(i, hotelList.size());
+    }
 
-        public ConstraintLayout container;
+
+    public static class HotelHolder extends RecyclerView.ViewHolder {
+
+        public ImageButton btnEdit;
         public ImageView hotelImage;
         public TextView hotelName, hotelAdd, hotelPhone, hotelSpecial, priceRange;
-
-        private ItemClickListener itemClickListener;
 
         public HotelHolder(@NonNull View itemView) {
             super(itemView);
@@ -88,28 +87,8 @@ public class HotelManageAdapter extends RecyclerView.Adapter<HotelManageAdapter.
             hotelPhone = itemView.findViewById(R.id.hotel_phone);
             hotelSpecial = itemView.findViewById(R.id.hotel_special);
             priceRange = itemView.findViewById(R.id.price_range);
+            btnEdit = itemView.findViewById(R.id.edit_button);
 
-            itemView.setOnClickListener(this);
-            itemView.setOnLongClickListener(this);
         }
-
-        @Override
-        public void onClick(View v) {
-            itemClickListener.onClick(v, getAdapterPosition(), false);
-        }
-
-        @Override
-        public boolean onLongClick(View v) {
-            itemClickListener.onClick(v, getAdapterPosition(), true);
-            return true;
-        }
-
-        public void setItemClickListener(ItemClickListener itemClickListener) {
-            this.itemClickListener = itemClickListener;
-        }
-    }
-
-    public interface ItemClickListener {
-        void onClick(View view, int position, boolean isLongClick);
     }
 }

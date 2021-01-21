@@ -22,6 +22,8 @@ import android.view.View;
 import com.google.android.material.navigation.NavigationView;
 
 import android.content.DialogInterface;
+import android.widget.Button;
+import android.widget.ImageButton;
 import android.widget.SearchView;
 
 import com.google.android.gms.tasks.OnCompleteListener;
@@ -42,12 +44,11 @@ public class HotelManageActivity extends AppCompatActivity implements Navigation
     DrawerLayout drawerLayout;
     NavigationView navigationView;
     Toolbar toolbar;
+
     private RecyclerView content;
     private List<Hotel> hotelList = new ArrayList<>();
     ;
     private HotelManageAdapter hotelAdapter;
-
-    public boolean DEC;
 
     private static final String DATABASE_IMAGE_PATH = "hotelImages";
     private static final String DATABASE_ROOT_COLLECTION = "hotel_info";
@@ -57,6 +58,7 @@ public class HotelManageActivity extends AppCompatActivity implements Navigation
     private FirebaseAuth mAuth;
     private FirebaseUser currentUser;
 
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -64,6 +66,7 @@ public class HotelManageActivity extends AppCompatActivity implements Navigation
         Globals globals = new Globals();
         globals.transStatus(getWindow());
         menuAction();
+
 
         fs = FirebaseFirestore.getInstance();
         mAuth = FirebaseAuth.getInstance();
@@ -76,14 +79,7 @@ public class HotelManageActivity extends AppCompatActivity implements Navigation
 
         Menu menu = navigationView.getMenu();
         MenuItem menuItem = menu.findItem(R.id.account_manage);
-
-        if (currentUser == null) {
-            menuItem.setTitle("Sign Up / Sign In");
-            DEC = true;
-        } else {
-            menuItem.setTitle("Manage Account");
-            DEC = false;
-        }
+        menuItem.setTitle("Manage Account");
 
         clearAllData();
         setupRecyclerView();
@@ -279,13 +275,8 @@ public class HotelManageActivity extends AppCompatActivity implements Navigation
     public boolean onNavigationItemSelected(@NonNull MenuItem menuItem) {
         switch (menuItem.getItemId()) {
             case R.id.account_manage:
-                if (DEC) {
-                    startActivity(new Intent(HotelManageActivity.this, LoginPage.class));
-                    finish();
-                } else {
-                    startActivity(new Intent(HotelManageActivity.this, UserInfo.class));
-                    finish();
-                }
+                startActivity(new Intent(HotelManageActivity.this, AdminManagement.class));
+                finish();
                 break;
             case R.id.about_us:
                 break;
