@@ -128,36 +128,14 @@
         <item name="android:textSize">22sp</item>
         <item name="android:textColor">@color/matteBlack</item>
     </style>
-
-    <style name="WideDialog" parent="Base.Theme.AppCompat.Dialog">
-        <item name="android:windowMinWidthMajor">90%</item>
-        <item name="android:windowMinWidthMinor">90%</item>
-    </style>
-
-    <style name="AppThemeDialog" parent="Theme.AppCompat">
-
-        <item name="colorBackgroundFloating">#ff424242</item>
-        <item name="listPreferredItemPaddingLeft">0dp</item>
-        <item name="android:windowIsFloating">true</item>
-        <item name="listPreferredItemPaddingRight">0dp</item>
-    </style>
-
-    <style name="FullScreenDialogStyle" parent="Theme.AppCompat.Dialog">
-        <item name="android:windowNoTitle">true</item>
-        <!-- Set this to true if you want Full Screen without status bar -->
-        <item name="android:windowFullscreen">true</item>
-
-        <item name="android:windowIsFloating">true</item>
-
+    
+    <style name="FullScreenDialogStyle" parent="Base.Theme.AppCompat.Light.Dialog.Alert">
         <item name="android:windowMinWidthMajor">100%</item>
         <item name="android:windowMinWidthMinor">100%</item>
-
         <item name="android:colorAccent">@color/orange</item>
-        <item name="android:textColor">@color/orange</item>
-        <item name="android:textColorPrimary">@color/orange</item>
-        <!-- This is important! Don't forget to set window background -->
-        <item name="android:windowBackground">@color/bl_tr</item>
-
+        <item name="android:textColor">@color/link</item>
+        <item name="color">@color/matteBlack</item>
+        <item name="android:windowBackground">@color/colorPrimary</item>
     </style>
 
 </resources>
