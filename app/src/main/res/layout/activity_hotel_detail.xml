@@ -105,6 +105,7 @@
                     app:layout_constraintTop_toBottomOf="@id/lg_img">
 
                     <ImageView
+                        android:id="@+id/sub_img_1"
                         android:layout_width="wrap_content"
                         android:layout_height="130dp"
                         android:layout_marginEnd="3dp"
@@ -112,6 +113,7 @@
                         android:contentDescription="@string/description" />
 
                     <ImageView
+                        android:id="@+id/sub_img_2"
                         android:layout_width="wrap_content"
                         android:layout_height="130dp"
                         android:layout_weight="2"
@@ -128,6 +130,7 @@
                     android:paddingLeft="25dp"
                     android:paddingRight="25dp"
                     android:paddingBottom="15dp"
+                    android:layout_marginTop="10dp"
                     >
 
                     <TextView
@@ -136,7 +139,8 @@
                         android:layout_height="wrap_content"
                         android:text="@string/rising_star_hotel"
                         android:textColor="@color/matteBlack"
-                        android:textSize="25sp" />
+                        android:textSize="28sp"
+                        android:fontFamily="@font/calibri_bold"/>
 
                     <LinearLayout
                         android:id="@+id/star_frame"
@@ -166,7 +170,10 @@
                         android:layout_height="wrap_content"
                         android:text="This hotel can view saigon river"
                         android:textColor="@color/hint"
-                        android:textSize="18sp" />
+                        android:textSize="18sp"
+                        android:layout_marginTop="5dp"
+                        android:layout_marginLeft="5dp"
+                        />
                 </LinearLayout>
             </androidx.constraintlayout.widget.ConstraintLayout>
 
@@ -189,19 +196,24 @@
                     android:layout_marginTop="20dp">
 
                     <Button
-                        android:layout_width="0dp"
+                        android:id="@+id/hotel_deal"
+                        android:layout_width="wrap_content"
                         android:layout_height="22dp"
-                        android:layout_weight="1"
                         android:layout_marginBottom="10dp"
                         android:background="@drawable/rectangle_gradient" />
 
                     <TextView
-                        android:layout_weight="2"
-                        android:id="@+id/price"
-                        android:layout_width="0dp"
+                        android:id="@+id/hotel_price"
+                        android:layout_width="100dp"
                         android:layout_height="40dp"
                         android:text="@string/_22_75"
                         android:textAlignment="textEnd"
+
+                        android:layout_weight="1"
+                        android:ellipsize="none"
+                        android:maxLines="2"
+                        android:scrollHorizontally="false"
+
                         style="@style/Widget.Label"
                         android:textStyle="bold"
                         android:textColor="@color/matteBlack"
@@ -281,6 +293,7 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content">
         <Button
+            android:id="@+id/select_room"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             style="@style/Widget.Button_Gradient"
