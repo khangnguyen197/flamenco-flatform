@@ -12,6 +12,7 @@ import androidx.drawerlayout.widget.DrawerLayout;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 import android.annotation.SuppressLint;
+import android.content.ClipData;
 import android.content.Context;
 import android.content.Intent;
 import android.graphics.Color;
@@ -39,6 +40,8 @@ import android.widget.Toast;
 
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.Task;
+import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
@@ -65,10 +68,15 @@ public class Home extends AppCompatActivity implements NavigationView.OnNavigati
     private HotelAdapter hotelAdapter;
     public SearchView search;
 
-    private  static final String DATABASE_IMAGE_PATH = "hotelImages";
+    public boolean DEC;
+
+    private static final String DATABASE_IMAGE_PATH = "hotelImages";
+    private static final String DATABASE_ROOT_COLLECTION = "hotel_info";
 
     private FirebaseFirestore fs;
     private DatabaseReference hotelDBRef;
+    private FirebaseAuth mAuth;
+    private FirebaseUser currentUser;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -79,6 +87,8 @@ public class Home extends AppCompatActivity implements NavigationView.OnNavigati
         menuAction();
 
         fs = FirebaseFirestore.getInstance();
+        mAuth = FirebaseAuth.getInstance();
+        currentUser = mAuth.getCurrentUser();
 
         hotelDBRef = FirebaseDatabase.getInstance().getReference(DATABASE_IMAGE_PATH);
 
@@ -94,7 +104,7 @@ public class Home extends AppCompatActivity implements NavigationView.OnNavigati
             @Override
             public boolean onQueryTextChange(final String newText) {
 
-                fs.collection("hotel_info").get().addOnCompleteListener(new OnCompleteListener<QuerySnapshot>() {
+                fs.collection(DATABASE_ROOT_COLLECTION).get().addOnCompleteListener(new OnCompleteListener<QuerySnapshot>() {
                     @Override
                     public void onComplete(@NonNull Task<QuerySnapshot> task) {
                         if(task.isSuccessful()) {
@@ -135,12 +145,24 @@ public class Home extends AppCompatActivity implements NavigationView.OnNavigati
             }
         });
 
+        Menu menu = navigationView.getMenu();
+        MenuItem menuItem = menu.findItem(R.id.account_manage);
+
+        if(currentUser == null){
+            menuItem.setTitle("Sign Up / Sign In");
+            DEC = true;
+        }else{
+            menuItem.setTitle("Manage Account");
+            DEC = false;
+        }
+
         clearAllData();
         setupRecyclerView();
     }
 
     private void setupRecyclerView() {
-        fs.collection("hotel_info").get().addOnCompleteListener(new OnCompleteListener<QuerySnapshot>() {
+        fs.collection(DATABASE_ROOT_COLLECTION).get()
+                .addOnCompleteListener(new OnCompleteListener<QuerySnapshot>() {
             @Override
             public void onComplete(@NonNull Task<QuerySnapshot> task) {
                 if(task.isSuccessful()){
@@ -180,30 +202,85 @@ public class Home extends AppCompatActivity implements NavigationView.OnNavigati
         hotelList.clear();
     }
 
+    private void filterRoom(final String room){
+        fs.collection(DATABASE_ROOT_COLLECTION).get().addOnCompleteListener(new OnCompleteListener<QuerySnapshot>() {
+            @Override
+            public void onComplete(@NonNull Task<QuerySnapshot> task) {
+                if(task.isSuccessful()) {
+                    clearAllData();
+                    for (final QueryDocumentSnapshot document1 : task.getResult()) {
+                        fs.collection(DATABASE_ROOT_COLLECTION).document(document1.getId()).collection("roomType").get()
+                                .addOnCompleteListener(new OnCompleteListener<QuerySnapshot>() {
+                                    @Override
+                                    public void onComplete(@NonNull Task<QuerySnapshot> task) {
+                                        if(task.isSuccessful()) {
+                                            for (QueryDocumentSnapshot document2 : task.getResult()) {
+                                                if(document2.getId().equalsIgnoreCase(room)){
+                                                    Hotel hotelInfo = new Hotel();
+
+                                                    hotelInfo.hotelID = document1.getId();
+                                                    hotelInfo.hotelName = document1.getString("name");
+                                                    hotelInfo.numberAdd = document1.getString("numberAddress");
+                                                    hotelInfo.district = document1.getString("district");
+                                                    hotelInfo.ward = document1.getString("ward");
+                                                    hotelInfo.phone = document1.getString("phone");
+                                                    hotelInfo.special = document1.getString("special");
+                                                    hotelInfo.price = document1.getString("priceRange");
+                                                    hotelInfo.imageUrl = document1.getString("imageUrl");
+                                                    hotelInfo.deal = document1.getString("deal");
+
+                                                    hotelList.add(hotelInfo);
+
+                                                    hotelAdapter = new HotelAdapter(Home.this, hotelList);
+                                                    LinearLayoutManager LLM = new LinearLayoutManager(Home.this);
+                                                    content.setLayoutManager(LLM);
+                                                    content.setAdapter(hotelAdapter);
+
+                                                    break;
+                                            }
+                                        }}
+                                    }
+                                });
+                    }
+
+
+                }}
+        });
+    }
+
     public void selectRoom(View v){
         AlertDialog.Builder builder = new AlertDialog.Builder(this);
         builder.setTitle("CHOOSE YOUR ROOMS");
 
-        String[] selsem = {"deluxe", "double", "single","family","president"};
+        final String[] selsem = {"NONE","DELUXE", "DOUBLE", "SINGLE","FAMILY","PRESIDENT","TEST"};
         builder.setItems(selsem, new DialogInterface.OnClickListener() {
             @Override
             public void onClick(DialogInterface dialog, int which) {
                 switch (which) {
                     case 0:
-                        Toast.makeText(Home.this, "Deluxe room", Toast.LENGTH_SHORT).show();
+                        setupRecyclerView();
                         break;
                     case 1:
-                        Toast.makeText(Home.this, "Double room", Toast.LENGTH_SHORT).show();
+                        filterRoom(selsem[1]);
                         break;
                     case 2:
-                        Toast.makeText(Home.this, "Single room", Toast.LENGTH_SHORT).show();
+                        filterRoom(selsem[2]);
                         break;
                     case 3:
-                        Toast.makeText(Home.this, "Family room", Toast.LENGTH_SHORT).show();
+                        filterRoom(selsem[3]);
                         break;
                     case 4:
-                        Toast.makeText(Home.this, "President room", Toast.LENGTH_SHORT).show();
+                        filterRoom(selsem[4]);
                         break;
+                    case 5:
+                        filterRoom(selsem[5]);
+                        break;
+                    case 6:
+                        filterRoom(selsem[6]);
+                        break;
+                    default:
+                        break;
+
                 }
             }
         });
@@ -213,9 +290,11 @@ public class Home extends AppCompatActivity implements NavigationView.OnNavigati
     }
 
     private void menuAction() {
+
         drawerLayout = findViewById(R.id.drawer_layout);
         navigationView = findViewById(R.id.nav_view);
         toolbar = findViewById(R.id.toolbar);
+
         /**Tool Bar */
         setSupportActionBar(toolbar);
         getWindow().setStatusBarColor(Color.TRANSPARENT);
@@ -269,8 +348,10 @@ public class Home extends AppCompatActivity implements NavigationView.OnNavigati
     public boolean onNavigationItemSelected(@NonNull MenuItem menuItem) {
         switch (menuItem.getItemId()){
             case R.id.account_manage:
-                Intent intent = new Intent(Home.this, LoginPage.class);
-                startActivity(intent);
+                if(DEC) {
+                    startActivity(new Intent(Home.this, WelcomeActivity.class));
+                    finish();
+                }
                 break;
             case R.id.about_us:
                 break;
