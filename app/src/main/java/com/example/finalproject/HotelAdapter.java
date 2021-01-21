@@ -42,10 +42,10 @@ public class HotelAdapter extends RecyclerView.Adapter<HotelAdapter.HotelHolder>
     public void onBindViewHolder(@NonNull HotelHolder holder, final int i) {
 
         holder.hotelName.setText(hotelList.get(i).hotelName);
-        holder.hotelAdd.setText("Address: " + hotelList.get(i).numberAdd + ", Dist. " + hotelList.get(i).district);
-        holder.hotelPhone.setText("Phone: +" + hotelList.get(i).phone);
-        holder.hotelSpecial.setText("SPECIAL: " + hotelList.get(i).special);
-        holder.priceRange.setText("Price: " + hotelList.get(i).price);
+        holder.hotelAdd.setText(hotelList.get(i).numberAdd + ", " + hotelList.get(i).district +" "+ "District" );
+        holder.hotelPhone.setText(hotelList.get(i).phone);
+        holder.hotelSpecial.setText(hotelList.get(i).special);
+        holder.priceRange.setText(hotelList.get(i).price);
 
         Picasso.with(context).setLoggingEnabled(true);
         Picasso.with(context).load(hotelList.get(i).imageUrl)
