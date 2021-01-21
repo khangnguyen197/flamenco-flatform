@@ -70,6 +70,13 @@ public class HotelDetail extends AppCompatActivity {
         setupInfo(hotelID);
         setupImage(hotelID);
 
+        btnSelectRoom.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent roomSeltorIntent = new Intent(HotelDetail.this, RoomSelection.class);
+                startActivity(roomSeltorIntent);
+            }
+        });
     }
 
     private void setupInfo(String hotelID) {

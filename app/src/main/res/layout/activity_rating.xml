@@ -6,6 +6,7 @@
     android:layout_height="match_parent"
     android:orientation="vertical"
     android:gravity="center"
+    android:background="@drawable/header_bg"
     tools:context=".Rating">
     <androidx.constraintlayout.widget.Guideline
         android:id="@+id/h1"
@@ -19,13 +20,20 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:orientation="horizontal"
-        app:layout_constraintGuide_percent="0.92" />
+        app:layout_constraintGuide_percent="0.55" />
+
+    <androidx.constraintlayout.widget.Guideline
+        android:id="@+id/h3"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        app:layout_constraintGuide_percent="0.72" />
 
     <LinearLayout
         android:id="@+id/header"
         android:layout_width="match_parent"
         android:layout_height="0dp"
-        android:background="@drawable/bg"
+        android:background="@color/transparent"
         android:gravity="center"
         android:orientation="horizontal"
         android:paddingLeft="10dp"
@@ -50,19 +58,14 @@
             android:layout_height="match_parent"
             android:layout_weight="5"
             android:gravity="center_vertical"
-            android:text="Rating stars" />
+            android:text="@string/rating_stars" />
 
-        <ImageView
-            android:layout_width="wrap_content"
-            android:layout_height="match_parent"
-            android:layout_weight="1"
-            android:src="@drawable/like" />
     </LinearLayout>
 
     <RatingBar
+        android:id="@+id/rating_bar"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:id="@+id/rating_bar"
         android:backgroundTint="@color/colorPrimary"
         android:numStars="5"
         android:progressTint="@color/label"
@@ -70,11 +73,11 @@
         android:secondaryProgressTint="@android:color/transparent"
         android:stepSize="1"
 
-        app:layout_constraintTop_toBottomOf="@id/header"
         app:layout_constraintBottom_toTopOf="@id/submit_button"
-        app:layout_constraintRight_toRightOf="parent"
+        app:layout_constraintHorizontal_bias="0.497"
         app:layout_constraintLeft_toLeftOf="parent"
-        />
+        app:layout_constraintRight_toRightOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/h2" />
 
     <Button
         android:layout_width="150dp"
@@ -86,7 +89,7 @@
         app:layout_constraintTop_toBottomOf="@id/rating_bar"
         app:layout_constraintLeft_toLeftOf="parent"
         app:layout_constraintRight_toRightOf="parent"
-        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintBottom_toBottomOf="@id/h3"
         />
 
 

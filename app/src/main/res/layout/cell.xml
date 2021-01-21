@@ -10,7 +10,7 @@
     android:background="@color/white"
     android:clickable="true"
     android:focusable="true"
-    android:foreground="?attr/selectableItemBackground">
+   >
 
     <androidx.constraintlayout.widget.ConstraintLayout
         android:id="@+id/container"
