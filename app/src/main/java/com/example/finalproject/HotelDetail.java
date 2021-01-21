@@ -7,6 +7,7 @@ import android.annotation.SuppressLint;
 import android.content.Intent;
 import android.os.Bundle;
 import android.util.Log;
+import android.view.View;
 import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.TextView;
@@ -58,6 +59,13 @@ public class HotelDetail extends AppCompatActivity {
         setupInfo(hotelID);
         setupImage(hotelID);
 
+        btnSelectRoom.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent roomSeltorIntent = new Intent(HotelDetail.this, RoomSelection.class);
+                startActivity(roomSeltorIntent);
+            }
+        });
     }
 
     private void setupInfo(String hotelID) {
