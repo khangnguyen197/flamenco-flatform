@@ -11,11 +11,14 @@ import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
 import android.annotation.SuppressLint;
+import android.app.Dialog;
+import android.content.Context;
 import android.content.Intent;
 import android.graphics.Color;
 import android.os.Build;
 import android.os.Bundle;
 import android.util.Log;
+import android.view.Gravity;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
@@ -23,7 +26,11 @@ import android.view.View;
 import com.google.android.material.navigation.NavigationView;
 
 import android.content.DialogInterface;
+import android.view.ViewGroup;
+import android.view.Window;
+import android.view.WindowManager;
 import android.widget.SearchView;
+import android.widget.TextView;
 
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.Task;
@@ -249,7 +256,7 @@ public class Home extends AppCompatActivity implements NavigationView.OnNavigati
     }
 
     public void selectRoom(View v) {
-        AlertDialog.Builder builder = new AlertDialog.Builder(this);
+        AlertDialog.Builder builder = new AlertDialog.Builder(this, R.style.FullScreenDialogStyle);
         builder.setTitle("CHOOSE YOUR ROOMS");
 
         final String[] selsem = {"NONE", "DELUXE", "DOUBLE", "SINGLE", "FAMILY", "PRESIDENT", "TEST"};
@@ -286,6 +293,13 @@ public class Home extends AppCompatActivity implements NavigationView.OnNavigati
         });
 
         AlertDialog dialog = builder.create();
+        Window window = dialog.getWindow();
+        WindowManager.LayoutParams wlp = window.getAttributes();
+//        window.setLayout(WindowManager.LayoutParams.MATCH_PARENT, WindowManager.LayoutParams.MATCH_PARENT);
+
+        wlp.gravity = Gravity.BOTTOM;
+//        wlp.flags &= ~WindowManager.LayoutParams.MATCH_PARENT;
+        window.setAttributes(wlp);
         dialog.show();
     }
 

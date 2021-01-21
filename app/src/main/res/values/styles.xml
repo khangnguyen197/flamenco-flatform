@@ -67,7 +67,8 @@
 
     <style name="SearchInput" parent="android:Widget">
         <item name="android:editTextColor">@color/matteBlack</item>
-        <item name="android:textColorHint">@color/matteBlack</item>
+        <item name="android:textColorHint">@color/hint</item>
+        <item name="fontFamily">@font/calibri_light</item>
     </style>
 
     <style name="SearchInputFrame" parent="android:Widget">
@@ -83,7 +84,7 @@
         <item name="fontFamily">@font/calibri_regular</item>
     </style>
 
-    <style name="NavigationView" >
+    <style name="NavigationView">
         <item name="android:listDivider">@color/border</item>
         <item name="android:textColorSecondary">@color/border</item>
     </style>
@@ -126,6 +127,15 @@
         <item name="android:layout_margin">10dp</item>
         <item name="android:textSize">22sp</item>
         <item name="android:textColor">@color/matteBlack</item>
+    </style>
+    
+    <style name="FullScreenDialogStyle" parent="Base.Theme.AppCompat.Light.Dialog.Alert">
+        <item name="android:windowMinWidthMajor">100%</item>
+        <item name="android:windowMinWidthMinor">100%</item>
+        <item name="android:colorAccent">@color/orange</item>
+        <item name="android:textColor">@color/link</item>
+        <item name="color">@color/matteBlack</item>
+        <item name="android:windowBackground">@color/colorPrimary</item>
     </style>
 
 </resources>

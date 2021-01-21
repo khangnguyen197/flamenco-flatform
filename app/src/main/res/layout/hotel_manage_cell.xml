@@ -162,19 +162,22 @@
             app:layout_constraintLeft_toLeftOf="@id/v1"
             app:layout_constraintTop_toBottomOf="@id/phone_frame" />
 
-        <ImageButton
+        <ImageButton          
             style="@style/Widget.Ripple"
             android:id="@+id/edit_button"
-            android:layout_width="0dp"
-            android:layout_height="match_parent"
-            android:background="@color/hint"
+            android:layout_width="35dp"
+            android:layout_height="wrap_content"
+            android:paddingTop="5dp"
+            android:paddingBottom="5dp"
+            android:background="@drawable/rectangular_outline"
             android:contentDescription="@string/description"
             android:scaleType="centerInside"
-            android:src="@drawable/edit_36px"
-            android:tint="#FFFFFF"
+            android:src="@drawable/edit_24px"
+            android:tint="@color/orange"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintLeft_toLeftOf="@id/v2"
             app:layout_constraintRight_toRightOf="parent"
-            app:layout_constraintTop_toTopOf="parent" />
+            app:layout_constraintTop_toTopOf="parent"
+            app:layout_constraintVertical_bias="0.07"/>
     </androidx.constraintlayout.widget.ConstraintLayout>
 </LinearLayout>
