@@ -9,6 +9,8 @@ import android.widget.TextView;
 
 import com.squareup.picasso.Picasso;
 
+import javax.microedition.khronos.opengles.GL;
+
 public class HotelDetail extends AppCompatActivity {
 
     TextView tx;
@@ -17,6 +19,9 @@ public class HotelDetail extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_hotel_detail);
+
+        Globals globals = new Globals();
+        globals.transStatus(getWindow());
 
 //        tx = findViewById(R.id.name);
 //        img = findViewById(R.id.image_detail);

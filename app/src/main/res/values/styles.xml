@@ -107,5 +107,11 @@
         <item name="android:paddingLeft">10dp</item>
     </style>
 
+    <style name="ContentLayout" parent="android:Widget">
+        <item name="android:background">@drawable/shadow_bg</item>
+        <item name="android:layout_marginBottom">6dp</item>
+        <item name="android:padding">5dp</item>
+    </style>
+
 
 </resources>
