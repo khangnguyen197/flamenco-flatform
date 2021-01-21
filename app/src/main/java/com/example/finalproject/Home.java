@@ -295,10 +295,7 @@ public class Home extends AppCompatActivity implements NavigationView.OnNavigati
         AlertDialog dialog = builder.create();
         Window window = dialog.getWindow();
         WindowManager.LayoutParams wlp = window.getAttributes();
-//        window.setLayout(WindowManager.LayoutParams.MATCH_PARENT, WindowManager.LayoutParams.MATCH_PARENT);
-
         wlp.gravity = Gravity.BOTTOM;
-//        wlp.flags &= ~WindowManager.LayoutParams.MATCH_PARENT;
         window.setAttributes(wlp);
         dialog.show();
     }
