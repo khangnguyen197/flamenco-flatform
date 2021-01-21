@@ -2,9 +2,13 @@ package com.example.finalproject;
 
 import android.content.Context;
 import android.content.Intent;
+import android.text.Editable;
+import android.text.TextWatcher;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
@@ -15,16 +19,20 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import com.squareup.picasso.Picasso;
 
+import java.text.DecimalFormat;
 import java.util.List;
 
 public class RoomAdapter extends RecyclerView.Adapter<RoomAdapter.RoomHolder> {
 
-    private List<Hotel> hotelList;
+    private List<Room> roomList;
     private Context context;
+    private TextView roomTotal;
+    public double total;
 
-    public RoomAdapter(Context context, List<Hotel> hotelList) {
-        this.hotelList = hotelList;
+    public RoomAdapter(Context context, List<Room> roomList, TextView roomTotal) {
+        this.roomList = roomList;
         this.context = context;
+        this.roomTotal = roomTotal;
     }
 
     @NonNull
@@ -36,80 +44,53 @@ public class RoomAdapter extends RecyclerView.Adapter<RoomAdapter.RoomHolder> {
 
     @Override
     public void onBindViewHolder(@NonNull RoomHolder holder, final int i) {
-
-        holder.hotelName.setText(hotelList.get(i).hotelName);
-        holder.hotelAdd.setText(hotelList.get(i).numberAdd + ", " + hotelList.get(i).district +" "+ "District" );
-        holder.hotelPhone.setText(hotelList.get(i).phone);
-        holder.hotelSpecial.setText(hotelList.get(i).special);
-        holder.priceRange.setText(hotelList.get(i).price);
-
-        Picasso.with(context).setLoggingEnabled(true);
-        Picasso.with(context).load(hotelList.get(i).imageUrl)
-            .fit()
-            .centerCrop()
-            .into(holder.hotelImage);
-
-
-        holder.setItemClickListener(new ItemClickListener() {
+        holder.roomName.setText(roomList.get(i).name);
+        holder.roomDescription.setText(roomList.get(i).description);
+        holder.roomPrice.setText("$ "+roomList.get(i).price);
+        holder.roomDesLine1.setText(roomList.get(i).desline1);
+        holder.roomDesLine2.setText(roomList.get(i).desline2);
+        holder.roomDesLine3.setText(roomList.get(i).desline3);
+        holder.btnSubmit.setText("Select");
+        
+        holder.btnSubmit.setOnClickListener(new View.OnClickListener() {
             @Override
-            public void onClick(View view, int position, boolean isLongClick) {
-                if (isLongClick)
-                    Toast.makeText(context, "Long Clicked: ", Toast.LENGTH_SHORT).show();
-                else{
-                    Intent intent = new Intent(context,HotelDetail.class);
-                    intent.putExtra("hotelID", hotelList.get(i).hotelID);
-                    context.startActivity(intent);
-                  }
+            public void onClick(View v) {
+
+                final double dPrice = Double.parseDouble(roomList.get(i).price);
+                total =  dPrice + total;
+                DecimalFormat df = new DecimalFormat("#.##");
+                String sTotal = df.format(total);
+                roomTotal.setText("$ "+sTotal);
             }
         });
+
     }
 
     @Override
     public int getItemCount() {
-        if (hotelList == null)
+        if (roomList == null)
             return 0;
         else
-            return hotelList.size();
+            return roomList.size();
     }
 
-    public static class RoomHolder extends RecyclerView.ViewHolder implements View.OnClickListener, View.OnLongClickListener {
+    public static class RoomHolder extends RecyclerView.ViewHolder {
 
-        public ConstraintLayout container;
-        public ImageView hotelImage;
-        public TextView hotelName, hotelAdd, hotelPhone, hotelSpecial, priceRange;
-
-        private ItemClickListener itemClickListener;
+        public Button btnSubmit;
+        public TextView roomName, roomPrice, roomDescription, roomDesLine1, roomDesLine2, roomDesLine3;
 
         public RoomHolder(@NonNull View itemView) {
             super(itemView);
-            hotelImage = itemView.findViewById(R.id.hotel_img);
-            hotelName = itemView.findViewById(R.id.hotel_name);
-            hotelAdd = itemView.findViewById(R.id.hotel_address);
-            hotelPhone = itemView.findViewById(R.id.hotel_phone);
-            hotelSpecial = itemView.findViewById(R.id.hotel_special);
-            priceRange = itemView.findViewById(R.id.price_range);
 
-            itemView.setOnClickListener(this);
-            itemView.setOnLongClickListener(this);
+            roomName = itemView.findViewById(R.id.room_name);
+            roomPrice = itemView.findViewById(R.id.room_price);
+            roomDescription = itemView.findViewById(R.id.room_description);
+            roomDesLine1 = itemView.findViewById(R.id.tv_line1);
+            roomDesLine2 = itemView.findViewById(R.id.tv_line2);
+            roomDesLine3 = itemView.findViewById(R.id.tv_line3);
+            btnSubmit = itemView.findViewById(R.id.submit_btn);
+
         }
-
-        @Override
-        public void onClick(View v) {
-            itemClickListener.onClick(v, getAdapterPosition(), false);
-        }
-
-        @Override
-        public boolean onLongClick(View v) {
-            itemClickListener.onClick(v, getAdapterPosition(), true);
-            return true;
-        }
-
-        public void setItemClickListener(ItemClickListener itemClickListener) {
-            this.itemClickListener = itemClickListener;
-        }
-    }
-
-    public interface ItemClickListener {
-        void onClick(View view, int position, boolean isLongClick);
     }
 }
+
