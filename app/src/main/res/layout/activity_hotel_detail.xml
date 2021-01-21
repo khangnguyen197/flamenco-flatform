@@ -187,40 +187,40 @@
                 app:layout_constraintTop_toBottomOf="@id/img_frame">
 
                 <LinearLayout
+                    style="@style/Widget.Label"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:orientation="horizontal"
-                    style="@style/Widget.Label"
+                    android:layout_marginTop="20dp"
+                    android:backgroundTint="#E8424141"
                     android:gravity="center_vertical"
-                    android:padding="4dp"
-                    android:layout_marginTop="20dp">
+                    android:orientation="horizontal"
+                    android:padding="4dp">
 
                     <Button
-                        android:textColor="@color/white"
+                        android:id="@+id/hotel_deal"
+                        android:layout_width="wrap_content"
+                        android:layout_height="22dp"
+                        android:background="@drawable/rectangle_gradient"
                         android:fontFamily="@font/calibri_bold"
                         android:paddingLeft="8dp"
                         android:paddingRight="8dp"
                         android:textAllCaps="false"
-                        android:id="@+id/hotel_deal"
-                        android:layout_width="wrap_content"
-                        android:layout_height="22dp"
-                        android:background="@drawable/rectangle_gradient" />
+                        android:textColor="@color/white" />
 
                     <TextView
                         android:id="@+id/hotel_price"
                         android:layout_width="0dp"
                         android:layout_height="40dp"
-                        android:text="@string/_22_75"
-                        android:textAlignment="textEnd"
                         android:layout_marginStart="10dp"
                         android:layout_weight="4"
                         android:ellipsize="none"
                         android:maxLines="100"
                         android:scrollHorizontally="false"
-                        android:textStyle="bold"
+                        android:text="@string/_22_75"
+                        android:textAlignment="textEnd"
                         android:textColor="@color/matteBlack"
                         android:textSize="30sp"
-                        />
+                        android:textStyle="bold" />
                 </LinearLayout>
 
                 <TextView

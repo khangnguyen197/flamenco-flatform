@@ -233,7 +233,7 @@ public class Home extends AppCompatActivity implements NavigationView.OnNavigati
     }
 
     public void selectRoom(View v) {
-        AlertDialog.Builder builder = new AlertDialog.Builder(this);
+        AlertDialog.Builder builder = new AlertDialog.Builder(this, R.style.FullScreenDialogStyle);
         builder.setTitle("CHOOSE YOUR ROOMS");
 
         final String[] selsem = {"NONE", "DELUXE", "DOUBLE", "SINGLE", "FAMILY", "PRESIDENT", "TEST"};
@@ -269,14 +269,14 @@ public class Home extends AppCompatActivity implements NavigationView.OnNavigati
             }
         });
 
-        Dialog dialog = builder.create();
+        AlertDialog dialog = builder.create();
         Window window = dialog.getWindow();
         WindowManager.LayoutParams wlp = window.getAttributes();
-        window.setLayout(ViewGroup.LayoutParams.MATCH_PARENT, ViewGroup.LayoutParams.MATCH_PARENT);
+//        window.setLayout(WindowManager.LayoutParams.MATCH_PARENT, WindowManager.LayoutParams.MATCH_PARENT);
 
         wlp.gravity = Gravity.BOTTOM;
-     //wlp.flags &= ~WindowManager.LayoutParams.FLAG_DIM_BEHIND;
-      //  window.setAttributes(wlp);
+//        wlp.flags &= ~WindowManager.LayoutParams.MATCH_PARENT;
+        window.setAttributes(wlp);
         dialog.show();
     }
 
