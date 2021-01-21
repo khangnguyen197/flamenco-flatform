@@ -69,4 +69,6 @@
     <string name="reserve">Reserve</string>
     <string name="includes_taxes_and_charges">Includes taxes and charges</string>
     <string name="choose_your_stay">Choose Your Stay</string>
+    <string name="breakfast_available">Breakfast available</string>
+    <string name="spacious_parking_lot">Spacious parking lot</string>
 </resources>
