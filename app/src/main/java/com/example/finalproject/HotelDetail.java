@@ -3,6 +3,7 @@ package com.example.finalproject;
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 
+import android.annotation.SuppressLint;
 import android.content.Intent;
 import android.os.Bundle;
 import android.util.Log;
@@ -23,7 +24,7 @@ import javax.microedition.khronos.opengles.GL;
 public class HotelDetail extends AppCompatActivity {
 
     Button btnSelectRoom, btnDeal;
-    TextView tvHotelName, tvHotelSpecial, tvHotelPrice, tvHotelAddress, tvHotelPhone;
+    TextView tvHotelName, tvHotelSpecial, tvHotelPrice, tvHotelAddress, tvHotelPhone, lblHotelName;
     ImageView lgImg, subImg1, subImg2;
 
     private FirebaseFirestore fs;
@@ -40,6 +41,7 @@ public class HotelDetail extends AppCompatActivity {
         btnDeal = findViewById(R.id.hotel_deal);
         btnSelectRoom = findViewById(R.id.select_room);
 
+        lblHotelName = findViewById(R.id.hotel_name_lbl);
         tvHotelName = findViewById(R.id.hotel_name);
         tvHotelSpecial = findViewById(R.id.hotel_special);
         tvHotelPrice = findViewById(R.id.hotel_price);
@@ -60,6 +62,7 @@ public class HotelDetail extends AppCompatActivity {
 
     private void setupInfo(String hotelID) {
         fs.collection("hotel_info").document(hotelID).get().addOnCompleteListener(new OnCompleteListener<DocumentSnapshot>() {
+            @SuppressLint("SetTextI18n")
             @Override
             public void onComplete(@NonNull Task<DocumentSnapshot> task) {
                 if (task.isSuccessful()) {
@@ -74,6 +77,7 @@ public class HotelDetail extends AppCompatActivity {
                     String price = document.getString("priceRange");
                     String deal = document.getString("deal");
 
+                    lblHotelName.setText(name);
                     tvHotelName.setText(name);
                     tvHotelAddress.setText(numberAdd+", "+district+" District, "+ward+" Ward");
                     tvHotelPhone.setText("+"+phone);
