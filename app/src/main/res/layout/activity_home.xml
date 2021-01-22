@@ -19,6 +19,7 @@
             android:layout_height="match_parent"
             android:layout_gravity="start"
             android:layout_marginTop="0.1dp"
+
             android:background="@color/colorPrimary"
             android:theme="@style/NavigationView"
             app:headerLayout="@layout/header"
@@ -124,9 +125,10 @@
                             android:background="@drawable/rectangular_outline"
                             android:closeIcon="@drawable/close"
                             android:iconifiedByDefault="false"
+                            android:queryBackground="@null"
+
                             android:queryHint="Enter your destination "
                             android:searchIcon="@drawable/search"
-                            android:theme="@style/SearchInput"
                             />
 
                         <TextView
