@@ -18,7 +18,6 @@ public class HotelReservationAdapter extends RecyclerView.Adapter<HotelReservati
 
     private List<HotelReservation> reservationList;
     private Context context;
-    private String temp = "";
 
     public HotelReservationAdapter(Context context, List<HotelReservation> reservationList) {
         this.reservationList = reservationList;
@@ -37,15 +36,7 @@ public class HotelReservationAdapter extends RecyclerView.Adapter<HotelReservati
 
         holder.userName.setText("CUSTOMER: "+reservationList.get(i).name.toUpperCase());
         holder.tvLine1.setText(reservationList.get(i).hotelName);
-
-        for(int j = 0; j < reservationList.get(i).roomType.length; j++){
-
-                if(!reservationList.get(i).roomType[j].equals("")) {
-                    temp += reservationList.get(i).roomType[j] ;
-                }
-
-            }
-        holder.tvLine2.setText(temp.toUpperCase());
+        holder.tvLine2.setText(reservationList.get(i).roomType.toUpperCase()+" ");
         holder.tvLine3.setText(reservationList.get(i).dateTime);
         holder.priceTotal.setText(reservationList.get(i).priceTotal);
     }
