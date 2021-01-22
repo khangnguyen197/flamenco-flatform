@@ -60,7 +60,6 @@ public class RoomSelection extends AppCompatActivity {
             }
         });
 
-        clearAllData();
         setupRecyclerView(hotelID);
     }
 
@@ -70,7 +69,6 @@ public class RoomSelection extends AppCompatActivity {
                     @Override
                     public void onComplete(@NonNull Task<QuerySnapshot> task) {
                         if(task.isSuccessful()){
-                            clearAllData();
                             for (QueryDocumentSnapshot document : task.getResult()) {
                                 Room roomInfo = new Room();
 
@@ -91,15 +89,4 @@ public class RoomSelection extends AppCompatActivity {
                     }
                 });
     }
-
-    public void clearAllData(){
-        content.setHasFixedSize(true);
-        content.setAdapter(null);
-        content.setLayoutManager(null);
-        roomList.clear();
-    }
-
-
-
-
 }
