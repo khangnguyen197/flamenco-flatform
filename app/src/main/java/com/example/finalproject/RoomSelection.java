@@ -7,6 +7,7 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import android.content.Intent;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 import android.widget.ImageButton;
@@ -30,6 +31,7 @@ public class RoomSelection extends AppCompatActivity {
     private TextView roomTotal;
     private Button btnReserve;
     private ImageButton btnBack;
+    private TextView[] roomType;
 
     private List<Room> roomList = new ArrayList<>();;
     private RoomAdapter roomAdapter;
@@ -47,9 +49,15 @@ public class RoomSelection extends AppCompatActivity {
 
         roomTotal = findViewById(R.id.total_price);
         btnReserve = findViewById(R.id.reserve_button);
-
         btnBack = findViewById(R.id.imageButton);
+
         content = (RecyclerView) findViewById(R.id.room_recycler);
+
+       roomType = new TextView[5];
+       for(int i=0; i<roomType.length; i++){
+           roomType[i] = new TextView(this);
+           roomType[i].setText("");
+       }
 
         fs = FirebaseFirestore.getInstance();
 
@@ -62,7 +70,7 @@ public class RoomSelection extends AppCompatActivity {
             public void onClick(View v) {
                 Intent intent = new Intent(getApplicationContext(), HotelDetail.class);
                 intent.putExtra("hotelID", hotelID);
-                intent.putExtra("isAdmin",isAdmin);
+                intent.putExtra("isAdmin", isAdmin);
                 startActivity(intent);
                 finish();
             }
@@ -71,7 +79,16 @@ public class RoomSelection extends AppCompatActivity {
         btnReserve.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                startActivity(new Intent(getApplicationContext(), Home.class));
+                Intent intent = new Intent(getApplicationContext(), HotelReservationActivity.class);
+                intent.putExtra("hotelID", hotelID);
+                intent.putExtra("isAdmin", isAdmin);
+                intent.putExtra("priceTotal", roomTotal.getText());
+                intent.putExtra("length", roomType.length);
+
+                for(int i = 0; i <roomType.length; i++){
+                    intent.putExtra("roomType"+i, roomType[i].getText());
+                }
+                startActivity(intent);
                 finish();
             }
         });
@@ -97,7 +114,7 @@ public class RoomSelection extends AppCompatActivity {
 
                                 roomList.add(roomInfo);
                             }
-                            roomAdapter = new RoomAdapter(RoomSelection.this, roomList, roomTotal);
+                            roomAdapter = new RoomAdapter(RoomSelection.this, roomList, roomTotal, roomType);
                             LinearLayoutManager LLM = new LinearLayoutManager(RoomSelection.this);
                             content.setLayoutManager(LLM);
                             content.setAdapter(roomAdapter);
