@@ -42,7 +42,7 @@ public class WelcomeActivity extends AppCompatActivity{
 
         }
 
-    @Override
+   /* @Override
     protected void onStart() {
         super.onStart();
         if(currentUser != null){
@@ -62,7 +62,7 @@ public class WelcomeActivity extends AppCompatActivity{
                 }
             });
         }
-    }
+    }*/
 
     private void onClick() {
             Button guestBtn = (Button) findViewById(R.id.guest_btn);
