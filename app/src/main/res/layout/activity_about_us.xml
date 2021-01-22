@@ -56,17 +56,17 @@
         android:layout_height="150dp"
         android:fontFamily="@font/calibri_bold"
         android:gravity="center"
-        android:text="G7"
+        android:text="@string/group_7"
         android:textAlignment="center"
         android:textColor="@color/white"
-        android:textSize="55sp"
+        android:textSize="35sp"
         android:textStyle="bold"
-
-        app:layout_constraintRight_toRightOf="parent"
-        app:layout_constraintLeft_toLeftOf="parent"
-        app:layout_constraintTop_toBottomOf="@id/header"
         app:layout_constraintBottom_toBottomOf="@id/h2"
-        />
+        app:layout_constraintHorizontal_bias="0.498"
+        app:layout_constraintLeft_toLeftOf="parent"
+        app:layout_constraintRight_toRightOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/header"
+        app:layout_constraintVertical_bias="0.564" />
 
     <LinearLayout
         android:layout_width="match_parent"
@@ -89,8 +89,8 @@
             android:layout_gravity="center"
             android:drawablePadding="5dp"
             android:maxLines="1"
-            android:text="Dang Quang Huy"
-            android:textSize="20dp"
+            android:text="@string/huy_quang_dang"
+            android:textSize="20sp"
             app:drawableStartCompat="@drawable/number1_24px"
             />
 
@@ -103,8 +103,8 @@
             android:layout_gravity="center"
             android:drawablePadding="5dp"
             android:maxLines="1"
-            android:text="Huynh Nguyen Huu Khang"
-            android:textSize="20dp"
+            android:text="@string/khang_huynh_nguyen_huu"
+            android:textSize="20sp"
             app:drawableStartCompat="@drawable/number2_24px" />
         <TextView
             style="@style/InformTextView"
@@ -115,8 +115,8 @@
             android:layout_gravity="center"
             android:drawablePadding="5dp"
             android:maxLines="1"
-            android:text="Le Trong Hoang Minh"
-            android:textSize="20dp"
+            android:text="@string/minh_le_trong_hoang"
+            android:textSize="20sp"
             app:drawableStartCompat="@drawable/number3_24px" />
         <TextView
             style="@style/InformTextView"
@@ -127,8 +127,8 @@
             android:layout_gravity="center"
             android:drawablePadding="5dp"
             android:maxLines="1"
-            android:text="Dao Manh Quan"
-            android:textSize="20dp"
+            android:text="@string/quan_dao_manh"
+            android:textSize="20sp"
             app:drawableStartCompat="@drawable/number4_24px" />
         <TextView
             style="@style/InformTextView"
@@ -139,8 +139,8 @@
             android:layout_gravity="center"
             android:drawablePadding="5dp"
             android:maxLines="1"
-            android:text="Vu Tran Hoang Son"
-            android:textSize="20dp"
+            android:text="@string/son_vu_tran_hoang"
+            android:textSize="20sp"
             app:drawableStartCompat="@drawable/number5_24px" />
 
 

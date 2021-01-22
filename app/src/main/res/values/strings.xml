@@ -77,4 +77,13 @@
     <string name="hotel_reservation">Hotel reservation</string>
     <string name="room_select">Room select ...</string>
     <string name="total">Total</string>
+    <string name="room">Room ...</string>
+    <string name="modify_hotel">Modify Hotel</string>
+    <string name="g7">G7</string>
+    <string name="group_7">Group 7</string>
+    <string name="huy_quang_dang">Huy Quang Dang</string>
+    <string name="khang_huynh_nguyen_huu">Khang Huynh Nguyen Huu</string>
+    <string name="minh_le_trong_hoang">Minh Le Trong Hoang</string>
+    <string name="quan_dao_manh">Quan Dao Manh</string>
+    <string name="son_vu_tran_hoang">Son Vu Tran Hoang</string>
 </resources>

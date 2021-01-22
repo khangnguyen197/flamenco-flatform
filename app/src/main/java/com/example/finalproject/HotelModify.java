@@ -9,6 +9,7 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
+import android.widget.ImageButton;
 import android.widget.TextView;
 
 import com.google.android.gms.tasks.OnCompleteListener;
@@ -23,14 +24,14 @@ import com.google.firebase.firestore.QuerySnapshot;
 import java.util.ArrayList;
 import java.util.List;
 
-public class RoomSelection extends AppCompatActivity {
+public class HotelModify extends AppCompatActivity {
 
     private RecyclerView content;
     private TextView roomTotal;
-    private Button btnReserve;
+    private ImageButton editBtn;
 
     private List<Room> roomList = new ArrayList<>();;
-    private RoomAdapter roomAdapter;
+    private ModifyRoomAdapter modifyRoomAdapter;
 
     private FirebaseFirestore fs;
 
@@ -44,7 +45,7 @@ public class RoomSelection extends AppCompatActivity {
         globals.transStatus(getWindow());
 
         roomTotal = findViewById(R.id.total_price);
-        btnReserve = findViewById(R.id.reserve_button);
+        editBtn = findViewById(R.id.edit_button);
         content = (RecyclerView) findViewById(R.id.room_recycler);
 
         fs = FirebaseFirestore.getInstance();
@@ -52,7 +53,7 @@ public class RoomSelection extends AppCompatActivity {
         Intent intent = getIntent();
         String hotelID = intent.getStringExtra("hotelID");
 
-        btnReserve.setOnClickListener(new View.OnClickListener() {
+        editBtn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 startActivity(new Intent(getApplicationContext(), Home.class));
@@ -64,34 +65,41 @@ public class RoomSelection extends AppCompatActivity {
         setupRecyclerView(hotelID);
     }
 
+    /** Setup recycler view */
     private void setupRecyclerView(final String hotelID){
         fs.collection(DATABASE_ROOT_COLLECTION).document(hotelID).collection("roomType").get()
-                .addOnCompleteListener(new OnCompleteListener<QuerySnapshot>() {
-                    @Override
-                    public void onComplete(@NonNull Task<QuerySnapshot> task) {
-                        if(task.isSuccessful()){
-                            clearAllData();
-                            for (QueryDocumentSnapshot document : task.getResult()) {
-                                Room roomInfo = new Room();
+            .addOnCompleteListener(new OnCompleteListener<QuerySnapshot>() {
+                @Override
+                public void onComplete(@NonNull Task<QuerySnapshot> task) {
+                    if(task.isSuccessful()){
+                        clearAllData();
+                        for (QueryDocumentSnapshot document : task.getResult()) {
+                            Room roomInfo = new Room();
 
-                                roomInfo.name = document.getId().toUpperCase();
-                                roomInfo.description = document.getString("description");
-                                roomInfo.price = document.getString("price");
-                                roomInfo.desline1 = document.getString("desline1");
-                                roomInfo.desline2 = document.getString("desline2");
-                                roomInfo.desline3 = document.getString("desline3");
+                            roomInfo.name = document.getId().toUpperCase();
+                            roomInfo.description = document.getString("description");
+                            roomInfo.price = document.getString("price");
+                            roomInfo.desline1 = document.getString("desline1");
+                            roomInfo.desline2 = document.getString("desline2");
+                            roomInfo.desline3 = document.getString("desline3");
 
-                                roomList.add(roomInfo);
-                            }
-                            roomAdapter = new RoomAdapter(RoomSelection.this, roomList, roomTotal);
-                            LinearLayoutManager LLM = new LinearLayoutManager(RoomSelection.this);
-                            content.setLayoutManager(LLM);
-                            content.setAdapter(roomAdapter);
+                            roomList.add(roomInfo);
                         }
+                        modifyRoomAdapter = new ModifyRoomAdapter(HotelModify.this, roomList, roomTotal);
+                        LinearLayoutManager LLM = new LinearLayoutManager(HotelModify.this);
+                        content.setLayoutManager(LLM);
+                        content.setAdapter(modifyRoomAdapter);
                     }
-                });
+                }
+            });
     }
 
+    /** Show dialog to have edit option */
+    public void somthing(){
+
+    }
+
+    /** Clear data */
     public void clearAllData(){
         content.setHasFixedSize(true);
         content.setAdapter(null);
