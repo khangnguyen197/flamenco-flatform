@@ -70,13 +70,14 @@
                     android:textAlignment="textStart"
                     />
 
-                <TextView
+                <EditText
                     android:id="@+id/room_price"
                     style="@style/RowRecyclerView"
                     android:textAlignment="textStart"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:fontFamily="@font/calibri_bold"
+                    android:enabled="false"
                     android:text="$ 23,75"
                     android:textSize="21sp"
                     android:textStyle="bold" />
@@ -95,13 +96,14 @@
                 style="@style/Widget.Ripple"
                 android:layout_width="35dp"
                 android:layout_height="wrap_content"
-                android:paddingTop="5dp"
-                android:paddingBottom="5dp"
                 android:background="@drawable/rectangular_outline"
                 android:contentDescription="@string/description"
+                android:paddingTop="5dp"
+                android:paddingBottom="5dp"
                 android:scaleType="centerInside"
                 android:src="@drawable/edit_24px"
-                android:tint="@color/orange"/>
+                android:tint="@color/orange" />
+
         </LinearLayout>
 
     </androidx.constraintlayout.widget.ConstraintLayout>

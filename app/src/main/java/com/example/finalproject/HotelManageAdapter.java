@@ -52,7 +52,10 @@ public class HotelManageAdapter extends RecyclerView.Adapter<HotelManageAdapter.
         holder.btnEdit.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                removeItem(i);
+
+                Intent intent = new Intent(context, HotelModify.class);
+                intent.putExtra("hotelID", hotelList.get(i).hotelID);
+                context.startActivity(intent);
             }
         });
 
@@ -65,13 +68,6 @@ public class HotelManageAdapter extends RecyclerView.Adapter<HotelManageAdapter.
         else
             return hotelList.size();
     }
-
-    public void removeItem(int i) {
-        hotelList.remove(i);
-        notifyItemRemoved(i);
-        notifyItemRangeChanged(i, hotelList.size());
-    }
-
 
     public static class HotelHolder extends RecyclerView.ViewHolder {
 
