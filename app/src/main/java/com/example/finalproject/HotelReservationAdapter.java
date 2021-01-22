@@ -35,15 +35,15 @@ public class HotelReservationAdapter extends RecyclerView.Adapter<HotelReservati
     @Override
     public void onBindViewHolder(@NonNull HotelHolder holder, int i) {
 
-        holder.userName.setText("CUSTOMMER: "+reservationList.get(i).name.toUpperCase());
+        holder.userName.setText("CUSTOMER: "+reservationList.get(i).name.toUpperCase());
         holder.tvLine1.setText(reservationList.get(i).hotelName);
 
-        Log.e("ERROR",": "+reservationList.get(i).hotelName);
-
         for(int j = 0; j < reservationList.get(i).roomType.length; j++){
-                if(reservationList.get(i).roomType[j] != "") {
-                    temp += reservationList.get(i).roomType[j]+", " ;
+
+                if(!reservationList.get(i).roomType[j].equals("")) {
+                    temp += "\n"+ reservationList.get(i).roomType[j] ;
                 }
+
             }
         holder.tvLine2.setText(temp.toUpperCase());
         holder.tvLine3.setText(reservationList.get(i).dateTime);
