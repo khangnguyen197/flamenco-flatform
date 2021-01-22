@@ -1,13 +1,10 @@
 <?xml version="1.0" encoding="utf-8"?>
-<androidx.constraintlayout.widget.ConstraintLayout
-    xmlns:android="http://schemas.android.com/apk/res/android"
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
-    style="@style/NoActionBar"
     android:layout_width="match_parent"
-    android:layout_height="fill_parent"
-    tools:context=".Home">
-
+    android:layout_height="match_parent"
+    tools:context=".AboutUs">
     <androidx.constraintlayout.widget.Guideline
         android:id="@+id/h1"
         android:layout_width="wrap_content"
@@ -20,7 +17,7 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:orientation="horizontal"
-        app:layout_constraintGuide_percent="0.48" />
+        app:layout_constraintGuide_percent="0.39" />
 
     <LinearLayout
         android:id="@+id/header"
@@ -50,16 +47,16 @@
             android:layout_height="match_parent"
             android:layout_weight="5"
             android:gravity="center_vertical"
-            android:text="@string/your_information" />
+            android:text="@string/about_us" />
     </LinearLayout>
 
     <TextView
         style="@style/Circle"
-        android:layout_width="170dp"
-        android:layout_height="170dp"
+        android:layout_width="150dp"
+        android:layout_height="150dp"
         android:fontFamily="@font/calibri_bold"
         android:gravity="center"
-        android:text="G"
+        android:text="G7"
         android:textAlignment="center"
         android:textColor="@color/white"
         android:textSize="55sp"
@@ -81,22 +78,9 @@
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintTop_toBottomOf="@id/h2">
 
-        <TextView
-            android:id="@+id/user_name"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            style="@style/Header.Label"
-            android:gravity="center"
-            android:layout_marginTop="10dp"
-            android:text="Guest"
-            android:textAlignment="center"
-            android:textColor="@color/matteBlack"
-            android:textSize="28sp"
-            android:textStyle="bold"
-            android:layout_marginBottom="10dp"/>
+
 
         <TextView
-            android:id="@+id/user_phone"
             style="@style/InformTextView"
             android:background="@drawable/rectangular_outline"
             android:elevation="5dp"
@@ -105,12 +89,12 @@
             android:layout_gravity="center"
             android:drawablePadding="5dp"
             android:maxLines="1"
-            android:text="Phone"
-            app:drawableStartCompat="@drawable/phone_24px"
-         />
+            android:text="Dang Quang Huy"
+            android:textSize="20dp"
+            app:drawableStartCompat="@drawable/number1_24px"
+            />
 
         <TextView
-            android:id="@+id/user_email"
             style="@style/InformTextView"
             android:background="@drawable/rectangular_outline"
             android:elevation="5dp"
@@ -119,20 +103,47 @@
             android:layout_gravity="center"
             android:drawablePadding="5dp"
             android:maxLines="1"
-            android:text="Email"
-            app:drawableStartCompat="@drawable/mail_24px" />
-
+            android:text="Huynh Nguyen Huu Khang"
+            android:textSize="20dp"
+            app:drawableStartCompat="@drawable/number2_24px" />
         <TextView
-            android:id="@+id/logout_link"
-            android:layout_width="wrap_content"
+            style="@style/InformTextView"
+            android:background="@drawable/rectangular_outline"
+            android:elevation="5dp"
+            android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:background="@drawable/dotted_underline"
-            android:fontFamily="@font/calibri_bold"
-            android:layout_marginTop="30dp"
-            android:text="@string/log_out"
-            android:textColor="@color/link"
-            android:textSize="25sp" />
+            android:layout_gravity="center"
+            android:drawablePadding="5dp"
+            android:maxLines="1"
+            android:text="Le Trong Hoang Minh"
+            android:textSize="20dp"
+            app:drawableStartCompat="@drawable/number3_24px" />
+        <TextView
+            style="@style/InformTextView"
+            android:background="@drawable/rectangular_outline"
+            android:elevation="5dp"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center"
+            android:drawablePadding="5dp"
+            android:maxLines="1"
+            android:text="Dao Manh Quan"
+            android:textSize="20dp"
+            app:drawableStartCompat="@drawable/number4_24px" />
+        <TextView
+            style="@style/InformTextView"
+            android:background="@drawable/rectangular_outline"
+            android:elevation="5dp"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center"
+            android:drawablePadding="5dp"
+            android:maxLines="1"
+            android:text="Vu Tran Hoang Son"
+            android:textSize="20dp"
+            app:drawableStartCompat="@drawable/number5_24px" />
+
+
+
     </LinearLayout>
-
-
 </androidx.constraintlayout.widget.ConstraintLayout>

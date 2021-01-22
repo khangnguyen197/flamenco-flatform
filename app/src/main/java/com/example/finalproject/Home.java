@@ -373,6 +373,7 @@ public class Home extends AppCompatActivity implements NavigationView.OnNavigati
                 }
                 break;
             case R.id.about_us:
+                startActivity(new Intent(Home.this,AboutUs.class));
                 break;
             case R.id.rating_us:
                 Intent intent1 = new Intent(Home.this, Rating.class);
