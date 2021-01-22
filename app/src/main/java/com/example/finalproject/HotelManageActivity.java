@@ -182,8 +182,6 @@ public class HotelManageActivity extends AppCompatActivity implements Navigation
             case R.id.about_us:
                 break;
             case R.id.rating_us:
-                Intent intent1 = new Intent(HotelManageActivity.this, Rating.class);
-                startActivity(intent1);
                 break;
         }
         drawerLayout.closeDrawer(GravityCompat.START);
