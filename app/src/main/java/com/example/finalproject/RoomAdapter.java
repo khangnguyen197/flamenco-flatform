@@ -84,7 +84,6 @@ public class RoomAdapter extends RecyclerView.Adapter<RoomAdapter.RoomHolder> {
                     default:
                         break;
                 }
-
                 final double dPrice = Double.parseDouble(roomList.get(i).price);
                 total =  dPrice + total;
 
