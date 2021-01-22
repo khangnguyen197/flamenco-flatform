@@ -79,8 +79,7 @@
 
     <style name="RowRecyclerView" parent="android:Widget">
         <item name="android:textColor">@color/matteBlack</item>
-        <item name="android:textSize">18sp</item>
-        <item name="android:textStyle">bold</item>
+        <item name="android:textSize">17sp</item>
         <item name="fontFamily">@font/calibri_regular</item>
     </style>
 

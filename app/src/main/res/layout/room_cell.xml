@@ -33,7 +33,7 @@
                 android:paddingBottom="5dp"
                 android:text="Room Name"
                 android:textColor="@color/orange"
-                android:textSize="26sp"
+                android:textSize="21sp"
                 android:textStyle="bold" />
 
             <TextView
@@ -62,7 +62,7 @@
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:text="@string/pay_at_the_property"
-                    android:textSize="18sp" />
+                    android:textSize="16sp" />
             </LinearLayout>
 
             <LinearLayout
@@ -82,7 +82,7 @@
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:text="@string/spacious_parking_lot"
-                    android:textSize="18sp" />
+                    android:textSize="16sp" />
             </LinearLayout>
 
             <LinearLayout
@@ -104,7 +104,7 @@
                     android:layout_height="wrap_content"
                     android:contentDescription="@string/description"
                     android:text="@string/breakfast_available"
-                    android:textSize="18sp" />
+                    android:textSize="16sp" />
             </LinearLayout>
 
             <TextView
@@ -113,7 +113,7 @@
                 android:layout_height="wrap_content"
                 android:text="@string/only_3_rooms_left"
                 android:textColor="@color/matteBlack"
-                android:textSize="19sp"
+                android:textSize="17sp"
                 />
         </LinearLayout>
 
@@ -131,7 +131,7 @@
                 android:layout_height="wrap_content"
                 android:text="Price for 1 night"
                 android:layout_marginTop="10dp"
-                android:textSize="18sp"
+                android:textSize="15sp"
                 android:textAlignment="textEnd"
                 />
 
@@ -143,7 +143,7 @@
                 android:layout_height="wrap_content"
                 android:fontFamily="@font/calibri_bold"
                 android:text="$ 23,75"
-                android:textSize="35sp"
+                android:textSize="23sp"
                 android:textStyle="bold" />
 
             <TextView
