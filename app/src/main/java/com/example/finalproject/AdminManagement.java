@@ -6,6 +6,7 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
+import android.widget.ImageButton;
 import android.widget.TextView;
 
 import com.google.firebase.auth.FirebaseAuth;
@@ -13,6 +14,8 @@ import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.firestore.FirebaseFirestore;
 
 public class AdminManagement extends AppCompatActivity {
+
+    public ImageButton btnBack;
 
     private FirebaseFirestore fs;
     private FirebaseAuth mAuth;
@@ -27,10 +30,20 @@ public class AdminManagement extends AppCompatActivity {
         Globals globals = new Globals();
         globals.transStatus(getWindow());
 
+        btnBack = findViewById(R.id.imageButton);
+
         fs = FirebaseFirestore.getInstance();
         mAuth = FirebaseAuth.getInstance();
         currentUser = mAuth.getCurrentUser();
 
+
+        btnBack.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                startActivity(new Intent(getApplicationContext(), HotelManageActivity.class));
+                finish();
+            }
+        });
 
         doSignout();
         doCheckReserve();
