@@ -33,6 +33,7 @@
         <androidx.constraintlayout.widget.ConstraintLayout
             android:layout_width="0dp"
             android:layout_height="match_parent"
+            android:layout_marginLeft="10dp"
             android:orientation="vertical"
             app:layout_constraintLeft_toRightOf="@id/hotel_img"
             app:layout_constraintRight_toLeftOf="@id/v2">
