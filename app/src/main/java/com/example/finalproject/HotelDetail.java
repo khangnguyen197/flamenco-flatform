@@ -29,7 +29,7 @@ public class HotelDetail extends AppCompatActivity {
 
     Button btnSelectRoom, btnDeal; ImageButton btnBack;
     TextView tvHotelName, tvHotelSpecial, tvHotelPrice, tvHotelAddress, tvHotelPhone, lblHotelName;
-    ImageView lgImg, subImg1, subImg2;
+    ImageView lgImg, subImg1, subImg2, mapImg;
 
     private FirebaseFirestore fs;
     private FirebaseAuth mAuth;
@@ -61,6 +61,7 @@ public class HotelDetail extends AppCompatActivity {
         lgImg = findViewById(R.id.lg_img);
         subImg1 = findViewById(R.id.sub_img_1);
         subImg2 = findViewById(R.id.sub_img_2);
+        mapImg = findViewById(R.id.maps_img);
 
         Intent intent = getIntent();
         final String hotelID = intent.getStringExtra("hotelID");
@@ -165,6 +166,12 @@ public class HotelDetail extends AppCompatActivity {
                         .fit()
                         .centerCrop()
                         .into(subImg2);
+                break;
+            case 4:
+                Picasso.with(HotelDetail.this).load(url)
+                        .fit()
+                        .centerCrop()
+                        .into(mapImg);
                 break;
             default:
                 break;

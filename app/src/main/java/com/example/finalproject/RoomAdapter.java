@@ -27,12 +27,15 @@ public class RoomAdapter extends RecyclerView.Adapter<RoomAdapter.RoomHolder> {
     private List<Room> roomList;
     private Context context;
     private TextView roomTotal;
+    private TextView[] roomType;
+    public int count = 0;
     public double total;
 
-    public RoomAdapter(Context context, List<Room> roomList, TextView roomTotal) {
+    public RoomAdapter(Context context, List<Room> roomList, TextView roomTotal, TextView[] roomType) {
         this.roomList = roomList;
         this.context = context;
         this.roomTotal = roomTotal;
+        this.roomType = roomType;
     }
 
     @NonNull
@@ -57,13 +60,41 @@ public class RoomAdapter extends RecyclerView.Adapter<RoomAdapter.RoomHolder> {
             @Override
             public void onClick(View v) {
 
+                switch (roomList.get(i).name){
+                    case "DELUXE":
+                        count++;
+                        roomType[0].setText("deluxe: "+ count +"x"+roomList.get(i).price+ "$");
+                        break;
+                    case "DOUBLE":
+                        count++;
+                        roomType[1].setText("double: "+ count +"x"+roomList.get(i).price+ "$");
+                        break;
+                    case "SINGLE":
+                        count++;
+                        roomType[2].setText("single: "+ count +"x"+roomList.get(i).price+ "$");
+                        break;
+                    case "FAMILY":
+                        count++;
+                        roomType[3].setText("family: "+ count +"x"+roomList.get(i).price+ "$");
+                        break;
+                    case "PRESIDENT":
+                        count++;
+                        roomType[4].setText("president: "+ count +"x"+roomList.get(i).price+ "$");
+                        break;
+                    default:
+                        break;
+                }
+
                 final double dPrice = Double.parseDouble(roomList.get(i).price);
                 total =  dPrice + total;
+
                 DecimalFormat df = new DecimalFormat("#.##");
                 String sTotal = df.format(total);
                 roomTotal.setText("$ "+sTotal);
+
             }
         });
+
 
     }
 
