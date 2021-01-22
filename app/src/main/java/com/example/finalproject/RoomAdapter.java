@@ -63,23 +63,23 @@ public class RoomAdapter extends RecyclerView.Adapter<RoomAdapter.RoomHolder> {
                 switch (roomList.get(i).name){
                     case "DELUXE":
                         count++;
-                        roomType[0].setText("deluxe: "+ count +"x"+roomList.get(i).price+ "$");
+                        roomType[0].setText("deluxe: "+ count +"*"+roomList.get(i).price+ "$");
                         break;
                     case "DOUBLE":
                         count++;
-                        roomType[1].setText("double: "+ count +"x"+roomList.get(i).price+ "$");
+                        roomType[1].setText("double: "+ count +"*"+roomList.get(i).price+ "$");
                         break;
                     case "SINGLE":
                         count++;
-                        roomType[2].setText("single: "+ count +"x"+roomList.get(i).price+ "$");
+                        roomType[2].setText("single: "+ count +"*"+roomList.get(i).price+ "$");
                         break;
                     case "FAMILY":
                         count++;
-                        roomType[3].setText("family: "+ count +"x"+roomList.get(i).price+ "$");
+                        roomType[3].setText("family: "+ count +"*"+roomList.get(i).price+ "$");
                         break;
                     case "PRESIDENT":
                         count++;
-                        roomType[4].setText("president: "+ count +"x"+roomList.get(i).price+ "$");
+                        roomType[4].setText("president: "+ count +"*"+roomList.get(i).price+ "$");
                         break;
                     default:
                         break;

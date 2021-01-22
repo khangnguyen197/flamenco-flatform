@@ -82,10 +82,11 @@
                 android:text="$ 0"
                 android:textColor="@color/matteBlack" />
 
-            <TextView
+            <EditText
+                android:id="@+id/ed_date"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="@string/includes_taxes_and_charges"
+                android:hint="Start day"
                 android:textSize="18sp" />
 
         </LinearLayout>

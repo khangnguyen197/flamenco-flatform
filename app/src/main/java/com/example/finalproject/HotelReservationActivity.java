@@ -59,6 +59,9 @@ public class HotelReservationActivity extends AppCompatActivity {
         final String isAdmin = intent.getStringExtra("isAdmin");
         final String priceTotal = intent.getStringExtra("priceTotal");
         final int length = intent.getIntExtra("length", 0);
+        final String date = intent.getStringExtra("date");
+
+        Log.e("ERROR",": "+date);
 
         roomType = new String[5];
 
@@ -66,10 +69,10 @@ public class HotelReservationActivity extends AppCompatActivity {
             roomType[i] = intent.getStringExtra("roomType"+i);
         }
 
-        setupRecyclerView(hotelID, priceTotal, length);
+        setupRecyclerView(hotelID, priceTotal, length, date);
     }
 
-    private void setupRecyclerView(final String hotelID, final String priceTotal, final int length){
+    private void setupRecyclerView(final String hotelID, final String priceTotal, final int length, final String date){
 
         fs.collection(DATABASE_ROOT_COLLECTION).document(currentUser.getEmail()).get().addOnCompleteListener(new OnCompleteListener<DocumentSnapshot>() {
             @Override
@@ -86,6 +89,7 @@ public class HotelReservationActivity extends AppCompatActivity {
 
                     hotelReservation.hotelName = hotelID;
                     hotelReservation.priceTotal = priceTotal;
+                    hotelReservation.dateTime = date;
 
                     reservationList.add(hotelReservation);
                 }
