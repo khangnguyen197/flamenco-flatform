@@ -19,7 +19,6 @@ import com.squareup.picasso.Picasso;
 import java.util.List;
 
 public class HotelManageAdapter extends RecyclerView.Adapter<HotelManageAdapter.HotelHolder> {
-
     private List<Hotel> hotelList;
     private Context context;
 
@@ -36,7 +35,7 @@ public class HotelManageAdapter extends RecyclerView.Adapter<HotelManageAdapter.
     }
 
     @Override
-    public void onBindViewHolder(@NonNull HotelHolder holder, final int i) {
+    public void onBindViewHolder(@NonNull final HotelHolder holder, final int i) {
 
         holder.hotelName.setText(hotelList.get(i).hotelName);
         holder.hotelAdd.setText(hotelList.get(i).numberAdd + ", " + hotelList.get(i).district + " " + "District");
@@ -53,12 +52,11 @@ public class HotelManageAdapter extends RecyclerView.Adapter<HotelManageAdapter.
             @Override
             public void onClick(View v) {
 
-                Intent intent = new Intent(context, HotelModify.class);
+                Intent intent = new Intent(context, ModifyHotel.class);
                 intent.putExtra("hotelID", hotelList.get(i).hotelID);
                 context.startActivity(intent);
             }
         });
-
     }
 
     @Override

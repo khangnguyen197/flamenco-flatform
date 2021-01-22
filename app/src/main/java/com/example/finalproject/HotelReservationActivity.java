@@ -92,9 +92,7 @@ public class HotelReservationActivity extends AppCompatActivity {
                                 hr.dateTime = document.getString("dateTime");
                                 hr.priceTotal = document.getString("priceTotal");
                                 hr.roomType = document.getString("roomType");
-
                                 reservationList.add(hr);
-
                             }
                             reservationAdapter = new HotelReservationAdapter(HotelReservationActivity.this, reservationList);
                             LinearLayoutManager LLM = new LinearLayoutManager(HotelReservationActivity.this);

@@ -46,7 +46,6 @@ public class UserReservationAdapter extends RecyclerView.Adapter<UserReservation
             return reservationList.size();
     }
 
-
     public static class HotelHolder extends RecyclerView.ViewHolder {
 
         public TextView userName, tvLine1, tvLine2, tvLine3, priceTotal;

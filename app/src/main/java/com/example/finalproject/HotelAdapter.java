@@ -42,7 +42,6 @@ public class HotelAdapter extends RecyclerView.Adapter<HotelAdapter.HotelHolder>
 
     @Override
     public void onBindViewHolder(@NonNull HotelHolder holder, final int i) {
-
         holder.hotelName.setText(hotelList.get(i).hotelName);
         holder.hotelAdd.setText(hotelList.get(i).numberAdd + ", " + hotelList.get(i).district +" "+ "District" );
         holder.hotelPhone.setText(hotelList.get(i).phone);
@@ -54,7 +53,6 @@ public class HotelAdapter extends RecyclerView.Adapter<HotelAdapter.HotelHolder>
             .fit()
             .centerCrop()
             .into(holder.hotelImage);
-
 
         holder.setItemClickListener(new ItemClickListener() {
             @Override

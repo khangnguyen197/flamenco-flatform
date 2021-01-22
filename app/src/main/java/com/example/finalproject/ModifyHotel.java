@@ -21,7 +21,7 @@ import com.google.firebase.firestore.QuerySnapshot;
 import java.util.ArrayList;
 import java.util.List;
 
-public class HotelModify extends AppCompatActivity {
+public class ModifyHotel extends AppCompatActivity {
 
     private RecyclerView content;
     private TextView roomTotal, hotelName;
@@ -87,8 +87,8 @@ public class HotelModify extends AppCompatActivity {
 
                                 roomList.add(modifyRoom);
                             }
-                            modifyRoomAdapter = new ModifyRoomAdapter(HotelModify.this, roomList);
-                            LinearLayoutManager LLM = new LinearLayoutManager(HotelModify.this);
+                            modifyRoomAdapter = new ModifyRoomAdapter(ModifyHotel.this, roomList);
+                            LinearLayoutManager LLM = new LinearLayoutManager(ModifyHotel.this);
                             content.setLayoutManager(LLM);
                             content.setAdapter(modifyRoomAdapter);
                         }

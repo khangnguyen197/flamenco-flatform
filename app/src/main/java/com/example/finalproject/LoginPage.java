@@ -9,15 +9,11 @@ import android.text.Editable;
 import android.text.TextWatcher;
 import android.util.Log;
 import android.view.View;
-import android.view.WindowManager;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.TextView;
-import android.widget.Toast;
 
 import com.google.android.gms.tasks.OnCompleteListener;
-import com.google.android.gms.tasks.OnFailureListener;
-import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.android.gms.tasks.Task;
 import com.google.android.material.textfield.TextInputLayout;
 import com.google.firebase.auth.AuthResult;
@@ -27,9 +23,10 @@ import com.google.firebase.firestore.FirebaseFirestore;
 
 import java.util.HashMap;
 
-public class LoginPage extends AppCompatActivity implements  View.OnClickListener{
+public class LoginPage extends AppCompatActivity implements View.OnClickListener {
 
-    TextInputLayout tilEmail, tilPass, tilReset; EditText edEmail, edPass;
+    TextInputLayout tilEmail, tilPass, tilReset;
+    EditText edEmail, edPass;
     private FirebaseAuth mAuth;
     private FirebaseFirestore fs;
 
@@ -41,21 +38,22 @@ public class LoginPage extends AppCompatActivity implements  View.OnClickListene
         Globals globals = new Globals();
         globals.transStatus(getWindow());
 
+        /** Define id */
         Button submit = (Button) findViewById(R.id.submit_btn);
         TextView signUpActivity = (TextView) findViewById(R.id.sign_link);
         TextView changePassActive = (TextView) findViewById(R.id.forget_pass);
 
-        tilEmail    = (TextInputLayout) findViewById(R.id.TILemail);
-        tilPass     = (TextInputLayout) findViewById(R.id.TILpassword);
-        edEmail     = (EditText) findViewById(R.id.email);
-        edPass      = (EditText) findViewById(R.id.password);
+        tilEmail = (TextInputLayout) findViewById(R.id.TILemail);
+        tilPass = (TextInputLayout) findViewById(R.id.TILpassword);
+        edEmail = (EditText) findViewById(R.id.email);
+        edPass = (EditText) findViewById(R.id.password);
 
+        /** Validate email and password step*/
         mAuth = FirebaseAuth.getInstance();
 
         edEmail.addTextChangedListener(new TextWatcher() {
             @Override
             public void beforeTextChanged(CharSequence s, int start, int count, int after) {
-
             }
 
             @Override
@@ -65,13 +63,12 @@ public class LoginPage extends AppCompatActivity implements  View.OnClickListene
 
             @Override
             public void afterTextChanged(Editable s) {
-
             }
         });
+
         edPass.addTextChangedListener(new TextWatcher() {
             @Override
             public void beforeTextChanged(CharSequence s, int start, int count, int after) {
-
             }
 
             @Override
@@ -81,7 +78,6 @@ public class LoginPage extends AppCompatActivity implements  View.OnClickListene
 
             @Override
             public void afterTextChanged(Editable s) {
-
             }
         });
 
@@ -92,7 +88,7 @@ public class LoginPage extends AppCompatActivity implements  View.OnClickListene
 
     @Override
     public void onClick(View v) {
-        switch (v.getId()){
+        switch (v.getId()) {
             case R.id.submit_btn:
                 loginUser();
                 break;
@@ -101,22 +97,23 @@ public class LoginPage extends AppCompatActivity implements  View.OnClickListene
                 break;
             case R.id.forget_pass:
                 switchToForgetLayout();
-
                 break;
             default:
                 break;
         }
-    } // onClick end
+    }
 
-    public void signupChange(){
+    /** Intent to sign up */
+    public void signupChange() {
         Intent signPage = new Intent(LoginPage.this, SignPage.class);
         startActivity(signPage);
-    } // signupChange end
+    }
 
-    private Boolean validateEmail(){
+    /** Validate email func */
+    private Boolean validateEmail() {
         String val = tilEmail.getEditText().getText().toString().trim();
         String emailPattern = "[a-zA-Z0-9._-]+@[a-z]+\\.+[a-z]+";
-        if(val.isEmpty()){
+        if (val.isEmpty()) {
             tilEmail.setError("Email must not be empty.");
             tilEmail.setErrorEnabled(true);
             return false;
@@ -124,74 +121,77 @@ public class LoginPage extends AppCompatActivity implements  View.OnClickListene
             tilEmail.setError("Invalid email, please try again.");
             tilEmail.setErrorEnabled(true);
             return false;
-        }else{
+        } else {
             tilEmail.setError(null);
             tilEmail.setErrorEnabled(false);
             return true;
         }
-    }// validEmail end
+    }
 
-    private Boolean validatePassword(){
+    /** Validate password func */
+    private Boolean validatePassword() {
         String val = tilPass.getEditText().getText().toString().trim();
-        if(val.isEmpty()){
+        if (val.isEmpty()) {
             tilPass.setError("Password must not be empty.");
             return false;
-        }
-        else{
+        } else {
             tilPass.setError(null);
             return true;
         }
-    } // Pvalidassword end
+    }
 
-    public void loginUser(){
-        if(!validateEmail() | !validatePassword()){
+    /** Validate condition */
+    public void loginUser() {
+        if (!validateEmail() | !validatePassword()) {
             return;
-        }
-        else
+        } else
             isUser();
+    }
 
-    } // loginUser end
+    /** Validate and compared with firebase | Login method*/
+    private void isUser() {
+        final String email = tilEmail.getEditText().getText().toString().trim();
+        final String password = tilPass.getEditText().getText().toString().trim();
 
-    private void isUser(){
-        final String email        =  tilEmail.getEditText().getText().toString().trim();
-        final String password     =  tilPass.getEditText().getText().toString().trim();
-        fs =  FirebaseFirestore.getInstance();
+        fs = FirebaseFirestore.getInstance();
         HashMap<String, String> hm = new HashMap<>();
-        hm.put("password",password);
+        hm.put("password", password);
 
         mAuth.signInWithEmailAndPassword(email, password)
-                .addOnCompleteListener(this, new OnCompleteListener<AuthResult>() {
-                    @Override
-                    public void onComplete(@NonNull Task<AuthResult> task) {
-                        if (task.isSuccessful()) {
-                            fs.collection("users").document(email).update("password", password);
-                            fs.collection("users").document(email).get().addOnCompleteListener(new OnCompleteListener<DocumentSnapshot>() {
-                                @Override
-                                public void onComplete(@NonNull Task<DocumentSnapshot> task) {
-                                    if(task.isSuccessful()){
-                                        DocumentSnapshot document = task.getResult();
-                                        String isAdmin = document.getString("isAdmin");
-                                        Intent intent = new Intent(LoginPage.this, Home.class);
-                                        intent.putExtra("isAdmin", isAdmin);
-                                        intent.putExtra("mail",email);
-                                        LoginPage.this.startActivity(intent);
-                                        LoginPage.this.finish();
-                                    }
+            .addOnCompleteListener(this, new OnCompleteListener<AuthResult>() {
+                @Override
+                public void onComplete(@NonNull Task<AuthResult> task) {
+                    if (task.isSuccessful()) {
+                        fs.collection("users").document(email).update("password", password);            //Update data to fb
+                        fs.collection("users").document(email).get().addOnCompleteListener(new OnCompleteListener<DocumentSnapshot>() {
+
+                            @Override
+                            public void onComplete(@NonNull Task<DocumentSnapshot> task) {
+                                if (task.isSuccessful()) {
+                                    DocumentSnapshot document = task.getResult();
+                                    String isAdmin = document.getString("isAdmin");
+                                    Intent intent = new Intent(LoginPage.this, Home.class);
+
+                                    /** Check if admin ? */
+                                    intent.putExtra("isAdmin", isAdmin);
+                                    intent.putExtra("mail", email);
+                                    LoginPage.this.startActivity(intent);
+                                    LoginPage.this.finish();
                                 }
-                            });
-                        } else {
-                            tilPass.setError("User is not found. Please check your email and your password");
-
-                            Log.e("Error", "Login Failed");
-                        }
+                            }
+                        });
+                    } else {
+                        tilPass.setError("User is not found. Please check your email and your password");
                     }
-                });
-    } // isUser end
+                }
+            });
+    }
 
-    private Boolean validateEmailReset(){
+    /** Validate , reset pass via Email input */
+    private Boolean validateEmailReset() {
         String val = tilReset.getEditText().getText().toString().trim();
         String emailPattern = "[a-zA-Z0-9._-]+@[a-z]+\\.+[a-z]+";
-        if(val.isEmpty()){
+        if (val.isEmpty()) {
             tilReset.setError("Email must not be empty.");
             tilReset.setErrorEnabled(true);
             return false;
@@ -199,28 +199,29 @@ public class LoginPage extends AppCompatActivity implements  View.OnClickListene
             tilReset.setError("Invalid email, please try again.");
             tilReset.setErrorEnabled(true);
             return false;
-        }else{
+        } else {
             tilReset.setError(null);
             tilReset.setErrorEnabled(false);
             return true;
         }
-    }// validEmailReset end
+    }
+
     void switchToForgetLayout() {
         setContentView(R.layout.change_pass_layout);
         changePassActive();
     }
 
-    void changePassActive(){
-        Button resetPass         = (Button) findViewById(R.id.reset_pass_btn) ;
-        final TextView notice    = (TextView) findViewById(R.id.reset_description);
-        final TextView previous  = (TextView) findViewById(R.id.return_label);
-        final EditText edReset   = (EditText) findViewById(R.id.reset_email);
-        tilReset                 = (TextInputLayout) findViewById(R.id.TILreset_email);
+    /** Reset pass */
+    void changePassActive() {
+        Button resetPass = (Button) findViewById(R.id.reset_pass_btn);
+        final TextView notice = (TextView) findViewById(R.id.reset_description);
+        final TextView previous = (TextView) findViewById(R.id.return_label);
+        final EditText edReset = (EditText) findViewById(R.id.reset_email);
+        tilReset = (TextInputLayout) findViewById(R.id.TILreset_email);
 
         edReset.addTextChangedListener(new TextWatcher() {
             @Override
             public void beforeTextChanged(CharSequence s, int start, int count, int after) {
-
             }
 
             @Override
@@ -230,14 +231,14 @@ public class LoginPage extends AppCompatActivity implements  View.OnClickListene
 
             @Override
             public void afterTextChanged(Editable s) {
-
             }
         });
+
         resetPass.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 notice.setText(
-                        "Please check your email and wait at least 60 seconds before sending your new reset request by pressing the reset button.");
+                    "Please check your email and wait at least 60 seconds before sending your new reset request by pressing the reset button.");
             }
         });
 
@@ -246,6 +247,7 @@ public class LoginPage extends AppCompatActivity implements  View.OnClickListene
             public void onClick(View v) {
                 Intent returnPrevious = new Intent(LoginPage.this, LoginPage.class);
                 startActivity(returnPrevious);
-            }});
+            }
+        });
     }
 }

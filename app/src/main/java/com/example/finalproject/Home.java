@@ -11,13 +11,10 @@ import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
 import android.annotation.SuppressLint;
-import android.app.Dialog;
-import android.content.Context;
 import android.content.Intent;
 import android.graphics.Color;
 import android.os.Build;
 import android.os.Bundle;
-import android.util.Log;
 import android.view.Gravity;
 import android.view.Menu;
 import android.view.MenuItem;
@@ -26,18 +23,14 @@ import android.view.View;
 import com.google.android.material.navigation.NavigationView;
 
 import android.content.DialogInterface;
-import android.view.ViewGroup;
 import android.view.Window;
 import android.view.WindowManager;
 import android.widget.SearchView;
-import android.widget.TextView;
 
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.Task;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
-import com.google.firebase.database.DatabaseReference;
-import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.firestore.FirebaseFirestore;
 import com.google.firebase.firestore.QueryDocumentSnapshot;
 import com.google.firebase.firestore.QuerySnapshot;
@@ -54,11 +47,11 @@ public class Home extends AppCompatActivity implements NavigationView.OnNavigati
     private String isAdmin = null, mail = null;
     private RecyclerView content;
     private List<Hotel> hotelList = new ArrayList<>();
-    ;
+
     private HotelAdapter hotelAdapter;
     public SearchView search;
 
-    private String CODE_DEC_USER_ADMIN = "1";
+    private String CODE_DEC_USER_ADMIN = "1";   //flag check admin (1)
     private Boolean DEC;
 
     private static final String DATABASE_ROOT_COLLECTION = "hotel_info";
@@ -82,6 +75,7 @@ public class Home extends AppCompatActivity implements NavigationView.OnNavigati
         content = (RecyclerView) findViewById(R.id.contentView);
         search = (SearchView) findViewById(R.id.search);
 
+        /** On search view value change event */
         search.setOnQueryTextListener(new SearchView.OnQueryTextListener() {
             @Override
             public boolean onQueryTextSubmit(String query) {
@@ -90,14 +84,16 @@ public class Home extends AppCompatActivity implements NavigationView.OnNavigati
 
             @Override
             public boolean onQueryTextChange(final String newText) {
-
                 fs.collection(DATABASE_ROOT_COLLECTION).get().addOnCompleteListener(new OnCompleteListener<QuerySnapshot>() {
+
+                    /** Search by District */
                     @Override
                     public void onComplete(@NonNull Task<QuerySnapshot> task) {
                         if (task.isSuccessful()) {
-                            clearAllData();
-                            for (QueryDocumentSnapshot document : task.getResult()) {
+                            clearAllData();                                                  //Clear recycler view cells
+                            for (QueryDocumentSnapshot document : task.getResult()) {       //sweep all documents to search
                                 String district = document.getString("district");
+
                                 if (newText.equals("")) {
                                     setupRecyclerView();
                                     break;
@@ -118,6 +114,7 @@ public class Home extends AppCompatActivity implements NavigationView.OnNavigati
 
                                     hotelList.add(hotelInfo);
 
+                                    /** Recyclerview methods */
                                     content.setHasFixedSize(true);
                                     hotelAdapter = new HotelAdapter(Home.this, hotelList, isAdmin);
                                     LinearLayoutManager LLM = new LinearLayoutManager(Home.this);
@@ -138,26 +135,22 @@ public class Home extends AppCompatActivity implements NavigationView.OnNavigati
 
         Intent intent = getIntent();
         isAdmin = intent.getStringExtra("isAdmin");
-
         mail = intent.getStringExtra("mail");
 
-
-
+        /** Validate admin to access activity */
         if (currentUser == null) {
             menuItem.setTitle("Sign Up / Sign In");
             DEC = true;
-        }
-        else if (isAdmin.equals(CODE_DEC_USER_ADMIN)) {
+        } else if (isAdmin.equals(CODE_DEC_USER_ADMIN)) {
             menuItem.setTitle("Manage Account");
             DEC = false;
             Intent i = new Intent(getApplicationContext(), AdminManagement.class);
             startActivity(i);
             finish();
-        } else{
+        } else {
             menuItem.setTitle("Manage Account");
             DEC = false;
         }
-
         clearAllData();
         setupRecyclerView();
     }
@@ -170,6 +163,7 @@ public class Home extends AppCompatActivity implements NavigationView.OnNavigati
                     if (task.isSuccessful()) {
                         clearAllData();
                         for (QueryDocumentSnapshot document : task.getResult()) {
+
                             Hotel hotelInfo = new Hotel();
 
                             hotelInfo.hotelID = document.getId();
@@ -182,9 +176,7 @@ public class Home extends AppCompatActivity implements NavigationView.OnNavigati
                             hotelInfo.price = document.getString("priceRange");
                             hotelInfo.imageUrl = document.getString("imageUrl");
                             hotelInfo.deal = document.getString("deal");
-
                             hotelList.add(hotelInfo);
-
                         }
 
                         hotelAdapter = new HotelAdapter(Home.this, hotelList, isAdmin);
@@ -195,7 +187,7 @@ public class Home extends AppCompatActivity implements NavigationView.OnNavigati
                 }
             });
 
-    }// setupRecyclerView end
+    }
 
     public void clearAllData() {
         content.setHasFixedSize(true);
@@ -204,6 +196,7 @@ public class Home extends AppCompatActivity implements NavigationView.OnNavigati
         hotelList.clear();
     }
 
+    /** Filtered by room */
     private void filterRoom(final String room) {
         fs.collection(DATABASE_ROOT_COLLECTION).get().addOnCompleteListener(new OnCompleteListener<QuerySnapshot>() {
             @Override
@@ -245,16 +238,15 @@ public class Home extends AppCompatActivity implements NavigationView.OnNavigati
                                 }
                             });
                     }
-
-
                 }
             }
         });
     }
 
+
     public void selectRoom(View v) {
         AlertDialog.Builder builder = new AlertDialog.Builder(this, R.style.FullScreenDialogStyle);
-        builder.setTitle("CHOOSE YOUR ROOMS");
+        builder.setTitle("Choose your room");
 
         final String[] selsem = {"NONE", "DELUXE", "DOUBLE", "SINGLE", "FAMILY", "PRESIDENT", "TEST"};
         builder.setItems(selsem, new DialogInterface.OnClickListener() {
@@ -297,8 +289,8 @@ public class Home extends AppCompatActivity implements NavigationView.OnNavigati
         dialog.show();
     }
 
+    /** Create menu */
     private void menuAction() {
-
         drawerLayout = findViewById(R.id.drawer_layout);
         navigationView = findViewById(R.id.nav_view);
         toolbar = findViewById(R.id.toolbar);
@@ -351,6 +343,7 @@ public class Home extends AppCompatActivity implements NavigationView.OnNavigati
         }
     }
 
+    /** Menu item and intend*/
     @SuppressLint("NonConstantResourceId")
     @Override
     public boolean onNavigationItemSelected(@NonNull MenuItem menuItem) {
@@ -359,10 +352,10 @@ public class Home extends AppCompatActivity implements NavigationView.OnNavigati
                 if (DEC) {
                     startActivity(new Intent(Home.this, LoginPage.class));
                     finish();
-                } else if (isAdmin.equals(CODE_DEC_USER_ADMIN)){
+                } else if (isAdmin.equals(CODE_DEC_USER_ADMIN)) {
                     startActivity(new Intent(Home.this, AdminManagement.class));
                     finish();
-                } else{
+                } else {
                     Intent intent = new Intent(Home.this, UserInfo.class);
                     intent.putExtra("mail", mail);
                     startActivity(intent);
@@ -370,7 +363,7 @@ public class Home extends AppCompatActivity implements NavigationView.OnNavigati
                 }
                 break;
             case R.id.about_us:
-                startActivity(new Intent(Home.this,AboutUs.class));
+                startActivity(new Intent(Home.this, AboutUs.class));
                 break;
             case R.id.rating_us:
                 Intent intent1 = new Intent(Home.this, Rating.class);

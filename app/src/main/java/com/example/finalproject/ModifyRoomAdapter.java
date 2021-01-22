@@ -18,6 +18,9 @@ import androidx.recyclerview.widget.RecyclerView;
 import java.text.DecimalFormat;
 import java.util.List;
 
+interface Props{
+    void getData();
+}
 public class ModifyRoomAdapter extends RecyclerView.Adapter<ModifyRoomAdapter.RoomHolder> {
 
     private List<ModifyRoom> roomList;

@@ -27,7 +27,8 @@ import javax.microedition.khronos.opengles.GL;
 
 public class HotelDetail extends AppCompatActivity {
 
-    Button btnSelectRoom, btnDeal; ImageButton btnBack;
+    Button btnSelectRoom, btnDeal;
+    ImageButton btnBack;
     TextView tvHotelName, tvHotelSpecial, tvHotelPrice, tvHotelAddress, tvHotelPhone, lblHotelName;
     ImageView lgImg, subImg1, subImg2, mapImg;
 
@@ -71,12 +72,11 @@ public class HotelDetail extends AppCompatActivity {
             @Override
             public void onClick(View v) {
                 Intent intent = new Intent(getApplicationContext(), Home.class);
-                intent.putExtra("isAdmin",isAdmin);
+                intent.putExtra("isAdmin", isAdmin);
                 startActivity(intent);
                 finish();
             }
         });
-
 
         setupInfo(hotelID);
         setupImage(hotelID);
@@ -84,13 +84,13 @@ public class HotelDetail extends AppCompatActivity {
         btnSelectRoom.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                if(CurrentUser != null){
+                if (CurrentUser != null) {
                     Intent intent = new Intent(HotelDetail.this, RoomSelection.class);
                     intent.putExtra("hotelID", hotelID);
-                    intent.putExtra("isAdmin",isAdmin);
+                    intent.putExtra("isAdmin", isAdmin);
                     startActivity(intent);
                     finish();
-                }else{
+                } else {
                     Intent intent = new Intent(HotelDetail.this, LoginPage.class);
                     startActivity(intent);
                     finish();
@@ -118,60 +118,61 @@ public class HotelDetail extends AppCompatActivity {
 
                     lblHotelName.setText(name);
                     tvHotelName.setText(name);
-                    tvHotelAddress.setText(numberAdd+", "+district+" District, "+ward+" Ward");
-                    tvHotelPhone.setText("+"+phone);
+                    tvHotelAddress.setText(numberAdd + ", " + district + " District, " + ward + " Ward");
+                    tvHotelPhone.setText("+" + phone);
                     tvHotelSpecial.setText(special);
                     tvHotelPrice.setText(price);
                     btnDeal.setText(deal);
-
                 }
             }
         });
     }
 
+    /**
+     * Load image methods (3)
+     */
     private void setupImage(String hotelID) {
         fs.collection("hotel_info").document(hotelID).collection("imageDetail").get()
-                .addOnCompleteListener(new OnCompleteListener<QuerySnapshot>() {
-                    @Override
-                    public void onComplete(@NonNull Task<QuerySnapshot> task) {
-                        if (task.isSuccessful()) {
-                            int i = 0; String url = null;
-                            for (QueryDocumentSnapshot document : task.getResult()) {
-
-                                url = document.getString("imageUrl");
-
-                                setupImage_2(url, ++i);
-                            }
+            .addOnCompleteListener(new OnCompleteListener<QuerySnapshot>() {
+                @Override
+                public void onComplete(@NonNull Task<QuerySnapshot> task) {
+                    if (task.isSuccessful()) {
+                        int i = 0;
+                        String url = null;
+                        for (QueryDocumentSnapshot document : task.getResult()) {
+                            url = document.getString("imageUrl");
+                            setupImage_2(url, ++i);
                         }
                     }
-                });
+                }
+            });
     }
 
-    private void setupImage_2(String url, int i){
-        switch(i){
+    private void setupImage_2(String url, int i) {
+        switch (i) {
             case 1:
                 Picasso.with(HotelDetail.this).load(url)
-                        .fit()
-                        .centerCrop()
-                        .into(lgImg);
+                    .fit()
+                    .centerCrop()
+                    .into(lgImg);
                 break;
             case 2:
                 Picasso.with(HotelDetail.this).load(url)
-                        .fit()
-                        .centerCrop()
-                        .into(subImg1);
+                    .fit()
+                    .centerCrop()
+                    .into(subImg1);
                 break;
             case 3:
                 Picasso.with(HotelDetail.this).load(url)
-                        .fit()
-                        .centerCrop()
-                        .into(subImg2);
+                    .fit()
+                    .centerCrop()
+                    .into(subImg2);
                 break;
             case 4:
                 Picasso.with(HotelDetail.this).load(url)
-                        .fit()
-                        .centerCrop()
-                        .into(mapImg);
+                    .fit()
+                    .centerCrop()
+                    .into(mapImg);
                 break;
             default:
                 break;

@@ -62,11 +62,10 @@ public class SignPage extends AppCompatActivity implements View.OnClickListener 
         tilPhone            = (TextInputLayout) findViewById(R.id.TILphone);
         tilConfirm_pass     = (TextInputLayout) findViewById(R.id.TILconfirm_pass);
 
-
+        /** onChange event */
         signName.addTextChangedListener(new TextWatcher() {
             @Override
             public void beforeTextChanged(CharSequence s, int start, int count, int after) {
-
             }
 
             @Override
@@ -76,9 +75,10 @@ public class SignPage extends AppCompatActivity implements View.OnClickListener 
 
             @Override
             public void afterTextChanged(Editable s) {
-
             }
         });
+
+
         signEmail.addTextChangedListener(new TextWatcher() {
             @Override
             public void beforeTextChanged(CharSequence s, int start, int count, int after) {
@@ -144,15 +144,14 @@ public class SignPage extends AppCompatActivity implements View.OnClickListener 
             }
         });
 
-
-
+        /** Firebase  */
         mAuth = FirebaseAuth.getInstance();
         data = FirebaseFirestore.getInstance();
 
         submit.setOnClickListener(this);
         signUpActivity.setOnClickListener(this);
 
-    }// onCreate end
+    }
 
     @Override
     public void onClick(View v) {
@@ -166,36 +165,36 @@ public class SignPage extends AppCompatActivity implements View.OnClickListener 
             default:
                 break;
         }
-    } // onClick end
+    }
 
+    /** Do go Login Activity */
     public void loginChange() {
         Intent logPage = new Intent(SignPage.this, LoginPage.class);
         startActivity(logPage);
-    }// loginChange end
+    }
 
+    /** Validate sign up */
     public void signup() {
-
         if (!validateName() | !validateEmail() | !validatePassword() | !validatePhone() | !validateConfirm()) {
             return;
         }
-
         name        = tilName.getEditText().getText().toString().trim();
         email       = tilEmail.getEditText().getText().toString().trim();
         password    = tilPassword.getEditText().getText().toString().trim();
         phone       = tilPhone.getEditText().getText().toString().trim();
-
         createEmailUser();
-    }// signup end
+    }
 
+    /**Method create account vid email, password */
     private void createEmailUser() {
         mAuth.createUserWithEmailAndPassword(email, password)
             .addOnCompleteListener(this, new OnCompleteListener<AuthResult>() {
+
                 @Override
                 public void onComplete(@NonNull Task<AuthResult> task) {
                     if (task.isSuccessful()) {
                         Users users = new Users(name, email, password, phone, "0");
-                        Log.i("LOGGER", "Get here");
-                        data.collection("users").document(email)
+                        data.collection("users").document(email)                    //save user data to db
                             .set(users)
                             .addOnSuccessListener(new OnSuccessListener<Void>() {
                                 @Override
@@ -214,8 +213,9 @@ public class SignPage extends AppCompatActivity implements View.OnClickListener 
                     }
                 }
             });
-    }// createEmailUser end
+    }
 
+    /** Validate methods */
     private Boolean validateName() {
         String val = tilName.getEditText().getText().toString();
         String nameVal = "^\\p{L}+[\\p{L}\\p{Z}\\p{P}]{0,}";
@@ -233,7 +233,7 @@ public class SignPage extends AppCompatActivity implements View.OnClickListener 
             tilName.setErrorEnabled(false);
             return true;
         }
-    }//validateName end
+    }
 
     private Boolean validateEmail() {
         String val = tilEmail.getEditText().getText().toString();
@@ -252,7 +252,7 @@ public class SignPage extends AppCompatActivity implements View.OnClickListener 
             tilEmail.setErrorEnabled(false);
             return true;
         }
-    }//validateEmail end
+    }
 
     private Boolean validatePassword() {
         String val = tilPassword.getEditText().getText().toString();
@@ -279,8 +279,9 @@ public class SignPage extends AppCompatActivity implements View.OnClickListener 
             tilPassword.setErrorEnabled(false);
             return true;
         }
-    }//validatePassword end
+    }
 
+    /** Validate confirm pass */
     private boolean validateConfirm() {
         String val = tilConfirm_pass.getEditText().getText().toString();
         String val2 = tilPassword.getEditText().getText().toString();
@@ -298,8 +299,7 @@ public class SignPage extends AppCompatActivity implements View.OnClickListener 
             tilConfirm_pass.setErrorEnabled(false);
             return true;
         }
-
-    }//validateConfirm end
+    }
 
     private Boolean validatePhone() {
         String val = tilPhone.getEditText().getText().toString();
@@ -326,5 +326,5 @@ public class SignPage extends AppCompatActivity implements View.OnClickListener 
             tilPhone.setErrorEnabled(false);
             return true;
         }
-    }//validatePhone end
+    }
 }
