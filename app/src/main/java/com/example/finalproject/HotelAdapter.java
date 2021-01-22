@@ -25,10 +25,12 @@ public class HotelAdapter extends RecyclerView.Adapter<HotelAdapter.HotelHolder>
 
     private List<Hotel> hotelList;
     private Context context;
+    private String isAdmin;
 
-    public HotelAdapter(Context context, List<Hotel> hotelList) {
+    public HotelAdapter(Context context, List<Hotel> hotelList, String isAdmin) {
         this.hotelList = hotelList;
         this.context = context;
+        this.isAdmin = isAdmin;
     }
 
     @NonNull
@@ -59,6 +61,7 @@ public class HotelAdapter extends RecyclerView.Adapter<HotelAdapter.HotelHolder>
             public void onClick(View view, int position) {
                     Intent intent = new Intent(context,HotelDetail.class);
                     intent.putExtra("hotelID", hotelList.get(i).hotelID);
+                    intent.putExtra("isAdmin", isAdmin);
                     context.startActivity(intent);
             }
         });

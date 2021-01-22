@@ -62,17 +62,20 @@ public class HotelDetail extends AppCompatActivity {
         subImg1 = findViewById(R.id.sub_img_1);
         subImg2 = findViewById(R.id.sub_img_2);
 
+        Intent intent = getIntent();
+        final String hotelID = intent.getStringExtra("hotelID");
+        final String isAdmin = intent.getStringExtra("isAdmin");
+
         btnBack.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                startActivity(new Intent(getApplicationContext(), Home.class));
+                Intent intent = new Intent(getApplicationContext(), Home.class);
+                intent.putExtra("isAdmin",isAdmin);
+                startActivity(intent);
                 finish();
             }
         });
 
-
-        Intent intent = getIntent();
-        final String hotelID = intent.getStringExtra("hotelID");
 
         setupInfo(hotelID);
         setupImage(hotelID);
@@ -83,6 +86,7 @@ public class HotelDetail extends AppCompatActivity {
                 if(CurrentUser != null){
                     Intent intent = new Intent(HotelDetail.this, RoomSelection.class);
                     intent.putExtra("hotelID", hotelID);
+                    intent.putExtra("isAdmin",isAdmin);
                     startActivity(intent);
                     finish();
                 }else{

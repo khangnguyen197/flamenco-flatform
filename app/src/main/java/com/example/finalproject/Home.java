@@ -119,7 +119,7 @@ public class Home extends AppCompatActivity implements NavigationView.OnNavigati
                                     hotelList.add(hotelInfo);
 
                                     content.setHasFixedSize(true);
-                                    hotelAdapter = new HotelAdapter(Home.this, hotelList);
+                                    hotelAdapter = new HotelAdapter(Home.this, hotelList, isAdmin);
                                     LinearLayoutManager LLM = new LinearLayoutManager(Home.this);
                                     content.setLayoutManager(LLM);
                                     content.setAdapter(hotelAdapter);
@@ -190,7 +190,7 @@ public class Home extends AppCompatActivity implements NavigationView.OnNavigati
 
                         }
 
-                        hotelAdapter = new HotelAdapter(Home.this, hotelList);
+                        hotelAdapter = new HotelAdapter(Home.this, hotelList, isAdmin);
                         LinearLayoutManager LLM = new LinearLayoutManager(Home.this);
                         content.setLayoutManager(LLM);
                         content.setAdapter(hotelAdapter);
@@ -236,7 +236,7 @@ public class Home extends AppCompatActivity implements NavigationView.OnNavigati
 
                                                 hotelList.add(hotelInfo);
 
-                                                hotelAdapter = new HotelAdapter(Home.this, hotelList);
+                                                hotelAdapter = new HotelAdapter(Home.this, hotelList, isAdmin);
                                                 LinearLayoutManager LLM = new LinearLayoutManager(Home.this);
                                                 content.setLayoutManager(LLM);
                                                 content.setAdapter(hotelAdapter);
