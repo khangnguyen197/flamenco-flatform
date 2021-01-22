@@ -42,27 +42,13 @@ public class WelcomeActivity extends AppCompatActivity{
 
         }
 
-   /* @Override
+   @Override
     protected void onStart() {
         super.onStart();
         if(currentUser != null){
-            fs.collection("users").document(currentUser.getEmail()).get().addOnCompleteListener(new OnCompleteListener<DocumentSnapshot>() {
-                @Override
-                public void onComplete(@NonNull Task<DocumentSnapshot> task) {
-                    if(task.isSuccessful()){
-                        DocumentSnapshot document = task.getResult();
-                        String isAdmin = document.getString("isAdmin");
-                        Intent intent = new Intent(getApplicationContext(), Home.class);
-                        intent.putExtra("isAdmin", isAdmin);
-                        intent.putExtra("mail",document.getString("email"));
-
-                        startActivity(intent);
-                        finish();
-                    }
-                }
-            });
+           mAuth.signOut();
         }
-    }*/
+    }
 
     private void onClick() {
             Button guestBtn = (Button) findViewById(R.id.guest_btn);
