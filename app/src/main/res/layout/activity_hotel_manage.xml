@@ -71,15 +71,14 @@
                         android:layout_width="80dp"
                         android:layout_height="wrap_content" />
 
-                    <ImageView
-                        android:id="@+id/imageView3"
-                        android:layout_width="30dp"
-                        android:layout_height="wrap_content"
+                    <TextView
+                        style="@style/Header.Label"
+                        android:id="@+id/hotel_name_lbl"
+                        android:layout_width="wrap_content"
+                        android:layout_height="match_parent"
                         android:layout_weight="5"
-                        android:contentDescription="@string/description"
-                        android:paddingLeft="30dp"
-                        android:paddingRight="30dp"
-                        app:srcCompat="@drawable/logo_material" />
+                        android:gravity="center"
+                        android:text="@string/hotel_manage" />
 
                     <ImageView
                         android:id="@+id/imageView4"
@@ -94,7 +93,8 @@
                     android:id="@+id/contentView"
                     android:layout_width="match_parent"
                     android:layout_height="0dp"
-                    android:background="@color/colorPrimary"
+
+                    android:background="@color/gray"
                     app:layout_constraintBottom_toBottomOf="parent"
                     app:layout_constraintHorizontal_bias="1.0"
                     app:layout_constraintLeft_toLeftOf="parent"

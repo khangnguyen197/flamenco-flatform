@@ -1,5 +1,6 @@
 package com.example.finalproject;
 
+import android.annotation.SuppressLint;
 import android.content.Context;
 import android.util.Log;
 import android.view.LayoutInflater;
@@ -31,12 +32,13 @@ public class HotelReservationAdapter extends RecyclerView.Adapter<HotelReservati
         return new HotelHolder(view);
     }
 
+    @SuppressLint("SetTextI18n")
     @Override
     public void onBindViewHolder(@NonNull HotelHolder holder, int i) {
 
         holder.userName.setText("CUSTOMER: "+reservationList.get(i).name.toUpperCase());
         holder.tvLine1.setText(reservationList.get(i).hotelName);
-        holder.tvLine2.setText(reservationList.get(i).roomType.toUpperCase()+" ");
+        holder.tvLine2.setText("/n" +reservationList.get(i).roomType.toUpperCase()+" ");
         holder.tvLine3.setText(reservationList.get(i).dateTime);
         holder.priceTotal.setText(reservationList.get(i).priceTotal);
     }
@@ -48,7 +50,6 @@ public class HotelReservationAdapter extends RecyclerView.Adapter<HotelReservati
         else
             return reservationList.size();
     }
-
 
     public static class HotelHolder extends RecyclerView.ViewHolder {
 
