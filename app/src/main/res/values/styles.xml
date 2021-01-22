@@ -102,10 +102,9 @@
     </style>
 
     <style name="Header.Label" parent="android:Widget">
-        <item name="android:textSize">28sp</item>
+        <item name="android:textSize">22sp</item>
         <item name="android:textColor">@color/white</item>
         <item name="fontFamily">@font/calibri_bold</item>
-        <item name="android:paddingLeft">10dp</item>
     </style>
 
     <style name="ContentLayout" parent="android:Widget">
@@ -117,6 +116,12 @@
     <style name="Circle" parent="android:Widget">
         <item name="android:background">@drawable/circle</item>
     </style>
+
+    <style name="CircleImg" parent="android:Widget">
+        <item name="android:background">@drawable/circle</item>
+        <item name="srcCompat">@drawable/hotel_default</item>
+    </style>
+
 
     <style name="InformTextView" parent="android:Widget">
         <item name="background">@drawable/rectangular_outline</item>
