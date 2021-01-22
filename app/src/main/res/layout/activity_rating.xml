@@ -68,7 +68,7 @@
         android:layout_height="wrap_content"
         android:backgroundTint="@color/colorPrimary"
         android:numStars="5"
-        android:progressTint="@color/label"
+        android:progressTint="@color/white"
         android:rating="0"
         android:secondaryProgressTint="@android:color/transparent"
         android:stepSize="1"

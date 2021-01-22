@@ -74,7 +74,7 @@ public class RoomSelection extends AppCompatActivity {
                             for (QueryDocumentSnapshot document : task.getResult()) {
                                 Room roomInfo = new Room();
 
-                                roomInfo.name = document.getId();
+                                roomInfo.name = document.getId().toUpperCase();
                                 roomInfo.description = document.getString("description");
                                 roomInfo.price = document.getString("price");
                                 roomInfo.desline1 = document.getString("desline1");
