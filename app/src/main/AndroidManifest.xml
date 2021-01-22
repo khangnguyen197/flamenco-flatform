@@ -13,7 +13,8 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/NoActionBar">
-        <activity android:name=".AboutUs"></activity>
+        <activity android:name=".HotelReservationActivity"></activity>
+        <activity android:name=".AboutUs" />
         <activity android:name=".HotelManageActivity" />
         <activity android:name=".AdminManagement" />
         <activity android:name=".RoomSelection" />

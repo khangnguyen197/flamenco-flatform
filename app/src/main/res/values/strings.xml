@@ -76,4 +76,5 @@
     <string name="hotel_management">Hotel management</string>
     <string name="hotel_reservation">Hotel reservation</string>
     <string name="room_select">Room select ...</string>
+    <string name="total">Total</string>
 </resources>
