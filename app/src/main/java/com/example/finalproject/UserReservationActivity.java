@@ -77,12 +77,11 @@ public class UserReservationActivity extends AppCompatActivity {
                     DocumentSnapshot document = task.getResult();
                     UserReservation userReservation = new UserReservation();
 
-                    String a = "";
                     final String name = document.getString("name");
                     for(int i =0; i < length; i++){
-                        a += roomType[i];
-                        userReservation.roomType = a;
+                        userReservation.roomType += roomType[i];
                     }
+                    final String a =  userReservation.roomType;
                     userReservation.hotelName = hotelID;
                     userReservation.priceTotal = priceTotal;
                     userReservation.dateTime = date;
