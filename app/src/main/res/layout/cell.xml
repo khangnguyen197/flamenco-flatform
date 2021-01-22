@@ -169,6 +169,7 @@
             android:textColor="@color/matteBlack"
             android:textSize="25sp"
             android:textStyle="bold"
+            android:fontFamily="@font/calibri_light"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintRight_toRightOf="parent"
             app:layout_constraintTop_toBottomOf="@id/container" />
