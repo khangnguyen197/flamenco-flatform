@@ -10,6 +10,9 @@ import androidx.recyclerview.widget.RecyclerView;
 import android.content.Intent;
 import android.os.Bundle;
 import android.util.Log;
+import android.view.View;
+import android.widget.Button;
+import android.widget.ImageButton;
 
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.Task;
@@ -34,6 +37,7 @@ public class HotelReservationActivity extends AppCompatActivity {
 
     private static final String DATABASE_ROOT_COLLECTION_RESERVATION = "reservation";
 
+    private ImageButton btnBack;
     private FirebaseFirestore fs;
     private FirebaseAuth mAuth;
     private FirebaseUser currentUser;
@@ -46,6 +50,7 @@ public class HotelReservationActivity extends AppCompatActivity {
         Globals globals = new Globals();
         globals.transStatus(getWindow());
 
+        btnBack = findViewById(R.id.back_button);
         fs = FirebaseFirestore.getInstance();
         mAuth = FirebaseAuth.getInstance();
         currentUser = mAuth.getCurrentUser();
@@ -60,6 +65,13 @@ public class HotelReservationActivity extends AppCompatActivity {
         final String date = intent.getStringExtra("date");
 
         Log.e("ERROR",": "+date);
+
+        btnBack.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                startActivity(new Intent(getApplicationContext(), HotelManageActivity.class));
+            }
+        });
 
         setupRecyclerView();
     }

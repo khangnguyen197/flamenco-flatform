@@ -14,9 +14,6 @@ import android.widget.TextView;
 
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.Task;
-import com.google.firebase.auth.FirebaseAuth;
-import com.google.firebase.auth.FirebaseUser;
-import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.firestore.FirebaseFirestore;
 import com.google.firebase.firestore.QueryDocumentSnapshot;
 import com.google.firebase.firestore.QuerySnapshot;
@@ -27,10 +24,11 @@ import java.util.List;
 public class HotelModify extends AppCompatActivity {
 
     private RecyclerView content;
-    private TextView roomTotal;
-    private ImageButton editBtn;
+    private TextView roomTotal, hotelName;
+    private ImageButton editBtn, btnBack;
+    private Button btnSave;
 
-    private List<Room> roomList = new ArrayList<>();;
+    private List<ModifyRoom> roomList = new ArrayList<>();;
     private ModifyRoomAdapter modifyRoomAdapter;
 
     private FirebaseFirestore fs;
@@ -40,70 +38,61 @@ public class HotelModify extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_room_selection);
+        setContentView(R.layout.activity_hotel_modify);
         Globals globals = new Globals();
         globals.transStatus(getWindow());
 
+        hotelName = findViewById(R.id.hotel_name);
         roomTotal = findViewById(R.id.total_price);
         editBtn = findViewById(R.id.edit_button);
+        btnBack = findViewById(R.id.back_button);
+        btnSave = findViewById(R.id.save_button);
         content = (RecyclerView) findViewById(R.id.room_recycler);
 
         fs = FirebaseFirestore.getInstance();
 
         Intent intent = getIntent();
-        String hotelID = intent.getStringExtra("hotelID");
+        final String hotelID = intent.getStringExtra("hotelID");
 
-        editBtn.setOnClickListener(new View.OnClickListener() {
+        btnBack.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                startActivity(new Intent(getApplicationContext(), Home.class));
-                finish();
+                startActivity(new Intent(getApplicationContext(), HotelManageActivity.class));
             }
         });
 
-        clearAllData();
+        btnSave.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                startActivity(new Intent(getApplicationContext(), HotelManageActivity.class));
+            }
+        });
+
+        hotelName.setText(hotelID);
         setupRecyclerView(hotelID);
     }
 
-    /** Setup recycler view */
     private void setupRecyclerView(final String hotelID){
         fs.collection(DATABASE_ROOT_COLLECTION).document(hotelID).collection("roomType").get()
-            .addOnCompleteListener(new OnCompleteListener<QuerySnapshot>() {
-                @Override
-                public void onComplete(@NonNull Task<QuerySnapshot> task) {
-                    if(task.isSuccessful()){
-                        clearAllData();
-                        for (QueryDocumentSnapshot document : task.getResult()) {
-                            Room roomInfo = new Room();
+                .addOnCompleteListener(new OnCompleteListener<QuerySnapshot>() {
+                    @Override
+                    public void onComplete(@NonNull Task<QuerySnapshot> task) {
+                        if(task.isSuccessful()){
+                            for (QueryDocumentSnapshot document : task.getResult()) {
 
-                            roomInfo.name = document.getId().toUpperCase();
-                            roomInfo.description = document.getString("description");
-                            roomInfo.price = document.getString("price");
-                            roomInfo.desline1 = document.getString("desline1");
-                            roomInfo.desline2 = document.getString("desline2");
-                            roomInfo.desline3 = document.getString("desline3");
+                                ModifyRoom modifyRoom = new ModifyRoom();
+                                modifyRoom.des = document.getString("description");
+                                modifyRoom.name = document.getId().toUpperCase();
+                                modifyRoom.price = document.getString("price");
 
-                            roomList.add(roomInfo);
+                                roomList.add(modifyRoom);
+                            }
+                            modifyRoomAdapter = new ModifyRoomAdapter(HotelModify.this, roomList);
+                            LinearLayoutManager LLM = new LinearLayoutManager(HotelModify.this);
+                            content.setLayoutManager(LLM);
+                            content.setAdapter(modifyRoomAdapter);
                         }
-                        modifyRoomAdapter = new ModifyRoomAdapter(HotelModify.this, roomList, roomTotal);
-                        LinearLayoutManager LLM = new LinearLayoutManager(HotelModify.this);
-                        content.setLayoutManager(LLM);
-                        content.setAdapter(modifyRoomAdapter);
                     }
-                }
-            });
-    }
-
-    /** Show dialog to have edit option */
-    public void somthing(){
-
-    }
-
-    /** Clear data */
-    public void clearAllData(){
-        content.setHasFixedSize(true);
-        content.setAdapter(null);
-        content.setLayoutManager(null);
-        roomList.clear();
+                });
     }
 }

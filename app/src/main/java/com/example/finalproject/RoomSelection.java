@@ -50,8 +50,7 @@ public class RoomSelection extends AppCompatActivity {
         Globals globals = new Globals();
         globals.transStatus(getWindow());
 
-        roomTotal = findViewById(R.
-                id.total_price);
+        roomTotal = findViewById(R.id.total_price);
         btnReserve = findViewById(R.id.reserve_button);
         btnBack = findViewById(R.id.imageButton);
         edt_date = findViewById(R.id.ed_date);
@@ -110,8 +109,6 @@ public class RoomSelection extends AppCompatActivity {
                 intent.putExtra("priceTotal", roomTotal.getText().toString());
                 intent.putExtra("length", roomType.length);
                 intent.putExtra("date",edt_date.getText().toString());
-
-                Log.e("ERROR 111",": "+edt_date.getText().toString());
 
                 for(int i = 0; i <roomType.length; i++){
                     intent.putExtra("roomType"+i, roomType[i].getText().toString());
