@@ -56,17 +56,6 @@ public class WelcomeActivity extends AppCompatActivity{
                         intent.putExtra("isAdmin", isAdmin);
                         intent.putExtra("mail",document.getString("email"));
 
-
-
-                        Log.e("1: "," "+currentUser.getDisplayName());
-                        Log.e("2: "," "+currentUser.getEmail());
-                        Log.e("3: "," "+currentUser.getProviderId());
-                        Log.e("4: "," "+currentUser.getUid());
-                        Log.e("5: "," "+currentUser.getPhoneNumber());
-
-
-
-
                         startActivity(intent);
                         finish();
                     }

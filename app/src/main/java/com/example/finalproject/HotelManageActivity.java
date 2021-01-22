@@ -76,12 +76,10 @@ public class HotelManageActivity extends AppCompatActivity implements Navigation
 
         content = (RecyclerView) findViewById(R.id.contentView);
 
-
         Menu menu = navigationView.getMenu();
         MenuItem menuItem = menu.findItem(R.id.account_manage);
         menuItem.setTitle("Manage Account");
 
-        clearAllData();
         setupRecyclerView();
     }
 
@@ -91,7 +89,6 @@ public class HotelManageActivity extends AppCompatActivity implements Navigation
                 @Override
                 public void onComplete(@NonNull Task<QuerySnapshot> task) {
                     if (task.isSuccessful()) {
-                        clearAllData();
                         for (QueryDocumentSnapshot document : task.getResult()) {
                             Hotel hotelInfo = new Hotel();
 
@@ -119,102 +116,6 @@ public class HotelManageActivity extends AppCompatActivity implements Navigation
             });
 
     }// setupRecyclerView end
-
-    public void clearAllData() {
-        content.setHasFixedSize(true);
-        content.setAdapter(null);
-        content.setLayoutManager(null);
-        hotelList.clear();
-    }
-
-    private void filterRoom(final String room) {
-        fs.collection(DATABASE_ROOT_COLLECTION).get().addOnCompleteListener(new OnCompleteListener<QuerySnapshot>() {
-            @Override
-            public void onComplete(@NonNull Task<QuerySnapshot> task) {
-                if (task.isSuccessful()) {
-                    clearAllData();
-                    for (final QueryDocumentSnapshot document1 : task.getResult()) {
-                        fs.collection(DATABASE_ROOT_COLLECTION).document(document1.getId()).collection("roomType").get()
-                            .addOnCompleteListener(new OnCompleteListener<QuerySnapshot>() {
-                                @Override
-                                public void onComplete(@NonNull Task<QuerySnapshot> task) {
-                                    if (task.isSuccessful()) {
-                                        for (QueryDocumentSnapshot document2 : task.getResult()) {
-                                            if (document2.getId().equalsIgnoreCase(room)) {
-                                                Hotel hotelInfo = new Hotel();
-
-                                                hotelInfo.hotelID = document1.getId();
-                                                hotelInfo.hotelName = document1.getString("name");
-                                                hotelInfo.numberAdd = document1.getString("numberAddress");
-                                                hotelInfo.district = document1.getString("district");
-                                                hotelInfo.ward = document1.getString("ward");
-                                                hotelInfo.phone = document1.getString("phone");
-                                                hotelInfo.special = document1.getString("special");
-                                                hotelInfo.price = document1.getString("priceRange");
-                                                hotelInfo.imageUrl = document1.getString("imageUrl");
-                                                hotelInfo.deal = document1.getString("deal");
-
-                                                hotelList.add(hotelInfo);
-
-                                                hotelAdapter = new HotelManageAdapter(HotelManageActivity.this, hotelList);
-                                                LinearLayoutManager LLM = new LinearLayoutManager(HotelManageActivity.this);
-                                                content.setLayoutManager(LLM);
-                                                content.setAdapter(hotelAdapter);
-
-                                                break;
-                                            }
-                                        }
-                                    }
-                                }
-                            });
-                    }
-
-
-                }
-            }
-        });
-    }
-
-    public void selectRoom(View v) {
-        AlertDialog.Builder builder = new AlertDialog.Builder(this);
-        builder.setTitle("CHOOSE YOUR ROOMS");
-
-        final String[] selsem = {"NONE", "DELUXE", "DOUBLE", "SINGLE", "FAMILY", "PRESIDENT", "TEST"};
-        builder.setItems(selsem, new DialogInterface.OnClickListener() {
-            @Override
-            public void onClick(DialogInterface dialog, int which) {
-                switch (which) {
-                    case 0:
-                        setupRecyclerView();
-                        break;
-                    case 1:
-                        filterRoom(selsem[1]);
-                        break;
-                    case 2:
-                        filterRoom(selsem[2]);
-                        break;
-                    case 3:
-                        filterRoom(selsem[3]);
-                        break;
-                    case 4:
-                        filterRoom(selsem[4]);
-                        break;
-                    case 5:
-                        filterRoom(selsem[5]);
-                        break;
-                    case 6:
-                        filterRoom(selsem[6]);
-                        break;
-                    default:
-                        break;
-
-                }
-            }
-        });
-
-        AlertDialog dialog = builder.create();
-        dialog.show();
-    }
 
     private void menuAction() {
 

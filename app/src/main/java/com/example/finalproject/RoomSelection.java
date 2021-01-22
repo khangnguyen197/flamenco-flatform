@@ -9,6 +9,7 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
+import android.widget.ImageButton;
 import android.widget.TextView;
 
 import com.google.android.gms.tasks.OnCompleteListener;
@@ -28,6 +29,7 @@ public class RoomSelection extends AppCompatActivity {
     private RecyclerView content;
     private TextView roomTotal;
     private Button btnReserve;
+    private ImageButton btnBack;
 
     private List<Room> roomList = new ArrayList<>();;
     private RoomAdapter roomAdapter;
@@ -45,12 +47,26 @@ public class RoomSelection extends AppCompatActivity {
 
         roomTotal = findViewById(R.id.total_price);
         btnReserve = findViewById(R.id.reserve_button);
+
+        btnBack = findViewById(R.id.imageButton);
         content = (RecyclerView) findViewById(R.id.room_recycler);
 
         fs = FirebaseFirestore.getInstance();
 
         Intent intent = getIntent();
-        String hotelID = intent.getStringExtra("hotelID");
+        final String hotelID = intent.getStringExtra("hotelID");
+        final String isAdmin = intent.getStringExtra("isAdmin");
+
+        btnBack.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent = new Intent(getApplicationContext(), HotelDetail.class);
+                intent.putExtra("hotelID", hotelID);
+                intent.putExtra("isAdmin",isAdmin);
+                startActivity(intent);
+                finish();
+            }
+        });
 
         btnReserve.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -60,7 +76,6 @@ public class RoomSelection extends AppCompatActivity {
             }
         });
 
-        clearAllData();
         setupRecyclerView(hotelID);
     }
 
@@ -70,7 +85,6 @@ public class RoomSelection extends AppCompatActivity {
                     @Override
                     public void onComplete(@NonNull Task<QuerySnapshot> task) {
                         if(task.isSuccessful()){
-                            clearAllData();
                             for (QueryDocumentSnapshot document : task.getResult()) {
                                 Room roomInfo = new Room();
 
@@ -90,12 +104,5 @@ public class RoomSelection extends AppCompatActivity {
                         }
                     }
                 });
-    }
-
-    public void clearAllData(){
-        content.setHasFixedSize(true);
-        content.setAdapter(null);
-        content.setLayoutManager(null);
-        roomList.clear();
     }
 }

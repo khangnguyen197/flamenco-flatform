@@ -7,6 +7,7 @@ import androidx.recyclerview.widget.LinearLayoutManager;
 import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
+import android.widget.ImageButton;
 import android.widget.TextView;
 
 import com.google.android.gms.tasks.OnCompleteListener;
@@ -29,6 +30,7 @@ public class UserInfo extends AppCompatActivity {
 
     private static final String DATABASE_ROOT_COLLECTION = "users";
 
+    private ImageButton btnBack;
     private TextView tvName, tvPhone, tvMail;
     private String mail;
 
@@ -44,9 +46,21 @@ public class UserInfo extends AppCompatActivity {
         mAuth = FirebaseAuth.getInstance();
         currentUser = mAuth.getCurrentUser();
 
+        btnBack = findViewById(R.id.imageButton);
+
         tvName = findViewById(R.id.user_name);
         tvPhone = findViewById(R.id.user_phone);
         tvMail = findViewById(R.id.user_email);
+
+        btnBack.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent = new Intent(getApplicationContext(), Home.class);
+                intent.putExtra("isAdmin","0");
+                startActivity(intent);
+                finish();
+            }
+        });
 
         Intent intent = getIntent();
         mail = intent.getStringExtra("mail");
