@@ -3,7 +3,7 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
-    android:layout_height="wrap_content"
+    android:layout_height="match_parent"
    android:paddingTop="10dp"
     android:paddingBottom="10dp"
     android:paddingLeft="20dp"
@@ -13,7 +13,7 @@
 
     <androidx.constraintlayout.widget.ConstraintLayout
         android:layout_width="match_parent"
-        android:layout_height="wrap_content">
+        android:layout_height="match_parent">
 
         <LinearLayout
             android:id="@+id/info_frame"
@@ -138,23 +138,21 @@
                 android:text="@string/includes_taxes_and_charges"
                 android:textSize="13sp"
                 />
-        </LinearLayout>
 
-        <ImageButton
-            android:paddingTop="7dp"
-            android:paddingBottom="7dp"
-            android:id="@+id/submit_btn"
-            style="@style/Widget.Button_Outline"
-            android:layout_marginRight="0dp"
-            android:layout_marginLeft="0dp"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:background="@drawable/rectangular_outline"
-            android:gravity="center"
-            android:src="@drawable/trash_32px"
-            android:textColor="@color/orange"
-            app:layout_constraintBottom_toBottomOf="parent"
-            app:layout_constraintTop_toBottomOf="@id/offer_frame"
-            />
+            <ImageButton
+                android:paddingTop="7dp"
+                android:paddingBottom="7dp"
+                android:id="@+id/submit_btn"
+                style="@style/Widget.Button_Outline"
+                android:layout_marginRight="0dp"
+                android:layout_marginLeft="0dp"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:background="@drawable/rectangular_outline"
+                android:gravity="center"
+                android:src="@drawable/trash_32px"
+                android:textColor="@color/orange"
+                />
+        </LinearLayout>
     </androidx.constraintlayout.widget.ConstraintLayout>
 </LinearLayout>
