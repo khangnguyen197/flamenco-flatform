@@ -100,55 +100,39 @@
                     app:layout_constraintRight_toRightOf="parent"
                     app:layout_constraintTop_toBottomOf="@id/h1">
 
-                    <TextView
-                        android:id="@+id/search_lbl"
-                        style="@style/Widget.Label"
-                        android:layout_width="wrap_content"
+
+                    <LinearLayout
+                        android:layout_width="match_parent"
                         android:layout_height="wrap_content"
-                        android:layout_marginStart="40dp"
-                        android:text="@string/search"
-                        android:textColor="@color/matteBlack"
-                        android:textSize="25sp"
-                        android:textStyle="bold"
-                        android:layout_marginTop="15dp"
-                        android:layout_marginBottom="10dp"
-                        app:layout_constraintBottom_toTopOf="@id/search"
-                        app:layout_constraintLeft_toLeftOf="parent"
-                        app:layout_constraintTop_toTopOf="parent" />
+                        android:orientation="vertical"
+                        app:layout_constraintBottom_toBottomOf="parent"
+                        app:layout_constraintTop_toTopOf="parent">
 
-                    <SearchView
-                        android:id="@+id/search"
-                        style="@style/SearchInputFrame"
-                        android:layout_width="match_parent"
-                        android:layout_height="50dp"
-                        android:background="@drawable/rectangular_outline"
-                        android:closeIcon="@drawable/close"
-                        android:iconifiedByDefault="false"
-                        android:queryHint="Enter your destination "
-                        android:searchIcon="@drawable/search"
-                        android:theme="@style/SearchInput"
-                        app:layout_constraintBottom_toTopOf="@id/select_room"
-                        app:layout_constraintLeft_toLeftOf="parent"
-                        app:layout_constraintRight_toRightOf="parent"
-                        app:layout_constraintTop_toBottomOf="@id/search_lbl" />
+                        <SearchView
+                            android:id="@+id/search"
+                            style="@style/SearchInputFrame"
+                            android:layout_width="match_parent"
+                            android:layout_height="50dp"
+                            android:background="@drawable/rectangular_outline"
+                            android:closeIcon="@drawable/close"
+                            android:iconifiedByDefault="false"
+                            android:queryHint="Enter your destination "
+                            android:searchIcon="@drawable/search"
+                            android:theme="@style/SearchInput" />
 
-                    <Button
-                        android:id="@+id/select_room"
-                        style="@style/SearchInputFrame"
-                        android:layout_width="match_parent"
-                        android:layout_height="50dp"
-                        android:background="@drawable/rectangular_outline"
-                        android:onClick="selectRoom"
-                        android:textColor="@color/hint"
-                        android:text="@string/room_select"
-                        android:textSize="20sp"
-                        android:theme="@style/SearchInput"
-
-                        app:layout_constraintLeft_toLeftOf="parent"
-                        app:layout_constraintRight_toRightOf="parent"
-                        app:layout_constraintTop_toBottomOf="@id/search" />
+                        <Button
+                            android:id="@+id/select_room"
+                            style="@style/SearchInputFrame"
+                            android:layout_width="match_parent"
+                            android:layout_height="50dp"
+                            android:background="@drawable/rectangular_outline"
+                            android:onClick="selectRoom"
+                            android:text="@string/room_select"
+                            android:textColor="@color/hint"
+                            android:textSize="20sp"
+                            android:theme="@style/SearchInput" />
+                    </LinearLayout>
                 </androidx.constraintlayout.widget.ConstraintLayout>
-
 
                 <androidx.recyclerview.widget.RecyclerView
                     android:id="@+id/contentView"
