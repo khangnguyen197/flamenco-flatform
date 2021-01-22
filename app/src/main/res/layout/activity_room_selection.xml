@@ -19,7 +19,7 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:orientation="horizontal"
-        app:layout_constraintGuide_percent="0.92" />
+        app:layout_constraintGuide_percent="0.82" />
 
     <LinearLayout
         android:id="@+id/header"
@@ -80,13 +80,16 @@
                 android:layout_height="wrap_content"
                 android:padding="0dp"
                 android:text="$ 0"
+                android:textSize="25sp"
                 android:textColor="@color/matteBlack" />
 
             <EditText
                 android:id="@+id/ed_date"
-                android:layout_width="wrap_content"
+                android:layout_width="match_parent"
                 android:layout_height="wrap_content"
+                android:focusableInTouchMode="false"
                 android:hint="Start day"
+                android:inputType="date"
                 android:textSize="18sp" />
 
         </LinearLayout>
