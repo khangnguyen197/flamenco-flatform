@@ -72,7 +72,7 @@ public class AdminManagement extends AppCompatActivity {
         hotel_res.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Intent intent = new Intent(AdminManagement.this, HotelManageActivity.class);
+                Intent intent = new Intent(AdminManagement.this, HotelReservationActivity.class);
                 startActivity(intent);
                 finish();
             }

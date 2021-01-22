@@ -32,13 +32,11 @@ public class HotelReservationActivity extends AppCompatActivity {
     private List<HotelReservation> reservationList = new ArrayList<>();
     private HotelReservationAdapter reservationAdapter;
 
-    private static final String DATABASE_ROOT_COLLECTION = "users";
+    private static final String DATABASE_ROOT_COLLECTION_RESERVATION = "reservation";
 
     private FirebaseFirestore fs;
     private FirebaseAuth mAuth;
     private FirebaseUser currentUser;
-
-    private String[] roomType;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -63,42 +61,37 @@ public class HotelReservationActivity extends AppCompatActivity {
 
         Log.e("ERROR",": "+date);
 
-        roomType = new String[5];
-
-        for(int i = 0; i < length; i++){
-            roomType[i] = intent.getStringExtra("roomType"+i);
-        }
-
-        setupRecyclerView(hotelID, priceTotal, length, date);
+        setupRecyclerView();
     }
 
-    private void setupRecyclerView(final String hotelID, final String priceTotal, final int length, final String date){
+    private void setupRecyclerView(){
 
-        fs.collection(DATABASE_ROOT_COLLECTION).document(currentUser.getEmail()).get().addOnCompleteListener(new OnCompleteListener<DocumentSnapshot>() {
-            @Override
-            public void onComplete(@NonNull Task<DocumentSnapshot> task) {
-                if(task.isSuccessful()){
-                    DocumentSnapshot document = task.getResult();
-                    HotelReservation hotelReservation = new HotelReservation();
+        fs.collection(DATABASE_ROOT_COLLECTION_RESERVATION).get()
+                .addOnCompleteListener(new OnCompleteListener<QuerySnapshot>() {
+                    @Override
+                    public void onComplete(@NonNull Task<QuerySnapshot> task) {
+                        if (task.isSuccessful()) {
 
-                    hotelReservation.roomType = new String[5];
-                    hotelReservation.name = document.getString("name");
-                    for(int i =0; i < length; i++){
-                        hotelReservation.roomType[i] = roomType[i];
+                            for (QueryDocumentSnapshot document : task.getResult()) {
+                                HotelReservation hr = new HotelReservation();
+
+                                hr.name = document.getString("name");
+                                hr.hotelName = document.getString("hotelName");
+                                hr.dateTime = document.getString("dateTime");
+                                hr.priceTotal = document.getString("priceTotal");
+                                hr.roomType = document.getString("roomType");
+
+                                reservationList.add(hr);
+
+                            }
+                            reservationAdapter = new HotelReservationAdapter(HotelReservationActivity.this, reservationList);
+                            LinearLayoutManager LLM = new LinearLayoutManager(HotelReservationActivity.this);
+                            content.setLayoutManager(LLM);
+                            content.setAdapter(reservationAdapter);
+                        }
                     }
+                });
 
-                    hotelReservation.hotelName = hotelID;
-                    hotelReservation.priceTotal = priceTotal;
-                    hotelReservation.dateTime = date;
-
-                    reservationList.add(hotelReservation);
-                }
-                reservationAdapter = new HotelReservationAdapter(HotelReservationActivity.this, reservationList);
-                LinearLayoutManager LLM = new LinearLayoutManager(HotelReservationActivity.this);
-                content.setLayoutManager(LLM);
-                content.setAdapter(reservationAdapter);
-            }
-        });
 
     }
 

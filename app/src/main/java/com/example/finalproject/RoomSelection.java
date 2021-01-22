@@ -104,7 +104,7 @@ public class RoomSelection extends AppCompatActivity {
         btnReserve.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Intent intent = new Intent(getApplicationContext(), HotelReservationActivity.class);
+                Intent intent = new Intent(getApplicationContext(), UserReservationActivity.class);
                 intent.putExtra("hotelID", hotelID);
                 intent.putExtra("isAdmin", isAdmin);
                 intent.putExtra("priceTotal", roomTotal.getText().toString());

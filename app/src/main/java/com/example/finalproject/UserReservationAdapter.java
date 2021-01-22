@@ -1,12 +1,9 @@
 package com.example.finalproject;
 
 import android.content.Context;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.ImageButton;
-import android.widget.ImageView;
 import android.widget.TextView;
 
 import androidx.annotation.NonNull;
@@ -14,12 +11,11 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import java.util.List;
 
-public class HotelReservationAdapter extends RecyclerView.Adapter<HotelReservationAdapter.HotelHolder>{
-
-    private List<HotelReservation> reservationList;
+public class UserReservationAdapter extends RecyclerView.Adapter<UserReservationAdapter.HotelHolder>{
+    private List<UserReservation> reservationList;
     private Context context;
 
-    public HotelReservationAdapter(Context context, List<HotelReservation> reservationList) {
+    public UserReservationAdapter(Context context, List<UserReservation> reservationList) {
         this.reservationList = reservationList;
         this.context = context;
     }
@@ -36,6 +32,7 @@ public class HotelReservationAdapter extends RecyclerView.Adapter<HotelReservati
 
         holder.userName.setText("CUSTOMER: "+reservationList.get(i).name.toUpperCase());
         holder.tvLine1.setText(reservationList.get(i).hotelName);
+
         holder.tvLine2.setText(reservationList.get(i).roomType.toUpperCase()+" ");
         holder.tvLine3.setText(reservationList.get(i).dateTime);
         holder.priceTotal.setText(reservationList.get(i).priceTotal);
