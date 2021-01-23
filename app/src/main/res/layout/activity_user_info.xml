@@ -53,11 +53,11 @@
             android:text="@string/your_information" />
     </LinearLayout>
 
-    <TextView
+    <ImageView
         android:id="@+id/image"
-        style="@style/Circle"
-        android:layout_width="150dp"
-        android:layout_height="150dp"
+
+        android:layout_width="120dp"
+        android:layout_height="120dp"
         android:fontFamily="@font/calibri_bold"
         android:gravity="center"
         android:text="#"
@@ -65,11 +65,11 @@
         android:textColor="@color/white"
         android:textSize="55sp"
         android:textStyle="bold"
-        app:layout_constraintRight_toRightOf="parent"
-        app:layout_constraintLeft_toLeftOf="parent"
-        app:layout_constraintTop_toBottomOf="@id/header"
         app:layout_constraintBottom_toBottomOf="@id/h2"
-        />
+        app:layout_constraintLeft_toLeftOf="parent"
+        app:layout_constraintRight_toRightOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/header"
+        app:srcCompat="@drawable/avar" />
 
     <TextView
         android:id="@+id/user_name"
