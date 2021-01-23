@@ -38,7 +38,7 @@ public class HotelReservationAdapter extends RecyclerView.Adapter<HotelReservati
 
         holder.userName.setText("CUSTOMER: "+reservationList.get(i).name.toUpperCase());
         holder.tvLine1.setText(reservationList.get(i).hotelName);
-        holder.tvLine2.setText("\n" +reservationList.get(i).roomType.toUpperCase()+" ");
+        holder.tvLine2.setText(reservationList.get(i).roomType.toUpperCase()+" ");
         holder.tvLine3.setText(reservationList.get(i).dateTime);
         holder.priceTotal.setText(reservationList.get(i).priceTotal);
     }
