@@ -46,7 +46,7 @@ public class WelcomeActivity extends AppCompatActivity{
     protected void onStart() {
         super.onStart();
         if(currentUser != null){
-           mAuth.signOut();
+            mAuth.signOut();
         }
     }
 

@@ -56,12 +56,6 @@ public class RoomSelection extends AppCompatActivity {
         edt_date = findViewById(R.id.ed_date);
         content = (RecyclerView) findViewById(R.id.room_recycler);
 
-       roomType = new TextView[5];
-       for(int i=0; i<roomType.length; i++){
-           roomType[i] = new TextView(this);
-           roomType[i].setText("");
-       }
-
         fs = FirebaseFirestore.getInstance();
 
         Intent intent = getIntent();
@@ -137,6 +131,12 @@ public class RoomSelection extends AppCompatActivity {
                                 roomInfo.desline1 = document.getString("desline1");
                                 roomInfo.desline2 = document.getString("desline2");
                                 roomInfo.desline3 = document.getString("desline3");
+
+                                roomType = new TextView[5];
+                                for(int i=0; i<roomType.length; i++){
+                                    roomType[i] = new TextView(RoomSelection.this);
+                                    roomType[i].setText("");
+                                }
 
                                 roomList.add(roomInfo);
                             }

@@ -2,10 +2,12 @@ package com.example.finalproject;
 
 import android.annotation.SuppressLint;
 import android.content.Context;
+import android.content.Intent;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Button;
 import android.widget.ImageButton;
 import android.widget.ImageView;
 import android.widget.TextView;
@@ -34,13 +36,24 @@ public class HotelReservationAdapter extends RecyclerView.Adapter<HotelReservati
 
     @SuppressLint("SetTextI18n")
     @Override
-    public void onBindViewHolder(@NonNull HotelHolder holder, int i) {
+    public void onBindViewHolder(@NonNull HotelHolder holder, final int i) {
 
         holder.userName.setText("CUSTOMER: "+reservationList.get(i).name.toUpperCase());
         holder.tvLine1.setText(reservationList.get(i).hotelName);
-        holder.tvLine2.setText(reservationList.get(i).roomType.toUpperCase()+" ");
+        holder.tvLine2.setText(reservationList.get(i).roomType.toUpperCase());
+
         holder.tvLine3.setText(reservationList.get(i).dateTime);
         holder.priceTotal.setText(reservationList.get(i).priceTotal);
+
+        holder.btnSubmit.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+
+
+            }
+        });
+
+
     }
 
     @Override
@@ -51,8 +64,15 @@ public class HotelReservationAdapter extends RecyclerView.Adapter<HotelReservati
             return reservationList.size();
     }
 
+    public void removeItem(int i){
+        reservationList.remove(i);
+        notifyItemRemoved(i);
+        notifyItemRangeChanged(i, reservationList.size());
+    }
+
     public static class HotelHolder extends RecyclerView.ViewHolder {
 
+        public Button btnSubmit;
         public TextView userName, tvLine1, tvLine2, tvLine3, priceTotal;
 
         public HotelHolder(@NonNull View itemView) {
@@ -63,7 +83,9 @@ public class HotelReservationAdapter extends RecyclerView.Adapter<HotelReservati
             tvLine2 = itemView.findViewById(R.id.tv_line2);
             tvLine3 = itemView.findViewById(R.id.tv_line3);
             priceTotal = itemView.findViewById(R.id.room_price);
+            btnSubmit = itemView.findViewById(R.id.submit_button);
 
         }
     }
+
 }
