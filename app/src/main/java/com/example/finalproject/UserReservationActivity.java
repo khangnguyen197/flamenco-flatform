@@ -8,6 +8,9 @@ import androidx.recyclerview.widget.RecyclerView;
 import android.content.Intent;
 import android.os.Bundle;
 import android.util.Log;
+import android.view.View;
+import android.widget.Button;
+import android.widget.ImageButton;
 import android.widget.Toast;
 
 import com.google.android.gms.tasks.OnCompleteListener;
@@ -27,6 +30,7 @@ public class UserReservationActivity extends AppCompatActivity {
     private RecyclerView content;
     private List<UserReservation> reservationList = new ArrayList<>();
     private UserReservationAdapter reservationAdapter;
+    private ImageButton btnBack;
 
     private static final String DATABASE_ROOT_COLLECTION_USER = "users";
     private static final String DATABASE_ROOT_COLLECTION_RESERVATION = "reservation";
@@ -48,6 +52,8 @@ public class UserReservationActivity extends AppCompatActivity {
         fs = FirebaseFirestore.getInstance();
         mAuth = FirebaseAuth.getInstance();
         currentUser = mAuth.getCurrentUser();
+        btnBack = findViewById(R.id.back_button);
+
 
         content = (RecyclerView) findViewById(R.id.contentView);
 
@@ -65,7 +71,25 @@ public class UserReservationActivity extends AppCompatActivity {
             roomType[i] = intent.getStringExtra("roomType"+i);
         }
 
+        btnBack.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent = new Intent(getApplicationContext(), RoomSelection.class);
+                intent.putExtra("hotelID", hotelID);
+                intent.putExtra("isAdmin", isAdmin);
+                startActivity(intent);
+                finish();
+            }
+        });
+
         setupRecyclerView(hotelID, priceTotal, length, date);
+
+
+        deleteReservation(hotelID, isAdmin);
+
+
+
+
     }
 
     private void setupRecyclerView(final String hotelID, final String priceTotal, final int length, final String date){
@@ -77,11 +101,14 @@ public class UserReservationActivity extends AppCompatActivity {
                     DocumentSnapshot document = task.getResult();
                     UserReservation userReservation = new UserReservation();
 
+                    String a = "";
                     final String name = document.getString("name");
                     for(int i =0; i < length; i++){
-                        userReservation.roomType += roomType[i];
+                        if(!roomType[i].equals("")){
+                            a += roomType[i] + "\n";
+                        }
                     }
-                    final String a =  userReservation.roomType;
+                    userReservation.roomType = a;
                     userReservation.hotelName = hotelID;
                     userReservation.priceTotal = priceTotal;
                     userReservation.dateTime = date;
@@ -90,6 +117,7 @@ public class UserReservationActivity extends AppCompatActivity {
                     reservationList.add(userReservation);
 
                     storeToFS(name, hotelID, priceTotal, a, date);
+
                 }
                 reservationAdapter = new UserReservationAdapter(UserReservationActivity.this, reservationList);
                 LinearLayoutManager LLM = new LinearLayoutManager(UserReservationActivity.this);
@@ -102,8 +130,7 @@ public class UserReservationActivity extends AppCompatActivity {
     private void storeToFS(final String name, final String hotelID, final String priceTotal, final String a, final String date){
 
         UserReservation ur = new UserReservation(name, hotelID, date, priceTotal, a);
-
-        fs.collection(DATABASE_ROOT_COLLECTION_RESERVATION).document(currentUser.getEmail())
+        fs.collection(DATABASE_ROOT_COLLECTION_RESERVATION).document(name)
                 .set(ur)
                 .addOnSuccessListener(new OnSuccessListener<Void>() {
                     @Override
@@ -117,6 +144,17 @@ public class UserReservationActivity extends AppCompatActivity {
         });
 
 
+    }
+
+    private void deleteReservation(String hotelID, String isAdmin){
+        if(isAdmin.equals("-1")){
+            fs.collection(DATABASE_ROOT_COLLECTION_RESERVATION).document(hotelID).delete().addOnSuccessListener(new OnSuccessListener<Void>() {
+                @Override
+                public void onSuccess(Void aVoid) {
+                    Toast.makeText(UserReservationActivity.this, "Delete successfully", Toast.LENGTH_SHORT).show();
+                }
+            });
+        }
     }
 }
 
