@@ -36,7 +36,6 @@ public class UserReservationAdapter extends RecyclerView.Adapter<UserReservation
 
         if(getItemCount() != 0) {
 
-
             holder.userName.setText("CUSTOMER: " + reservationList.get(i).name.toUpperCase());
             holder.tvLine1.setText(reservationList.get(i).hotelName);
             holder.tvLine2.setText("\n"+reservationList.get(i).roomType.toUpperCase()   );
@@ -54,11 +53,12 @@ public class UserReservationAdapter extends RecyclerView.Adapter<UserReservation
                 }
             });
         }
+ 
     }
 
     public void removeItem(int i){
         reservationList.remove(i);
-        notifyItemRemoved(i);
+        notifyItemRemoved(i)
         notifyItemRangeChanged(i, getItemCount());
 
         Log.e("ERROR","GET HERE" + getItemCount());

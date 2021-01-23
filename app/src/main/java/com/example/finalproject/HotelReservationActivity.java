@@ -101,8 +101,6 @@ public class HotelReservationActivity extends AppCompatActivity {
                         }
                     }
                 });
-
-
     }
 
 }
