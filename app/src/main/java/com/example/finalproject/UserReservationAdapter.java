@@ -58,7 +58,7 @@ public class UserReservationAdapter extends RecyclerView.Adapter<UserReservation
 
     public void removeItem(int i){
         reservationList.remove(i);
-        notifyItemRemoved(i)
+        notifyItemRemoved(i);
         notifyItemRangeChanged(i, getItemCount());
 
         Log.e("ERROR","GET HERE" + getItemCount());
