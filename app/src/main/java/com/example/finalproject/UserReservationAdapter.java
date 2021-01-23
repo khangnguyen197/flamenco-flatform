@@ -38,27 +38,17 @@ public class UserReservationAdapter extends RecyclerView.Adapter<UserReservation
 
             holder.userName.setText("CUSTOMER: " + reservationList.get(i).name.toUpperCase());
             holder.tvLine1.setText(reservationList.get(i).hotelName);
-            holder.tvLine2.setText("\n"+reservationList.get(i).roomType.toUpperCase()   );
+            holder.tvLine2.setText("\n"+reservationList.get(i).roomType.toUpperCase());
             holder.tvLine3.setText(reservationList.get(i).dateTime);
             holder.priceTotal.setText(reservationList.get(i).priceTotal);
 
-            holder.btnSubmit.setOnClickListener(new View.OnClickListener() {
-                @Override
-                public void onClick(View v) {
-                    Intent intent = new Intent(context, UserReservationActivity.class);
-                    intent.putExtra("isAdmin", "-1");
-                    intent.putExtra("hotelID", reservationList.get(i).name);
-                    removeItem(i);
-                    context.startActivity(intent);
-                }
-            });
         }
  
     }
 
     public void removeItem(int i){
         reservationList.remove(i);
-        notifyItemRemoved(i)
+        notifyItemRemoved(i);
         notifyItemRangeChanged(i, getItemCount());
 
         Log.e("ERROR","GET HERE" + getItemCount());
